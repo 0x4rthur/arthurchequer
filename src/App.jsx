@@ -557,13 +557,13 @@ function ChatWidget() {
           <motion.div
             layout
             transition={{ layout: chatLayoutTransition }}
-            className="chat-message-in chat-agent-row chat-agent-row-current"
+            className="chat-message-in chat-agent-row chat-agent-row-current chat-typing-row"
           >
             <AgentAvatar animateEntrance animateBot eyeX={eyeX} eyeY={eyeY} />
             <motion.div
               layout
               transition={{ layout: chatLayoutTransition }}
-              className={`chat-agent-bubble flex h-[46px] items-center gap-[6px] rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[18px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}
+              className="chat-typing-indicator flex h-[36px] items-center gap-[6px] sm:h-[40px]"
             >
               <span className="typing-dot" />
               <span className="typing-dot animation-delay-150" />

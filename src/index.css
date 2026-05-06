@@ -70,6 +70,14 @@ a {
   grid-template-columns: 36px minmax(0, 1fr);
 }
 
+.chat-typing-row {
+  align-items: center;
+}
+
+.chat-typing-indicator {
+  justify-self: start;
+}
+
 @media (min-width: 640px) {
   .chat-agent-bubble {
     max-width: min(82%, 34rem);
@@ -85,7 +93,7 @@ a {
   width: 7px;
   height: 7px;
   border-radius: 9999px;
-  background: #6b7280;
+  background: #a5c9ff;
   animation: typing-dot 900ms ease-in-out infinite;
 }
 
@@ -184,11 +192,13 @@ a {
   0%,
   80%,
   100% {
+    background: #a5c9ff;
     opacity: 0.35;
     transform: translateY(0);
   }
 
   40% {
+    background: #8fbaff;
     opacity: 1;
     transform: translateY(-4px);
   }
@@ -198,16 +208,16 @@ a {
 @keyframes agent-avatar-hop {
   0% {
     opacity: 0;
-    transform: translate3d(-10px, -22px, 0) scale(0.82);
+    transform: translate3d(0, 0, 0) scale(0.76);
   }
 
   58% {
     opacity: 1;
-    transform: translate3d(0, 4px, 0) scale(1.08);
+    transform: translate3d(0, 0, 0) scale(1.08);
   }
 
   78% {
-    transform: translate3d(0, -2px, 0) scale(0.98);
+    transform: translate3d(0, 0, 0) scale(0.98);
   }
 
   100% {
