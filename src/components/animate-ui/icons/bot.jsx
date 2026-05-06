@@ -98,12 +98,25 @@ const animations = {
   }
 };
 
-function IconComponent({
-  size,
-  ...props
-}) {
+function IconComponent({ size, ...props }) {
   const { controls } = useAnimateIconContext();
   const variants = getVariants(animations);
+  const eyeRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const el = eyeRef.current;
+    if (!el) return;
+    // CSS transition handles smooth following — no rAF needed
+    el.style.transition = 'transform 0.16s ease-out';
+    const onMove = (e) => {
+      // normalize to -1..1, clamp to ±2px in SVG CSS space
+      const nx = ((e.clientX / window.innerWidth)  * 2 - 1) * 2;
+      const ny = ((e.clientY / window.innerHeight) * 2 - 1) * 2;
+      el.style.transform = `translate(${nx}px, ${ny}px)`;
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
 
   return (
     <motion.svg
@@ -141,16 +154,18 @@ function IconComponent({
         variants={variants.path3}
         initial="initial"
         animate={controls} />
-      <motion.path
-        d="M15 13v2"
-        variants={variants.path4}
-        initial="initial"
-        animate={controls} />
-      <motion.path
-        d="M9 13v2"
-        variants={variants.path5}
-        initial="initial"
-        animate={controls} />
+      <g ref={eyeRef}>
+        <motion.path
+          d="M15 13v2"
+          variants={variants.path4}
+          initial="initial"
+          animate={controls} />
+        <motion.path
+          d="M9 13v2"
+          variants={variants.path5}
+          initial="initial"
+          animate={controls} />
+      </g>
     </motion.svg>
   );
 }

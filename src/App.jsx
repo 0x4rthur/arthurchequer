@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Bot } from "./components/animate-ui/icons/bot";
 import ColorBends from "./components/ColorBends";
+import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
 
 const A = "/assets/";
 const contactHref = "#contact";
@@ -355,6 +356,7 @@ function ChatWidget() {
   const resetCommitTimerRef = useRef(null);
   const resetEndTimerRef = useRef(null);
   const { blinkTick: idleBlinkTick, recordActivity } = useIdleBlink(botIdleBlinkDelay);
+  const { eyeX, eyeY } = useBotEyeOffset();
 
   useEffect(() => {
     messagesRef.current?.scrollTo({
@@ -507,9 +509,9 @@ function ChatWidget() {
             <div key={`${message.role}-${index}`} className="chat-message-in flex max-w-full items-start gap-[12px] sm:gap-[16px]">
               <div className={`flex size-[36px] shrink-0 items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:size-[40px]`}>
                 {message.animateBot ? (
-                  <BotLoopIcon idleBlinkTick={idleBlinkTick} />
+                  <BotLoopIcon idleBlinkTick={idleBlinkTick} eyeX={eyeX} eyeY={eyeY} />
                 ) : (
-                  <IdleBlinkBotIcon idleBlinkTick={idleBlinkTick} />
+                  <IdleBlinkBotIcon idleBlinkTick={idleBlinkTick} eyeX={eyeX} eyeY={eyeY} />
                 )}
               </div>
               <div className={`rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[16px] py-[16px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:px-[21px] sm:py-[18px]`}>
@@ -527,7 +529,7 @@ function ChatWidget() {
         {isTyping && (
           <div className="chat-message-in flex max-w-full items-start gap-[12px] sm:gap-[16px]">
               <div className={`flex size-[36px] shrink-0 items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:size-[40px]`}>
-              <Bot aria-hidden="true" animate size={23} className="text-black" />
+              <Bot aria-hidden="true" animate size={23} className="text-black" eyeX={eyeX} eyeY={eyeY} />
             </div>
             <div className={`flex h-[52px] items-center gap-[6px] rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[21px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
               <span className="typing-dot" />
@@ -590,7 +592,7 @@ function useIdleBlink(delay) {
   return { blinkTick, recordActivity };
 }
 
-function IdleBlinkBotIcon({ idleBlinkTick }) {
+function IdleBlinkBotIcon({ idleBlinkTick, eyeX, eyeY }) {
   return (
     <Bot
       key={idleBlinkTick}
@@ -599,11 +601,13 @@ function IdleBlinkBotIcon({ idleBlinkTick }) {
       animateOnHover="blink"
       size={23}
       className="text-black"
+      eyeX={eyeX}
+      eyeY={eyeY}
     />
   );
 }
 
-function BotLoopIcon({ idleBlinkTick }) {
+function BotLoopIcon({ idleBlinkTick, eyeX, eyeY }) {
   const [loopIndex, setLoopIndex] = useState(0);
   const isLooping = loopIndex < botAnimationLoops;
 
@@ -624,7 +628,7 @@ function BotLoopIcon({ idleBlinkTick }) {
   }, [loopIndex]);
 
   if (!isLooping) {
-    return <IdleBlinkBotIcon idleBlinkTick={idleBlinkTick} />;
+    return <IdleBlinkBotIcon idleBlinkTick={idleBlinkTick} eyeX={eyeX} eyeY={eyeY} />;
   }
 
   return (
@@ -634,6 +638,8 @@ function BotLoopIcon({ idleBlinkTick }) {
       animate
       size={23}
       className="text-black"
+      eyeX={eyeX}
+      eyeY={eyeY}
     />
   );
 }
