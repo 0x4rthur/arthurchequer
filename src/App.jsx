@@ -378,6 +378,10 @@ function ChatWidget() {
   const resetCommitTimerRef = useRef(null);
   const resetEndTimerRef = useRef(null);
   const { eyeX, eyeY } = useBotEyeOffset();
+  const lastAgentMessageIndex = messages.reduce(
+    (lastIndex, message, index) => (message.role === "agent" ? index : lastIndex),
+    -1,
+  );
 
   useEffect(() => {
     messagesRef.current?.scrollTo({
@@ -467,23 +471,19 @@ function ChatWidget() {
     <div
       className={`flex h-[520px] min-w-0 flex-col overflow-hidden rounded-[20px] ${border} bg-white p-px ${shadowCard} sm:rounded-[24px] lg:h-[500px] lg:w-full`}
     >
-      <div className="min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb]/50 px-[16px] py-[18px] sm:px-[20px] sm:pb-[21px] sm:pt-[20px]">
-        <div className="flex h-full items-center gap-[8px] sm:items-start sm:gap-[16px]">
+      <div className="min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb]/50 px-[16px] py-[18px] sm:px-[20px] sm:py-[20px]">
+        <div className="flex h-full items-center gap-[8px] sm:gap-[16px]">
           {chatTabs.map((tab) => (
             <button
               key={tab}
               onClick={() => selectTab(tab)}
-              className={`rounded-[8px] border px-[14px] py-[9px] text-center text-[14px] font-bold leading-[20px] tracking-normal transition-colors duration-200 sm:px-[21px] ${
-                activeTab === tab
-                  ? "border-[#d1d5db] bg-[#a5c9ff] text-black shadow-[0px_1px_1px_rgba(0,0,0,0.05)]"
-                  : "border-transparent text-[#6b7280]"
-              }`}
+              className="cursor-pointer rounded-[8px] border border-[#e5e7eb] bg-white px-[12px] py-[8px] text-center text-[13px] font-medium leading-[18px] tracking-normal text-[#6b7280] shadow-[0px_1px_1px_rgba(0,0,0,0.03)] outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-[#a5c9ff] hover:bg-[#a5c9ff] hover:text-black hover:shadow-[0px_8px_18px_-16px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f9fafb] sm:px-[18px]"
               type="button"
             >
               {tab}
             </button>
           ))}
-          <div className="ml-auto hidden h-[38px] items-center gap-[12px] pt-[8.3px] sm:flex">
+          <div className="ml-auto hidden h-[38px] items-center gap-[12px] sm:flex">
             <button
               type="button"
               onClick={resetChat}
@@ -524,13 +524,12 @@ function ChatWidget() {
         {messages.map((message, index) =>
           message.role === "agent" ? (
             <div key={`${message.role}-${index}`} className="chat-message-in flex max-w-full items-start gap-[12px] sm:gap-[16px]">
-              <div className={`flex size-[36px] shrink-0 items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:size-[40px]`}>
-                {message.animateBot ? (
-                  <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
-                ) : (
-                  <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
-                )}
-              </div>
+              <AgentAvatar
+                visible={!isTyping && index === lastAgentMessageIndex}
+                animateBot={message.animateBot}
+                eyeX={eyeX}
+                eyeY={eyeY}
+              />
               <div className={`rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[16px] py-[16px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:px-[21px] sm:py-[18px]`}>
                 <p className="text-[16px] leading-[26px] text-[#374151]">{message.text}</p>
               </div>
@@ -545,9 +544,7 @@ function ChatWidget() {
         )}
         {isTyping && (
           <div className="chat-message-in flex max-w-full items-start gap-[12px] sm:gap-[16px]">
-              <div className={`flex size-[36px] shrink-0 items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:size-[40px]`}>
-              <Bot aria-hidden="true" animate size={23} className="text-black" eyeX={eyeX} eyeY={eyeY} />
-            </div>
+            <AgentAvatar visible animateEntrance animateBot eyeX={eyeX} eyeY={eyeY} />
             <div className={`flex h-[52px] items-center gap-[6px] rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[21px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
               <span className="typing-dot" />
               <span className="typing-dot animation-delay-150" />
@@ -576,6 +573,22 @@ function ChatWidget() {
           </button>
         </form>
       </div>
+    </div>
+  );
+}
+
+function AgentAvatar({ visible, animateEntrance = false, animateBot = false, eyeX, eyeY }) {
+  return (
+    <div className="size-[36px] shrink-0 sm:size-[40px]" aria-hidden={!visible}>
+      {visible && (
+        <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+          {animateBot ? (
+            <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
+          ) : (
+            <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
+          )}
+        </div>
+      )}
     </div>
   );
 }
