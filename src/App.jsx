@@ -474,9 +474,9 @@ function ChatWidget() {
 
   return (
     <div
-      className={`flex h-[520px] min-w-0 flex-col overflow-hidden rounded-[20px] ${border} bg-white p-px ${shadowCard} sm:rounded-[24px] lg:h-[500px] lg:w-full`}
+      className={`flex h-[520px] min-w-0 flex-col overflow-hidden rounded-[20px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[10px] sm:rounded-[24px] lg:h-[500px] lg:w-full`}
     >
-      <div className="min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb]/50 px-[16px] py-[18px] sm:px-[20px] sm:py-[20px]">
+      <div className="relative z-20 min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb]/82 px-[16px] py-[18px] backdrop-blur-[8px] sm:px-[20px] sm:py-[20px]">
         <div className="flex h-full items-center gap-[8px] sm:gap-[16px]">
           {chatTabs.map((tab) => (
             <button
@@ -511,7 +511,7 @@ function ChatWidget() {
                 <path d="M21 12a9 9 0 0 1-15.1 6.6L3 16" />
                 <path d="M3 21v-5h5" />
               </svg>
-              <span className="pointer-events-none absolute left-1/2 top-[34px] z-30 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[8px] border border-[#d1d5db] bg-white px-[10px] py-[7px] text-[11px] font-medium leading-[14px] tracking-normal text-[#4b5563] opacity-0 shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] transition-all duration-150 before:absolute before:left-1/2 before:top-[-5px] before:size-[9px] before:-translate-x-1/2 before:rotate-45 before:border-l before:border-t before:border-[#d1d5db] before:bg-white group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+              <span className="pointer-events-none absolute left-1/2 top-[34px] z-50 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[8px] border border-[#d1d5db] bg-white px-[10px] py-[7px] text-[11px] font-medium leading-[14px] tracking-normal text-[#4b5563] opacity-0 shadow-[0px_14px_24px_-10px_rgba(17,24,39,0.22),0px_4px_8px_-6px_rgba(17,24,39,0.18)] transition-all duration-150 before:absolute before:left-1/2 before:top-[-5px] before:size-[9px] before:-translate-x-1/2 before:rotate-45 before:border-l before:border-t before:border-[#d1d5db] before:bg-white group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
                 Reset chat
               </span>
             </button>
@@ -524,7 +524,7 @@ function ChatWidget() {
       </div>
       <div
         ref={messagesRef}
-        className={`min-h-0 flex-1 space-y-[18px] overflow-y-auto bg-white px-[16px] py-[20px] sm:px-[28px] sm:py-[24px] ${isResetting ? "chat-resetting" : ""}`}
+        className={`chat-messages-surface relative z-0 min-h-0 flex-1 space-y-[18px] overflow-y-auto px-[16px] py-[20px] sm:px-[28px] sm:py-[24px] ${isResetting ? "chat-resetting" : ""}`}
       >
         {messages.map((message, index) =>
           message.role === "agent" ? (
@@ -572,7 +572,7 @@ function ChatWidget() {
           </motion.div>
         )}
       </div>
-      <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white px-[16px] pb-[20px] pt-[21px] sm:px-[20px]">
+      <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white/88 px-[16px] pb-[20px] pt-[21px] backdrop-blur-[8px] sm:px-[20px]">
         <form className="flex h-[57px] items-center gap-[12px]" onSubmit={sendMessage}>
           <input
             value={draft}
