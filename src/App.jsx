@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Bot } from "./components/animate-ui/icons/bot";
-import ColorBends from "./components/ColorBends";
+import ColorBends from "./components/ColorBends/ColorBends";
 import { DownloadIcon } from "./components/ui/download-icon";
 import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
 
@@ -301,16 +301,16 @@ function Hero() {
           speed={0.2}
           colors={["#a4c8ff"]}
           transparent
-          autoRotate={0}
-          scale={1}
-          frequency={0.8}
+          autoRotate={0.45}
+          scale={1.1}
+          frequency={1}
           warpStrength={1}
           mouseInfluence={0.3}
-          parallax={0.3}
+          parallax={0.4}
           noise={0}
           iterations={1}
-          intensity={1.5}
-          bandWidth={7}
+          intensity={1.4}
+          bandWidth={4.5}
         />
       </div>
       {/* 6 overlay divs → 1; backdrop-blur removido (forçava readback GPU a cada frame) */}
@@ -476,7 +476,7 @@ function ChatWidget() {
     <div
       className={`flex h-[520px] min-w-0 flex-col overflow-hidden rounded-[20px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[10px] sm:rounded-[24px] lg:h-[500px] lg:w-full`}
     >
-      <div className="relative z-20 min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb]/82 px-[16px] py-[18px] backdrop-blur-[8px] sm:px-[20px] sm:py-[20px]">
+      <div className="relative z-20 min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-white/[.97] px-[16px] py-[18px] backdrop-blur-[6px] sm:px-[20px] sm:py-[20px]">
         <div className="flex h-full items-center gap-[8px] sm:gap-[16px]">
           {chatTabs.map((tab) => (
             <button
@@ -572,7 +572,7 @@ function ChatWidget() {
           </motion.div>
         )}
       </div>
-      <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white/88 px-[16px] pb-[20px] pt-[21px] backdrop-blur-[8px] sm:px-[20px]">
+      <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white/[.97] px-[16px] pb-[20px] pt-[21px] backdrop-blur-[6px] sm:px-[20px]">
         <form className="flex h-[57px] items-center gap-[12px]" onSubmit={sendMessage}>
           <input
             value={draft}
