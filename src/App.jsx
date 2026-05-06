@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Bot } from "./components/animate-ui/icons/bot";
-import ColorBends from "./components/ColorBends/ColorBends";
+import ColorBends from "./components/ColorBends";
 import { DownloadIcon } from "./components/ui/download-icon";
 import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
 
@@ -24,8 +24,8 @@ const shadowCard =
   "shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)]";
 const shadowSoft = "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]";
 const border = "border border-[#d1d5db]";
-const pagePadding = "px-[20px] sm:px-[32px] lg:px-[48px]";
-const sectionSpacing = "mt-[104px] sm:mt-[128px] lg:mt-[160px]";
+const pagePadding = "px-[22px] sm:px-[35px] lg:px-[53px]";
+const sectionSpacing = "mt-[114px] sm:mt-[141px] lg:mt-[176px]";
 const chatLayoutTransition = {
   duration: 0.42,
   ease: [0.22, 1, 0.36, 1],
@@ -35,19 +35,19 @@ const toolkit = [
   {
     title: "PYTHON",
     icon: "python-brand.png",
-    iconClass: "size-[37px]",
+    iconClass: "size-[41px]",
     tags: ["PANDAS", "NUMPY", "FASTAPI"],
   },
   {
     title: "LANGCHAIN",
     icon: "langchain-brand.png",
-    iconClass: "size-[37px]",
+    iconClass: "size-[41px]",
     tags: ["AGENTS", "RAG", "VECTOR DBS"],
   },
   {
     title: "HUGGING FACE",
     icon: "huggingface-brand.png",
-    iconClass: "h-[54px] w-[53px]",
+    iconClass: "h-[59px] w-[58px]",
     tags: ["TRANSFORMERS", "LLMS", "DIFFUSERS"],
   },
 ];
@@ -84,26 +84,26 @@ const skills = [
   {
     title: "AI / ML FRAMEWORKS",
     items: [
-      ["pytorch.png", "PyTorch", "h-[19px] w-[16px]", "gap-4"],
+      ["pytorch.png", "PyTorch", "h-[21px] w-[18px]", "gap-4"],
       ["keras.png", "Keras", "size-4", "gap-4"],
-      ["huggingface-small.png", "Hugging Face", "size-6 rounded-[10px]", "gap-[9px]"],
+      ["huggingface-small.png", "Hugging Face", "size-6 rounded-[11px]", "gap-[10px]"],
       ["langchain-small.png", "LangChain", "size-5", "gap-4"],
       ["langgraph.png", "LangGraph", "size-5", "gap-4"],
-      ["scikit.png", "scikit-learn", "h-[14px] w-[26px]", "gap-[9px]"],
+      ["scikit.png", "scikit-learn", "h-[15px] w-[29px]", "gap-[10px]"],
       ["opencv.png", "openCV", "size-5", "gap-4"],
     ],
   },
   {
     title: "LANGUAGES",
     items: [
-      ["python-mini.png", "Python", "size-[17px]", "gap-4"],
-      ["sql.png", "SQL", "h-5 w-[18px]", "gap-4"],
+      ["python-mini.png", "Python", "size-[19px]", "gap-4"],
+      ["sql.png", "SQL", "h-5 w-[20px]", "gap-4"],
     ],
   },
   {
     title: "DEVOPS",
     items: [
-      ["mlflow.png", "MLFlow", "size-[18px]", "gap-4"],
+      ["mlflow.png", "MLFlow", "size-[20px]", "gap-4"],
       ["wandb.png", <>Weights &amp; Biases<br />(W&amp;B)</>, "size-4", "gap-4"],
       ["github.png", "GitHub", "size-4", "gap-4"],
     ],
@@ -111,22 +111,22 @@ const skills = [
   {
     title: "BACK-END",
     items: [
-      ["fastapi.png", "FastAPI", "size-[18px]", "gap-4"],
-      ["chroma.png", "Chroma", "h-[19px] w-6", "gap-[9px]"],
+      ["fastapi.png", "FastAPI", "size-[20px]", "gap-4"],
+      ["chroma.png", "Chroma", "h-[21px] w-6", "gap-[10px]"],
     ],
   },
 ];
 
 const educationLeft = [
-  ["AI & ML Engineering", "Microsoft", "microsoft.png", "size-[48px]"],
-  ["Azure Fundamentals (AZ-900)", "Microsoft", "az900.png", "size-[58px]"],
-  ["Data Analytics Certificate", "Google", "google-data.png", "h-[58px] w-[61px]"],
-  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[42px] w-[72px]"],
+  ["AI & ML Engineering", "Microsoft", "microsoft.png", "size-[53px]"],
+  ["Azure Fundamentals (AZ-900)", "Microsoft", "az900.png", "size-[64px]"],
+  ["Data Analytics Certificate", "Google", "google-data.png", "h-[64px] w-[67px]"],
+  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[46px] w-[79px]"],
 ];
 
 const educationRight = [
-  ["Cyber Defense", "FIAP", "fiap.png", "size-[56px] rounded-[10px]"],
-  ["MBA - IA, Data Science e Big Data", "Ibmec", "ibmec.png", "size-[56px] rounded-[10px]"],
+  ["Cyber Defense", "FIAP", "fiap.png", "size-[62px] rounded-[11px]"],
+  ["MBA - IA, Data Science e Big Data", "Ibmec", "ibmec.png", "size-[62px] rounded-[11px]"],
 ];
 
 const navItems = [
@@ -136,7 +136,7 @@ const navItems = [
 ];
 
 const chatTabs = ["About", "Skills", "More"];
-const botAnimationDuration = 1300;
+const botAnimationDuration = 2300;
 const botAnimationLoops = 1;
 const botReplyDelay = 850;
 
@@ -226,24 +226,24 @@ function Nav() {
   }, []);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-[14px] z-50 px-[12px] sm:top-[18px] sm:px-[20px]">
+    <header className="pointer-events-none fixed inset-x-0 top-[15px] z-50 px-[13px] sm:top-[20px] sm:px-[22px]">
       <div
-        className={`nav-shell nav-float-in pointer-events-auto mx-auto flex h-[58px] w-full items-center justify-between rounded-full border px-[9px] pl-[18px] transition-[max-width,background-color,border-color,box-shadow] duration-[440ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-[72px] sm:px-[12px] sm:pl-[28px] ${
+        className={`nav-shell nav-float-in pointer-events-auto mx-auto flex h-[64px] w-full items-center justify-between rounded-full border px-[10px] pl-[20px] transition-[max-width,background-color,border-color,box-shadow] duration-[440ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-[79px] sm:px-[13px] sm:pl-[31px] ${
           isScrolled
-            ? "max-w-[780px] border-[#d1d5db] bg-white/92 shadow-[0px_18px_45px_-24px_rgba(17,24,39,0.42)] backdrop-blur-[18px]"
-            : "max-w-[1168px] border-[#e5e7eb] bg-white/78 shadow-[0px_10px_30px_-26px_rgba(17,24,39,0.34)] backdrop-blur-[14px]"
+            ? "max-w-[858px] border-[#d1d5db] bg-white/92 shadow-[0px_18px_45px_-24px_rgba(17,24,39,0.42)] backdrop-blur-[20px]"
+            : "max-w-[1285px] border-[#e5e7eb] bg-white/78 shadow-[0px_10px_30px_-26px_rgba(17,24,39,0.34)] backdrop-blur-[15px]"
         }`}
       >
         <a
           href="#top"
-          className="rounded-full font-space text-[16px] font-black uppercase leading-[22px] tracking-normal text-black outline-none transition-[color,transform] duration-300 ease-out hover:text-[#1f2937] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:text-[21px] sm:leading-[28px]"
+          className="rounded-full font-space text-[18px] font-black uppercase leading-[24px] tracking-normal text-black outline-none transition-[color,transform] duration-300 ease-out hover:text-[#1f2937] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:text-[23px] sm:leading-[31px]"
         >
           AI_ENGINEER
         </a>
 
         <nav
           aria-label="Primary navigation"
-          className="hidden items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb]/80 p-[5px] transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] md:flex"
+          className="hidden items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb]/80 p-[6px] transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] md:flex"
         >
           {navItems.map(({ label, id }) => {
             const isActive = activeSection === id;
@@ -253,7 +253,7 @@ function Nav() {
                 key={id}
                 href={`#${id}`}
                 aria-current={isActive ? "page" : undefined}
-                className={`rounded-full px-[19px] py-[10px] font-space text-[12px] font-bold uppercase leading-[18px] tracking-normal outline-none transition-[background-color,color,box-shadow,transform] duration-300 ease-out focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f9fafb] ${
+                className={`rounded-full px-[21px] py-[11px] font-space text-[13px] font-bold uppercase leading-[20px] tracking-normal outline-none transition-[background-color,color,box-shadow,transform] duration-300 ease-out focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f9fafb] ${
                   isActive
                     ? "bg-white text-black shadow-[0px_1px_2px_0px_rgba(0,0,0,0.08)]"
                     : "text-[#6b7280] hover:bg-white/70 hover:text-[#111827]"
@@ -267,20 +267,20 @@ function Nav() {
 
         <a
           href={contactHref}
-          className="rounded-full border border-[#8fbaff] bg-[#a5c9ff] px-[12px] py-[9px] text-center font-space text-[11px] font-bold uppercase leading-[16px] tracking-normal text-black shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.55)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:px-[24px] sm:py-[13px] sm:text-[12px] sm:leading-[18px]"
+          className="rounded-full border border-[#8fbaff] bg-[#a5c9ff] px-[13px] py-[10px] text-center font-space text-[12px] font-bold uppercase leading-[18px] tracking-normal text-black shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.55)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:px-[26px] sm:py-[14px] sm:text-[13px] sm:leading-[20px]"
         >
           CONTACT ME
         </a>
       </div>
       <nav
         aria-label="Mobile navigation"
-        className="pointer-events-auto mx-auto mt-[8px] flex w-fit max-w-[calc(100vw-24px)] items-center gap-[4px] rounded-full border border-[#e5e7eb] bg-white/92 p-[5px] shadow-[0px_10px_30px_-24px_rgba(17,24,39,0.38)] backdrop-blur-[14px] md:hidden"
+        className="pointer-events-auto mx-auto mt-[9px] flex w-fit max-w-[calc(100vw-26px)] items-center gap-[4px] rounded-full border border-[#e5e7eb] bg-white/92 p-[6px] shadow-[0px_10px_30px_-24px_rgba(17,24,39,0.38)] backdrop-blur-[15px] md:hidden"
       >
         {navItems.map(({ label, id }) => (
           <a
             key={id}
             href={`#${id}`}
-            className="rounded-full px-[12px] py-[8px] font-space text-[10px] font-bold uppercase leading-[14px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:bg-[#f9fafb] hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="rounded-full px-[13px] py-[9px] font-space text-[11px] font-bold uppercase leading-[15px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:bg-[#f9fafb] hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
             {label}
           </a>
@@ -294,23 +294,23 @@ function Hero() {
   const downloadIconRef = useRef(null);
 
   return (
-    <section className="relative left-1/2 mt-[174px] min-h-[620px] w-screen -translate-x-1/2 overflow-hidden py-[48px] [contain:layout_style] sm:mt-[188px] sm:py-[64px] md:mt-[132px] lg:mt-[176px] lg:py-[72px]">
+    <section className="relative left-1/2 mt-[191px] min-h-[682px] w-screen -translate-x-1/2 overflow-hidden py-[53px] [contain:layout_style] sm:mt-[207px] sm:py-[70px] md:mt-[145px] lg:mt-[194px] lg:py-[79px]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20">
         <ColorBends
           rotation={90}
           speed={0.2}
           colors={["#a4c8ff"]}
           transparent
-          autoRotate={0.45}
-          scale={1.1}
-          frequency={1}
+          autoRotate={0}
+          scale={1}
+          frequency={0.8}
           warpStrength={1}
           mouseInfluence={0.3}
-          parallax={0.4}
+          parallax={0.3}
           noise={0}
           iterations={1}
-          intensity={1.4}
-          bandWidth={4.5}
+          intensity={1.5}
+          bandWidth={7}
         />
       </div>
       {/* 6 overlay divs → 1; backdrop-blur removido (forçava readback GPU a cada frame) */}
@@ -326,9 +326,9 @@ function Hero() {
           'rgba(255,255,255,.40)',
         ].join(',') }}
       />
-      <div className={`mx-auto grid w-full max-w-[1200px] gap-[48px] ${pagePadding} lg:min-h-[520px] lg:grid-cols-[minmax(0,1fr)_minmax(480px,520px)] lg:items-center lg:gap-[64px]`}>
-        <div className="flex max-w-[560px] flex-col items-start gap-[28px] self-center lg:max-w-none">
-          <h1 className="font-space text-[56px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[76px] lg:text-[96px]">
+      <div className={`mx-auto grid w-full max-w-[1320px] gap-[53px] ${pagePadding} lg:min-h-[572px] lg:grid-cols-[minmax(0,1fr)_minmax(480px,660px)] lg:items-center lg:gap-[70px]`}>
+        <div className="flex max-w-[616px] flex-col items-start gap-[31px] self-center lg:max-w-none">
+          <h1 className="font-space text-[62px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[84px] lg:text-[106px]">
             Hi, I&apos;m
             <br />
             Arthur.
@@ -336,22 +336,22 @@ function Hero() {
           <p className="max-w-[48ch] text-[18px] font-normal leading-[30px] text-[#4b5563] [text-wrap:pretty] sm:text-[19px] sm:leading-[31px]">
             A pragmatic <strong>AI Engineer</strong> with 1 year of hands-on experience building autonomous agents, robust LLM pipelines, and scalable backend infrastructure. Focused on creating quietly useful tools.
           </p>
-          <div className="flex w-full flex-col gap-[12px] pt-[8px] sm:w-auto sm:flex-row sm:flex-wrap sm:gap-[16px] lg:pt-[16px]">
+          <div className="flex w-full flex-col gap-[13px] pt-[9px] sm:w-auto sm:flex-row sm:flex-wrap sm:gap-[18px] lg:pt-[18px]">
             <a
               href={cvHref}
               download
               onMouseEnter={() => downloadIconRef.current?.startAnimation()}
               onMouseLeave={() => downloadIconRef.current?.stopAnimation()}
-              className={`group flex min-h-[56px] w-full min-w-[164px] items-center justify-center gap-[10px] rounded-[12px] ${border} bg-[#a5c9ff] px-[28px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}
+              className={`group flex min-h-[62px] w-full min-w-[180px] items-center justify-center gap-[11px] rounded-[13px] ${border} bg-[#a5c9ff] px-[31px] py-[19px] text-center text-[15px] font-bold uppercase leading-[22px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}
             >
               Download CV
-              <DownloadIcon ref={downloadIconRef} size={18} duration={0.9} className="shrink-0" />
+              <DownloadIcon ref={downloadIconRef} size={20} duration={0.9} className="shrink-0" />
             </a>
-            <a href="#toolkit" className="group flex min-h-[44px] w-full min-w-[164px] items-center justify-center gap-[9px] rounded-[12px] bg-white px-[18px] py-[12px] text-center text-[12px] font-normal uppercase leading-[16px] tracking-normal text-[#6b7280] outline-none transition-[color,transform] duration-200 hover:translate-y-0.5 hover:text-[#1a1c1c] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto">
+            <a href="#toolkit" className="group flex min-h-[48px] w-full min-w-[180px] items-center justify-center gap-[10px] rounded-[13px] bg-white px-[20px] py-[13px] text-center text-[13px] font-normal uppercase leading-[18px] tracking-normal text-[#6b7280] outline-none transition-[color,transform] duration-200 hover:translate-y-0.5 hover:text-[#1a1c1c] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto">
               Scroll down to explore more
               <svg
                 aria-hidden="true"
-                className="size-[15px] shrink-0 transition-transform duration-200 group-hover:translate-y-[2px]"
+                className="size-[17px] shrink-0 transition-transform duration-200 group-hover:translate-y-[2px]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -378,10 +378,14 @@ function ChatWidget() {
   const [isTyping, setIsTyping] = useState(false);
   const [isResetSpinning, setIsResetSpinning] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
+  const [isResetExiting, setIsResetExiting] = useState(false);
+  const [shouldHopAvatar, setShouldHopAvatar] = useState(false);
   const messagesRef = useRef(null);
   const typingTimerRef = useRef(null);
   const resetCommitTimerRef = useRef(null);
   const resetEndTimerRef = useRef(null);
+  const resetExitTimerRef = useRef(null);
+  const hopTimerRef = useRef(null);
   const { eyeX, eyeY } = useBotEyeOffset();
   const lastAgentMessageIndex = messages.reduce(
     (lastIndex, message, index) => (message.role === "agent" ? index : lastIndex),
@@ -400,6 +404,8 @@ function ChatWidget() {
       window.clearTimeout(typingTimerRef.current);
       window.clearTimeout(resetCommitTimerRef.current);
       window.clearTimeout(resetEndTimerRef.current);
+      window.clearTimeout(hopTimerRef.current);
+      window.clearTimeout(resetExitTimerRef.current);
     };
   }, []);
 
@@ -412,6 +418,9 @@ function ChatWidget() {
     setMessages((current) => [...current, { role: "user", text: cleanDraft }]);
     setDraft("");
     setIsTyping(true);
+    window.clearTimeout(hopTimerRef.current);
+    setShouldHopAvatar(true);
+    hopTimerRef.current = window.setTimeout(() => setShouldHopAvatar(false), 420);
     window.clearTimeout(typingTimerRef.current);
     typingTimerRef.current = window.setTimeout(() => {
       setMessages((current) => [
@@ -456,9 +465,13 @@ function ChatWidget() {
     window.clearTimeout(typingTimerRef.current);
     window.clearTimeout(resetCommitTimerRef.current);
     window.clearTimeout(resetEndTimerRef.current);
+    window.clearTimeout(resetExitTimerRef.current);
+    window.clearTimeout(hopTimerRef.current);
 
     setIsResetting(true);
+    setShouldHopAvatar(false);
     setIsResetSpinning(true);
+    setIsResetExiting(false);
     setIsTyping(false);
     resetCommitTimerRef.current = window.setTimeout(() => {
       setActiveTab("About");
@@ -469,14 +482,18 @@ function ChatWidget() {
     resetEndTimerRef.current = window.setTimeout(() => {
       setIsResetting(false);
       setIsResetSpinning(false);
+      setIsResetExiting(true);
+      resetExitTimerRef.current = window.setTimeout(() => {
+        setIsResetExiting(false);
+      }, 560);
     }, 620);
   }
 
   return (
     <div
-      className={`flex h-[520px] min-w-0 flex-col overflow-hidden rounded-[20px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[10px] sm:rounded-[24px] lg:h-[500px] lg:w-full`}
+      className={`flex h-[572px] min-w-0 flex-col overflow-hidden rounded-[22px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[11px] sm:rounded-[26px] lg:h-[550px] lg:w-full`}
     >
-      <div className="relative z-20 min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-white/[.97] px-[16px] py-[18px] backdrop-blur-[6px] sm:px-[20px] sm:py-[20px]">
+      <div className="relative z-20 min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-white/[.97] px-[16px] py-[18px] backdrop-blur-[7px] sm:px-[20px] sm:py-[20px]">
         <div className="flex h-full items-center gap-[8px] sm:gap-[16px]">
           {chatTabs.map((tab) => (
             <button
@@ -511,12 +528,12 @@ function ChatWidget() {
                 <path d="M21 12a9 9 0 0 1-15.1 6.6L3 16" />
                 <path d="M3 21v-5h5" />
               </svg>
-              <span className="pointer-events-none absolute left-1/2 top-[34px] z-50 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[8px] border border-[#d1d5db] bg-white px-[10px] py-[7px] text-[11px] font-medium leading-[14px] tracking-normal text-[#4b5563] opacity-0 shadow-[0px_14px_24px_-10px_rgba(17,24,39,0.22),0px_4px_8px_-6px_rgba(17,24,39,0.18)] transition-all duration-150 before:absolute before:left-1/2 before:top-[-5px] before:size-[9px] before:-translate-x-1/2 before:rotate-45 before:border-l before:border-t before:border-[#d1d5db] before:bg-white group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+              <span className="pointer-events-none absolute left-1/2 top-[37px] z-50 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[9px] border border-[#d1d5db] bg-white px-[11px] py-[8px] text-[12px] font-medium leading-[15px] tracking-normal text-[#4b5563] opacity-0 shadow-[0px_14px_24px_-10px_rgba(17,24,39,0.22),0px_4px_8px_-6px_rgba(17,24,39,0.18)] transition-all duration-150 before:absolute before:left-1/2 before:top-[-6px] before:size-[10px] before:-translate-x-1/2 before:rotate-45 before:border-l before:border-t before:border-[#d1d5db] before:bg-white group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
                 Reset chat
               </span>
             </button>
-            <span className="agent-active-dot size-[10px] rounded-full bg-[#22c55e]" />
-            <span className="whitespace-nowrap text-[10px] font-medium uppercase leading-[14px] tracking-normal text-[#6b7280]">
+            <span className="agent-active-dot size-[11px] rounded-full bg-[#22c55e]" />
+            <span className="whitespace-nowrap text-[11px] font-medium uppercase leading-[15px] tracking-normal text-[#6b7280]">
               AGENT ACTIVE
             </span>
           </div>
@@ -547,7 +564,7 @@ function ChatWidget() {
             </motion.div>
           ) : (
             <div key={`${message.role}-${index}`} className="chat-message-in flex justify-end">
-              <div className="max-w-[82%] rounded-bl-[16px] rounded-br-[16px] rounded-tl-[16px] border border-black bg-black px-[16px] py-[14px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:max-w-[372px] sm:px-[18px] sm:py-[16px]">
+              <div className="max-w-[82%] rounded-bl-[16px] rounded-br-[16px] rounded-tl-[16px] border border-black bg-black px-[16px] py-[14px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:max-w-[409px] sm:px-[18px] sm:py-[16px]">
                 <p className="text-[15px] leading-[24px] text-white">{message.text}</p>
               </div>
             </div>
@@ -559,7 +576,7 @@ function ChatWidget() {
             transition={{ layout: chatLayoutTransition }}
             className="chat-message-in chat-agent-row chat-agent-row-current chat-typing-row"
           >
-            <AgentAvatar animateEntrance animateBot eyeX={eyeX} eyeY={eyeY} />
+            <AgentAvatar animateEntrance={shouldHopAvatar} eyeX={eyeX} eyeY={eyeY} />
             <motion.div
               layout
               transition={{ layout: chatLayoutTransition }}
@@ -572,12 +589,12 @@ function ChatWidget() {
           </motion.div>
         )}
       </div>
-      <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white/[.97] px-[16px] pb-[20px] pt-[21px] backdrop-blur-[6px] sm:px-[20px]">
+      <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white/[.97] px-[16px] pb-[20px] pt-[21px] backdrop-blur-[7px] sm:px-[20px]">
         <form className="flex h-[57px] items-center gap-[12px]" onSubmit={sendMessage}>
           <input
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            className={`h-[57px] min-w-0 flex-1 rounded-[12px] ${border} bg-[#f9fafb] px-[17px] text-[16px] leading-normal text-[#374151] outline-none ${shadowSoft} placeholder:text-[#6b7280] focus:border-[#a5c9ff]`}
+            className={`h-[57px] min-w-0 flex-1 appearance-none rounded-[12px] ${border} bg-[#f9fafb] px-[17px] text-[14px] font-light leading-normal text-[#374151] outline-none ${shadowSoft} placeholder:font-light placeholder:text-[#c0c7d0] focus:border-[#a5c9ff] disabled:px-[17px] ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
             placeholder={isResetting ? "Resetting conversation..." : "Ask the agent..."}
             aria-label="Ask the agent"
             disabled={isResetting}
@@ -598,7 +615,7 @@ function ChatWidget() {
 
 function AgentAvatar({ animateEntrance = false, animateBot = false, eyeX, eyeY }) {
   return (
-    <div className="size-[36px] shrink-0 sm:size-[40px]" aria-hidden="true">
+    <div className="size-[36px] shrink-0 sm:size-[40px]" aria-hidden="true" onMouseDown={e => e.preventDefault()}>
       <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
         {animateBot ? (
           <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
@@ -615,8 +632,10 @@ function HoverBlinkBotIcon({ eyeX, eyeY }) {
     <Bot
       aria-hidden="true"
       animateOnHover="blink"
+      animateOnTap="wink"
+      completeOnStop
       size={23}
-      className="text-black"
+      className="cursor-pointer text-black"
       eyeX={eyeX}
       eyeY={eyeY}
     />
@@ -651,7 +670,8 @@ function BotLoopIcon({ eyeX, eyeY }) {
     <Bot
       key={loopIndex}
       aria-hidden="true"
-      animate
+      animate="happy"
+      pauseMouseTracking
       size={23}
       className="text-black"
       eyeX={eyeX}
@@ -662,7 +682,7 @@ function BotLoopIcon({ eyeX, eyeY }) {
 
 function SectionTitle({ children }) {
   return (
-    <h2 className="font-space text-[34px] font-normal uppercase leading-[38px] tracking-normal text-[#111827] [text-wrap:balance] sm:text-[40px] sm:leading-[42px] lg:text-[48px] lg:leading-[48px]">
+    <h2 className="font-space text-[37px] font-normal uppercase leading-[42px] tracking-normal text-[#111827] [text-wrap:balance] sm:text-[44px] sm:leading-[46px] lg:text-[53px] lg:leading-[53px]">
       {children}
     </h2>
   );
@@ -670,7 +690,7 @@ function SectionTitle({ children }) {
 
 function Pill({ children, small = false }) {
   return (
-    <span className={`inline-flex shrink-0 items-center rounded-full border border-[#d1d5db] bg-[#f9fafb] ${small ? "px-[9px] py-[5px] rounded-[4px] border-[#e5e7eb]" : "px-[17px] py-[7px]"} text-[12px] font-bold uppercase leading-[16px] tracking-normal text-[#6b7280] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+    <span className={`inline-flex shrink-0 items-center rounded-full border border-[#d1d5db] bg-[#f9fafb] ${small ? "px-[10px] py-[6px] rounded-[4px] border-[#e5e7eb]" : "px-[19px] py-[8px]"} text-[13px] font-bold uppercase leading-[18px] tracking-normal text-[#6b7280] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
       {children}
     </span>
   );
@@ -678,18 +698,18 @@ function Pill({ children, small = false }) {
 
 function ToolkitSection() {
   return (
-    <section id="toolkit" className={`${sectionSpacing} ${pagePadding} pt-[32px] sm:pt-[48px] lg:pt-[64px]`}>
+    <section id="toolkit" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
       <SectionTitle>MY CORE AI TOOLKIT</SectionTitle>
-      <div className="mt-[32px] grid gap-[24px] sm:mt-[48px] lg:grid-cols-3 lg:gap-[32px]">
+      <div className="mt-[35px] grid gap-[26px] sm:mt-[53px] lg:grid-cols-3 lg:gap-[35px]">
         {toolkit.map((item) => (
-          <article key={item.title} className={`relative min-h-[282px] rounded-[16px] ${border} bg-white p-[24px] ${shadowCard} sm:p-[33px]`}>
-            <div className={`flex size-[64px] items-center justify-center rounded-[16px] ${border} bg-[#a5c9ff] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+          <article key={item.title} className={`relative min-h-[310px] rounded-[18px] ${border} bg-white p-[26px] ${shadowCard} sm:p-[36px]`}>
+            <div className={`flex size-[70px] items-center justify-center rounded-[18px] ${border} bg-[#a5c9ff] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
               <img alt="" src={`${A}${item.icon}`} className={`${item.iconClass} object-cover`} />
             </div>
-            <h3 className="pt-[32px] font-space text-[24px] font-normal uppercase leading-[32px] tracking-normal text-[#1a1c1c]">
+            <h3 className="pt-[35px] font-space text-[26px] font-normal uppercase leading-[35px] tracking-normal text-[#1a1c1c]">
               {item.title}
             </h3>
-            <div className="mt-[20px] flex flex-wrap gap-[8px]">
+            <div className="mt-[22px] flex flex-wrap gap-[9px]">
               {item.tags.map((tag) => (
                 <Pill key={tag}>{tag}</Pill>
               ))}
@@ -703,33 +723,33 @@ function ToolkitSection() {
 
 function ProjectsSection() {
   return (
-    <section id="projects" className={`${sectionSpacing} ${pagePadding} pt-[32px] sm:pt-[48px] lg:pt-[64px]`}>
-      <div className="flex flex-col gap-[16px] border-b border-[#d1d5db] pb-[25px] sm:flex-row sm:items-end sm:justify-between">
+    <section id="projects" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
+      <div className="flex flex-col gap-[18px] border-b border-[#d1d5db] pb-[28px] sm:flex-row sm:items-end sm:justify-between">
         <SectionTitle>SELECTED PROJECTS</SectionTitle>
-        <a href="#projects" className="flex shrink-0 items-center gap-[8px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
+        <a href="#projects" className="flex shrink-0 items-center gap-[9px] text-center text-[15px] font-bold uppercase leading-[22px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
           VIEW ALL
-          <img alt="" src={`${A}arrow-right.svg`} className="size-[16px]" />
+          <img alt="" src={`${A}arrow-right.svg`} className="size-[18px]" />
         </a>
       </div>
-      <div className="mt-[32px] grid gap-[24px] sm:mt-[48px] lg:grid-cols-3 lg:gap-[32px]">
+      <div className="mt-[35px] grid gap-[26px] sm:mt-[53px] lg:grid-cols-3 lg:gap-[35px]">
         {projects.map((project) => (
-          <article key={project.title} className={`flex min-h-[560px] flex-col overflow-hidden rounded-[20px] ${border} bg-white p-px ${shadowCard} sm:rounded-[24px]`}>
-            <div className="relative h-[200px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb] sm:h-[224px]">
+          <article key={project.title} className={`flex min-h-[616px] flex-col overflow-hidden rounded-[22px] ${border} bg-white p-px ${shadowCard} sm:rounded-[26px]`}>
+            <div className="relative h-[220px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb] sm:h-[246px]">
               <div className="absolute inset-0 opacity-80" style={{ backgroundImage: project.gradient }} />
               {project.badge && (
-                <span className={`absolute right-[20px] top-[20px] rounded-full border px-[17px] py-[7px] text-[12px] font-bold uppercase leading-[16px] tracking-normal ${project.badgeClass} shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] backdrop-blur-[2px]`}>
+                <span className={`absolute right-[22px] top-[22px] rounded-full border px-[19px] py-[8px] text-[13px] font-bold uppercase leading-[18px] tracking-normal ${project.badgeClass} shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] backdrop-blur-[2px]`}>
                   {project.badge}
                 </span>
               )}
             </div>
-            <div className="flex flex-1 flex-col p-[24px] sm:p-[32px]">
-              <h3 className="pb-[12px] font-space text-[24px] font-normal uppercase leading-[32px] tracking-normal text-[#1a1c1c]">
+            <div className="flex flex-1 flex-col p-[26px] sm:p-[35px]">
+              <h3 className="pb-[13px] font-space text-[26px] font-normal uppercase leading-[35px] tracking-normal text-[#1a1c1c]">
                 {project.title}
               </h3>
-              <p className="pb-[32px] text-[16px] leading-[26px] text-[#4b5563] [text-wrap:pretty]">
+              <p className="pb-[35px] text-[18px] leading-[29px] text-[#4b5563] [text-wrap:pretty]">
                 {project.description}
               </p>
-              <div className="mt-auto flex flex-wrap gap-[12px] border-t border-[#d1d5db] pt-[24px]">
+              <div className="mt-auto flex flex-wrap gap-[13px] border-t border-[#d1d5db] pt-[26px]">
                 {project.tags.map((tag) => (
                   <Pill key={tag} small>
                     {tag}
@@ -746,19 +766,19 @@ function ProjectsSection() {
 
 function SkillsSection() {
   return (
-    <section id="skills" className={`${sectionSpacing} ${pagePadding} pt-[32px] sm:pt-[48px] lg:pt-[64px]`}>
+    <section id="skills" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
       <SectionTitle>SKILLS</SectionTitle>
-      <div className="mt-[32px] grid gap-[24px] sm:mt-[48px] md:grid-cols-2 lg:grid-cols-4 lg:gap-[32px]">
+      <div className="mt-[35px] grid gap-[26px] sm:mt-[53px] md:grid-cols-2 lg:grid-cols-4 lg:gap-[35px]">
         {skills.map((column) => (
-          <article key={column.title} className={`h-full min-h-[260px] rounded-[16px] ${border} bg-white p-[24px] ${shadowCard} sm:p-[33px] lg:min-h-[415px]`}>
-            <h3 className="border-b border-[#d1d5db] pb-[17px] text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#111827]">
+          <article key={column.title} className={`h-full min-h-[286px] rounded-[18px] ${border} bg-white p-[26px] ${shadowCard} sm:p-[36px] lg:min-h-[457px]`}>
+            <h3 className="border-b border-[#d1d5db] pb-[19px] text-[15px] font-bold uppercase leading-[22px] tracking-normal text-[#111827]">
               {column.title}
             </h3>
-            <div className="mt-[24px] flex flex-col gap-[20px]">
+            <div className="mt-[26px] flex flex-col gap-[22px]">
               {column.items.map(([icon, label, sizeClass, gapClass]) => (
                 <div key={icon} className={`flex items-center ${gapClass}`}>
                   <img alt="" src={`${A}${icon}`} className={`${sizeClass} shrink-0 object-cover`} />
-                  <span className="text-[16px] leading-[24px] text-[#4b5563]">{label}</span>
+                  <span className="text-[18px] leading-[26px] text-[#4b5563]">{label}</span>
                 </div>
               ))}
             </div>
@@ -771,15 +791,15 @@ function SkillsSection() {
 
 function EducationCard({ title, school, icon, iconClass }) {
   return (
-    <article className={`flex min-h-[158px] items-center justify-between gap-[20px] rounded-[16px] ${border} bg-white p-[24px] ${shadowCard} sm:p-[33px] lg:h-[158px]`}>
+    <article className={`flex min-h-[174px] items-center justify-between gap-[22px] rounded-[18px] ${border} bg-white p-[26px] ${shadowCard} sm:p-[36px] lg:h-[174px]`}>
       <div className="min-w-0">
-        <h3 className="font-space text-[22px] font-normal leading-[29px] tracking-normal text-[#1a1c1c] sm:text-[24px] sm:leading-[32px] lg:text-[22px] lg:leading-[29px] xl:text-[24px] xl:leading-[32px]">
+        <h3 className="font-space text-[24px] font-normal leading-[32px] tracking-normal text-[#1a1c1c] sm:text-[26px] sm:leading-[35px] lg:text-[24px] lg:leading-[32px] xl:text-[26px] xl:leading-[35px]">
           {title}
         </h3>
-        <p className="mt-[8px] text-[16px] font-medium leading-[24px] text-[#111827]">{school}</p>
-        <p className="mt-[8px] text-[14px] leading-[20px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
+        <p className="mt-[9px] text-[18px] font-medium leading-[26px] text-[#111827]">{school}</p>
+        <p className="mt-[9px] text-[15px] leading-[22px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
       </div>
-      <div className="flex h-[64px] w-[76px] shrink-0 items-center justify-center overflow-visible sm:w-[88px]">
+      <div className="flex h-[70px] w-[84px] shrink-0 items-center justify-center overflow-visible sm:w-[97px]">
         <img alt="" src={`${A}${icon}`} className={`${iconClass} object-contain`} />
       </div>
     </article>
@@ -788,16 +808,16 @@ function EducationCard({ title, school, icon, iconClass }) {
 
 function EducationSection() {
   return (
-    <section id="education" className={`${sectionSpacing} ${pagePadding} pb-[24px] pt-[32px] sm:pt-[48px] lg:pt-[64px]`}>
+    <section id="education" className={`${sectionSpacing} ${pagePadding} pb-[26px] pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
       <SectionTitle>EDUCATION</SectionTitle>
-      <div className="relative mt-[32px] grid gap-[24px] sm:mt-[48px] lg:grid-cols-2 lg:gap-[32px]">
+      <div className="relative mt-[35px] grid gap-[26px] sm:mt-[53px] lg:grid-cols-2 lg:gap-[35px]">
         <div className="absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#d1d5db] lg:block" />
-        <div className="flex flex-col gap-[24px] lg:gap-[32px] lg:pr-[16px]">
+        <div className="flex flex-col gap-[26px] lg:gap-[35px] lg:pr-[18px]">
           {educationLeft.map(([title, school, icon, iconClass]) => (
             <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} />
           ))}
         </div>
-        <div className="flex flex-col gap-[24px] lg:gap-[32px] lg:pl-[16px] lg:pt-[95px]">
+        <div className="flex flex-col gap-[26px] lg:gap-[35px] lg:pl-[18px] lg:pt-[105px]">
           {educationRight.map(([title, school, icon, iconClass]) => (
             <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} />
           ))}
@@ -809,25 +829,25 @@ function EducationSection() {
 
 function ContactCta() {
   return (
-    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-40px)] max-w-[896px] overflow-hidden rounded-[16px] ${border} bg-white px-[24px] py-[48px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] sm:w-[calc(100%-64px)] sm:px-[40px] sm:py-[64px] lg:w-[calc(100%-96px)] lg:px-[49px] lg:py-[81px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
-      <div className="flex flex-col gap-[36px] lg:min-h-[132px] lg:flex-row lg:gap-0">
-        <div className="w-full lg:w-[350.5px]">
-          <h2 className="font-space text-[32px] font-normal uppercase leading-[36px] tracking-normal text-[#111827] sm:text-[40px] sm:leading-[44px]">
+    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-44px)] max-w-[986px] overflow-hidden rounded-[18px] ${border} bg-white px-[26px] py-[53px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] sm:w-[calc(100%-70px)] sm:px-[44px] sm:py-[70px] lg:w-[calc(100%-106px)] lg:px-[54px] lg:py-[89px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
+      <div className="flex flex-col gap-[40px] lg:min-h-[145px] lg:flex-row lg:gap-0">
+        <div className="w-full lg:w-[386px]">
+          <h2 className="font-space text-[35px] font-normal uppercase leading-[40px] tracking-normal text-[#111827] sm:text-[44px] sm:leading-[48px]">
             LET&apos;S BUILD
             <br />
             SOMETHING
           </h2>
-          <span className="mt-[2px] inline-block max-w-full rounded-[4px] border border-[rgba(165,201,255,0.3)] bg-[rgba(165,201,255,0.4)] px-[9px] py-[6.5px] font-space text-[32px] font-normal uppercase leading-[36px] tracking-normal text-[#111827] sm:-mt-[6.5px] sm:text-[40px] sm:leading-[44px]">
+          <span className="mt-[2px] inline-block max-w-full rounded-[4px] border border-[rgba(165,201,255,0.3)] bg-[rgba(165,201,255,0.4)] px-[10px] py-[7px] font-space text-[35px] font-normal uppercase leading-[40px] tracking-normal text-[#111827] sm:-mt-[7px] sm:text-[44px] sm:leading-[48px]">
             QUIETLY USEFUL.
           </span>
         </div>
-        <div className="hidden h-[96px] w-px bg-[#9ca3af] lg:ml-[48px] lg:mr-[48px] lg:mt-[18px] lg:block" />
-        <div className="lg:mt-[26.5px] lg:w-[350.5px]">
-          <p className="text-[10px] font-bold uppercase leading-[15px] tracking-normal text-[#6b7280]">CONTACT ME:</p>
-          <div className="mt-[16px] flex gap-[16px]">
+        <div className="hidden h-[106px] w-px bg-[#9ca3af] lg:ml-[53px] lg:mr-[53px] lg:mt-[20px] lg:block" />
+        <div className="lg:mt-[29px] lg:w-[386px]">
+          <p className="text-[11px] font-bold uppercase leading-[17px] tracking-normal text-[#6b7280]">CONTACT ME:</p>
+          <div className="mt-[18px] flex gap-[18px]">
             {contactActions.map(([icon, label, href]) => (
-              <a key={icon} href={href} aria-label={label} className={`flex size-[48px] items-center justify-center rounded-[8px] border border-[#e5e7eb] bg-[#f9fafb]/50 p-px ${shadowSoft}`}>
-                <img alt="" src={`${A}${icon}`} className={icon === "share.svg" ? "h-[16.667px] w-[15px]" : "h-[13.333px] w-[16.667px]"} />
+              <a key={icon} href={href} aria-label={label} className={`flex size-[53px] items-center justify-center rounded-[9px] border border-[#e5e7eb] bg-[#f9fafb]/50 p-px ${shadowSoft}`}>
+                <img alt="" src={`${A}${icon}`} className={icon === "share.svg" ? "h-[18px] w-[17px]" : "h-[15px] w-[18px]"} />
               </a>
             ))}
           </div>
@@ -839,18 +859,18 @@ function ContactCta() {
 
 function Footer() {
   return (
-    <footer className="mx-[20px] mt-[104px] flex min-h-[125px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[48px] pt-[40px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:mx-[32px] lg:mx-[48px] lg:mt-[160px] lg:flex-row lg:items-center lg:justify-between lg:pt-[49px]">
-      <a href="#top" className="font-space text-[20px] font-black uppercase leading-[28px] tracking-normal text-[#111827]">
+    <footer className="mx-[22px] mt-[114px] flex min-h-[138px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[53px] pt-[44px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:mx-[35px] lg:mx-[53px] lg:mt-[176px] lg:flex-row lg:items-center lg:justify-between lg:pt-[54px]">
+      <a href="#top" className="font-space text-[22px] font-black uppercase leading-[31px] tracking-normal text-[#111827]">
         AI_ENGINEER
       </a>
-      <nav className="flex flex-wrap justify-start gap-[32px] lg:justify-center">
+      <nav className="flex flex-wrap justify-start gap-[35px] lg:justify-center">
         {Object.entries(socialLinks).map(([item, href]) => (
-          <a key={item} href={href} className="font-space text-[12px] font-medium uppercase leading-[16px] tracking-normal text-[#4b5563]">
+          <a key={item} href={href} className="font-space text-[13px] font-medium uppercase leading-[18px] tracking-normal text-[#4b5563]">
             {item}
           </a>
         ))}
       </nav>
-      <p className="text-left font-space text-[12px] font-medium uppercase leading-[16px] tracking-normal text-[#6b7280] lg:text-right">
+      <p className="text-left font-space text-[13px] font-medium uppercase leading-[18px] tracking-normal text-[#6b7280] lg:text-right">
         &copy; 2024 AI ENGINEER PORTFOLIO. BUILT WITH PRECISION.
       </p>
     </footer>
@@ -861,7 +881,7 @@ export default function App() {
   return (
     <div id="top" className="min-h-screen overflow-x-hidden bg-white">
       <Nav />
-      <main className="mx-auto w-full max-w-[1200px]">
+      <main className="mx-auto w-full max-w-[1320px]">
         <Hero />
         <ToolkitSection />
         <ProjectsSection />

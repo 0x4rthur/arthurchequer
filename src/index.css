@@ -9,8 +9,9 @@
 }
 
 html {
+  font-size: 110%;
   scroll-behavior: smooth;
-  scroll-padding-top: 112px;
+  scroll-padding-top: 123px;
 }
 
 body {
@@ -90,8 +91,8 @@ a {
 }
 
 .typing-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 9999px;
   background: #a5c9ff;
   animation: typing-dot 900ms ease-in-out infinite;
@@ -107,6 +108,36 @@ a {
 
 .reset-spin-clockwise {
   animation: reset-spin-clockwise 560ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes reset-border-pulse {
+  0%, 100% {
+    border-color: #d1d5db;
+    box-shadow: 0 0 0 0 rgba(164, 200, 255, 0);
+  }
+  50% {
+    border-color: #a4c8ff;
+    box-shadow: 0 0 0 3px rgba(164, 200, 255, 0.18);
+  }
+}
+
+.reset-input-pulse {
+  animation: reset-border-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes reset-border-fadeout {
+  from {
+    border-color: #a4c8ff;
+    box-shadow: 0 0 0 3px rgba(164, 200, 255, 0.18);
+  }
+  to {
+    border-color: #d1d5db;
+    box-shadow: 0 0 0 0 rgba(164, 200, 255, 0);
+  }
+}
+
+.reset-input-exit {
+  animation: reset-border-fadeout 560ms ease-out forwards;
 }
 
 .chat-resetting {

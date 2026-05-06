@@ -92,6 +92,8 @@ function AnimateIcon({
   const animateEndPromiseRef = React.useRef(null);
   const resolveAnimateEndRef = React.useRef(null);
   const activeRef = React.useRef(localAnimate);
+  const localAnimateRef = React.useRef(localAnimate);
+  const [runKey, setRunKey] = React.useState(0);
 
   const runGenRef = React.useRef(0);
   const cancelledRef = React.useRef(false);
@@ -113,6 +115,8 @@ function AnimateIcon({
       delayRef.current = setTimeout(() => {
         setLocalAnimate(true);
       }, delay);
+    } else if (localAnimateRef.current) {
+      setRunKey(k => k + 1);
     } else {
       setLocalAnimate(true);
     }
@@ -133,6 +137,7 @@ function AnimateIcon({
 
   React.useEffect(() => {
     activeRef.current = localAnimate;
+    localAnimateRef.current = localAnimate;
   }, [localAnimate]);
 
   React.useEffect(() => {
@@ -178,7 +183,6 @@ function AnimateIcon({
 
     async function run() {
       if (cancelledRef.current || gen !== runGenRef.current) {
-        await startAnim('initial');
         return;
       }
 
@@ -222,7 +226,6 @@ function AnimateIcon({
         resolveAnimateEndRef.current?.();
         resolveAnimateEndRef.current = null;
         animateEndPromiseRef.current = null;
-        await startAnim('initial');
         return;
       }
 
@@ -233,7 +236,6 @@ function AnimateIcon({
         resolveAnimateEndRef.current?.();
         resolveAnimateEndRef.current = null;
         animateEndPromiseRef.current = null;
-        await startAnim('initial');
         return;
       }
 
@@ -297,7 +299,7 @@ function AnimateIcon({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localAnimate, controls]);
+  }, [localAnimate, controls, runKey]);
 
   const childProps = (React.isValidElement(children) ? (children).props : {});
 
