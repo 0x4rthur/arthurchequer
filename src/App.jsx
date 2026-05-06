@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Bot } from "./components/animate-ui/icons/bot";
 import ColorBends from "./components/ColorBends";
+import { DownloadIcon } from "./components/ui/download-icon";
 import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
 
 const A = "/assets/";
 const contactHref = "#contact";
-const resumeHref = "#contact";
+const cvHref = "/assets/arthur-chequer-cv.pdf";
 const socialLinks = {
   LINKEDIN: contactHref,
   GITHUB: contactHref,
@@ -285,6 +286,8 @@ function Nav() {
 }
 
 function Hero() {
+  const downloadIconRef = useRef(null);
+
   return (
     <section className="relative left-1/2 mt-[174px] min-h-[620px] w-screen -translate-x-1/2 overflow-hidden py-[48px] [contain:layout_style] sm:mt-[188px] sm:py-[64px] md:mt-[132px] lg:mt-[176px] lg:py-[72px]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20">
@@ -329,11 +332,31 @@ function Hero() {
             A pragmatic <strong>AI Engineer</strong> with 1 year of hands-on experience building autonomous agents, robust LLM pipelines, and scalable backend infrastructure. Focused on creating quietly useful tools.
           </p>
           <div className="flex w-full flex-col gap-[12px] pt-[8px] sm:w-auto sm:flex-row sm:flex-wrap sm:gap-[16px] lg:pt-[16px]">
-            <a href="#projects" className={`flex min-h-[56px] w-full min-w-[164px] items-center justify-center rounded-[12px] ${border} bg-[#a5c9ff] px-[33px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}>
-              VIEW PROJECTS
+            <a
+              href={cvHref}
+              download
+              onMouseEnter={() => downloadIconRef.current?.startAnimation()}
+              onMouseLeave={() => downloadIconRef.current?.stopAnimation()}
+              className={`group flex min-h-[56px] w-full min-w-[164px] items-center justify-center gap-[10px] rounded-[12px] ${border} bg-[#a5c9ff] px-[28px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}
+            >
+              Download CV
+              <DownloadIcon ref={downloadIconRef} size={18} duration={0.9} className="shrink-0" />
             </a>
-            <a href={resumeHref} className={`flex min-h-[56px] w-full min-w-[164px] items-center justify-center rounded-[12px] ${border} bg-white px-[33px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#f9fafb] hover:shadow-[0px_14px_24px_-22px_rgba(17,24,39,0.35)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}>
-              RESUME
+            <a href="#toolkit" className="group flex min-h-[44px] w-full min-w-[164px] items-center justify-center gap-[9px] rounded-[12px] bg-white px-[18px] py-[12px] text-center text-[12px] font-normal uppercase leading-[16px] tracking-normal text-[#6b7280] outline-none transition-[color,transform] duration-200 hover:translate-y-0.5 hover:text-[#1a1c1c] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto">
+              Scroll down to explore more
+              <svg
+                aria-hidden="true"
+                className="size-[15px] shrink-0 transition-transform duration-200 group-hover:translate-y-[2px]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 5v14" />
+                <path d="m19 12-7 7-7-7" />
+              </svg>
             </a>
           </div>
         </div>
