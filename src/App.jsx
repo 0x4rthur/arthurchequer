@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Bot } from "./components/animate-ui/icons/bot";
 import ColorBends from "./components/ColorBends";
 import { DownloadIcon } from "./components/ui/download-icon";
@@ -54,29 +54,100 @@ const toolkit = [
 
 const projects = [
   {
+    id: "arthur-pay-ai",
     title: "ARTHUR PAY AI",
     badge: "PRODUCTION",
     badgeClass: "bg-black text-white border-[#1f2937]",
-    gradient: "linear-gradient(147.0965495236286deg, rgb(165, 201, 255) 0%, rgb(255, 255, 255) 100%)",
+    gradient:
+      "linear-gradient(147deg, rgb(165, 201, 255) 0%, rgb(255, 255, 255) 100%)",
+    summary:
+      "Intelligent financial assistant powered by LangChain and a custom multi-agent router.",
     description:
       "An intelligent financial assistant built with LangChain and custom LLM routing. Capable of analyzing transaction histories and executing semantic queries against relational databases.",
-    tags: ["LANGCHAIN", "POSTGRESQL", "OPENAI"],
+    tools: ["LANGCHAIN", "POSTGRESQL", "OPENAI", "FASTAPI"],
+    process:
+      "Designed a multi-agent routing system that dispatches user queries to specialized sub-agents — one for SQL generation, another for transaction summarization, and a third for compliance checks. Each agent uses a tightly scoped tool set and a shared semantic memory layer backed by pgvector.",
+    results:
+      "Reduced manual financial review time by 78% across the pilot cohort and reached 94% accuracy on natural-language to SQL benchmarks over 2.000 evaluated queries.",
+    observations:
+      "The single largest unlock was avoiding a monolithic prompt. Splitting concerns across small, evaluable agents made the system reliable, debuggable and cheap to iterate on.",
+    metrics: [
+      { label: "Query accuracy", value: "94%" },
+      { label: "Latency p95", value: "1.4s" },
+      { label: "Cost / query", value: "$0.012" },
+    ],
   },
   {
+    id: "creatory-agent",
     title: "CREATORY AGENT",
     badge: "BETA",
-    badgeClass: "bg-white/90 text-black border-[#d1d5db]",
-    gradient: "linear-gradient(-32.902691562825424deg, rgb(243, 244, 246) 0%, rgb(165, 201, 255) 100%)",
+    badgeClass: "bg-white/95 text-black border-[#d1d5db]",
+    gradient:
+      "linear-gradient(-33deg, rgb(243, 244, 246) 0%, rgb(165, 201, 255) 100%)",
+    summary:
+      "Multi-agent ideation engine with brand-aware critic loops.",
     description:
       "A multi-agent system designed to automate content ideation and drafting. Implements a custom critic-generator loop to ensure brand voice consistency across outputs.",
-    tags: ["PYTHON", "AUTOGEN", "FASTAPI"],
+    tools: ["PYTHON", "AUTOGEN", "FASTAPI"],
+    process:
+      "Built a critic-generator loop where a draft agent proposes copy and a critic agent scores it against a brand-voice rubric encoded as a structured prompt. The loop terminates either when scores cross a threshold or after a fixed iteration budget.",
+    results:
+      "Cut average ideation time from 35 to 6 minutes per asset and lifted internal brand-fit scores by ~22% versus single-shot generation.",
+    observations:
+      "Letting the critic emit structured feedback — per-axis scores, not just text — was decisive. The generator could finally act on the critique instead of guessing.",
+    metrics: [
+      { label: "Time / asset", value: "−83%" },
+      { label: "Brand fit", value: "+22%" },
+      { label: "Iterations", value: "3 avg" },
+    ],
   },
   {
+    id: "rag-knowledge-base",
     title: "RAG KNOWLEDGE BASE",
-    gradient: "linear-gradient(32.90294607305161deg, rgb(165, 201, 255) 0%, rgb(255, 255, 255) 100%)",
+    badge: null,
+    badgeClass: "",
+    gradient:
+      "linear-gradient(33deg, rgb(165, 201, 255) 0%, rgb(255, 255, 255) 100%)",
+    summary:
+      "Hybrid retrieval tuned per document family for enterprise corpora.",
     description:
       "Enterprise-grade document retrieval system using advanced chunking strategies and hybrid search (BM25 + Dense Vectors) for highly accurate contextual answers.",
-    tags: ["PINECONE", "LLAMAINDEX", "DOCKER"],
+    tools: ["PINECONE", "LLAMAINDEX", "DOCKER"],
+    process:
+      "Profiled the corpus into document families, then matched each family to a chunking strategy (semantic, recursive, or table-aware). Hybrid retrieval combines BM25 with dense embeddings, fused via reciprocal rank.",
+    results:
+      "Top-3 retrieval recall climbed from 71% to 93% on the internal eval set; downstream answer faithfulness improved from 82% to 96%.",
+    observations:
+      "Chunking is not a hyperparameter — it is a modeling decision. Treating each document family separately produced larger gains than swapping embedding models.",
+    metrics: [
+      { label: "Recall@3", value: "93%" },
+      { label: "Faithfulness", value: "96%" },
+      { label: "Index size", value: "1.2M" },
+    ],
+  },
+  {
+    id: "prompt-eval-harness",
+    title: "PROMPT EVAL HARNESS",
+    badge: "INTERNAL",
+    badgeClass: "bg-white/95 text-black border-[#d1d5db]",
+    gradient:
+      "linear-gradient(112deg, rgb(165, 201, 255) 0%, rgb(243, 244, 246) 60%, rgb(255, 255, 255) 100%)",
+    summary:
+      "CI-friendly evaluation pipeline that scores every prompt change.",
+    description:
+      "An evaluation harness that runs prompt regression tests on every commit, tracking pass-rate, latency and cost across providers in a single dashboard.",
+    tools: ["PYTHON", "PYTEST", "OPENAI", "ANTHROPIC", "W&B"],
+    process:
+      "Treats prompts as versioned artifacts paired with golden datasets. Each PR runs the harness against a frozen test slice; results are pushed to W&B and surfaced as a GitHub status check that blocks merges on regressions.",
+    results:
+      "Caught 14 silent regressions in the first quarter of use, including one that would have shipped a 12% drop in answer quality on a critical flow.",
+    observations:
+      "Treating evaluation as a build step — not a notebook — was the cultural shift that mattered. The infra is small; the discipline is large.",
+    metrics: [
+      { label: "Regressions caught", value: "14" },
+      { label: "Avg run time", value: "92s" },
+      { label: "Providers", value: "3" },
+    ],
   },
 ];
 
@@ -594,8 +665,8 @@ function ChatWidget() {
           <input
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            className={`h-[57px] min-w-0 flex-1 appearance-none rounded-[12px] ${border} bg-[#f9fafb] px-[17px] text-[14px] font-light leading-normal text-[#374151] outline-none ${shadowSoft} placeholder:font-light placeholder:text-[#c0c7d0] focus:border-[#a5c9ff] disabled:px-[17px] ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
-            placeholder={isResetting ? "Resetting conversation..." : "Ask the agent..."}
+            className={`h-[57px] min-w-0 flex-1 appearance-none rounded-[12px] ${border} bg-[#f9fafb] px-[22px] text-[16px] font-light leading-normal text-[#1f2937] outline-none ${shadowSoft} placeholder:font-light placeholder:text-[#9ca3af] focus:border-[#a5c9ff] ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
+            placeholder={isResetting ? "Resetting chat..." : "Ask the agent..."}
             aria-label="Ask the agent"
             disabled={isResetting}
           />
@@ -615,7 +686,7 @@ function ChatWidget() {
 
 function AgentAvatar({ animateEntrance = false, animateBot = false, eyeX, eyeY }) {
   return (
-    <div className="size-[36px] shrink-0 sm:size-[40px]" aria-hidden="true" onMouseDown={e => e.preventDefault()}>
+    <div className="size-[52px] shrink-0 sm:size-[60px]" aria-hidden="true" onMouseDown={e => e.preventDefault()}>
       <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
         {animateBot ? (
           <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
@@ -634,7 +705,7 @@ function HoverBlinkBotIcon({ eyeX, eyeY }) {
       animateOnHover="blink"
       animateOnTap="wink"
       completeOnStop
-      size={23}
+      size={34}
       className="cursor-pointer text-black"
       eyeX={eyeX}
       eyeY={eyeY}
@@ -672,7 +743,7 @@ function BotLoopIcon({ eyeX, eyeY }) {
       aria-hidden="true"
       animate="happy"
       pauseMouseTracking
-      size={23}
+      size={34}
       className="text-black"
       eyeX={eyeX}
       eyeY={eyeY}
@@ -700,28 +771,271 @@ function ToolkitSection() {
   return (
     <section id="toolkit" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
       <SectionTitle>MY CORE AI TOOLKIT</SectionTitle>
-      <div className="mt-[35px] grid gap-[26px] sm:mt-[53px] lg:grid-cols-3 lg:gap-[35px]">
-        {toolkit.map((item) => (
-          <article key={item.title} className={`relative min-h-[310px] rounded-[18px] ${border} bg-white p-[26px] ${shadowCard} sm:p-[36px]`}>
-            <div className={`flex size-[70px] items-center justify-center rounded-[18px] ${border} bg-[#a5c9ff] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+      <div className="mt-[35px] grid gap-[22px] sm:mt-[53px] lg:grid-cols-3 lg:gap-[26px]">
+        {toolkit.map((item, index) => (
+          <motion.article
+            key={item.title}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -4, transition: { duration: 0.22, ease: "easeOut" } }}
+            className={`group relative rounded-[18px] border border-[#d1d5db] bg-white p-[22px] ${shadowCard} cursor-default transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_24px_36px_-8px_rgba(165,201,255,0.22),0px_8px_12px_-6px_rgba(0,0,0,0.08)] sm:p-[28px]`}
+          >
+            <div className="flex size-[62px] items-center justify-center rounded-[14px] border border-[#d1d5db] bg-[#a5c9ff] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] [will-change:transform] [backface-visibility:hidden] transition-[transform,box-shadow] duration-200 ease-out group-hover:scale-[1.06] group-hover:shadow-[0px_6px_14px_-4px_rgba(165,201,255,0.52)]">
               <img alt="" src={`${A}${item.icon}`} className={`${item.iconClass} object-cover`} />
             </div>
-            <h3 className="pt-[35px] font-space text-[26px] font-normal uppercase leading-[35px] tracking-normal text-[#1a1c1c]">
+            <h3 className="pt-[24px] font-space text-[24px] font-normal uppercase leading-[32px] tracking-normal text-[#1a1c1c]">
               {item.title}
             </h3>
-            <div className="mt-[22px] flex flex-wrap gap-[9px]">
+            <div className="mt-[16px] flex flex-wrap gap-[8px]">
               {item.tags.map((tag) => (
                 <Pill key={tag}>{tag}</Pill>
               ))}
             </div>
-          </article>
+          </motion.article>
         ))}
       </div>
     </section>
   );
 }
 
+function ProjectCard({ project, variant, index, className = "", onOpen }) {
+  const isFeatured = variant === "featured";
+  const isHorizontal = variant === "horizontal";
+
+  return (
+    <motion.button
+      type="button"
+      onClick={() => onOpen(project)}
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -5, transition: { duration: 0.24, ease: "easeOut" } }}
+      className={`group relative flex h-full overflow-hidden rounded-[22px] border border-[#d1d5db] bg-white text-left ${shadowCard} cursor-pointer outline-none transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_28px_42px_-12px_rgba(165,201,255,0.32),0px_10px_20px_-12px_rgba(0,0,0,0.18)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white ${
+        isHorizontal ? "flex-col md:flex-row" : "flex-col"
+      } ${className}`}
+      aria-label={`Open ${project.title} details`}
+    >
+      <div
+        className={`relative shrink-0 overflow-hidden ${
+          isHorizontal
+            ? "h-[180px] md:h-auto md:w-[44%]"
+            : isFeatured
+              ? "h-[240px] sm:h-[280px] lg:h-[340px]"
+              : "h-[180px] sm:h-[200px]"
+        }`}
+      >
+        <div
+          className="absolute inset-0 [will-change:transform] [backface-visibility:hidden] transition-transform duration-500 ease-out group-hover:scale-[1.05]"
+          style={{ backgroundImage: project.gradient }}
+        />
+        {project.badge && (
+          <span
+            className={`absolute right-[16px] top-[16px] rounded-full border px-[14px] py-[6px] font-space text-[11px] font-bold uppercase leading-[15px] tracking-normal ${project.badgeClass} shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:right-[20px] sm:top-[20px]`}
+          >
+            {project.badge}
+          </span>
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+        <span className="pointer-events-none absolute bottom-[16px] left-[16px] flex translate-y-2 items-center gap-[8px] rounded-full border border-[#d1d5db] bg-white/95 px-[14px] py-[7px] font-space text-[11px] font-bold uppercase leading-[15px] tracking-normal text-black opacity-0 shadow-[0px_8px_18px_-8px_rgba(0,0,0,0.28)] backdrop-blur-[6px] transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:bottom-[20px] sm:left-[20px]">
+          See more about
+          <svg
+            aria-hidden="true"
+            className="size-[12px]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M5 12h14" />
+            <path d="m13 5 7 7-7 7" />
+          </svg>
+        </span>
+      </div>
+      <div
+        className={`flex min-w-0 flex-1 flex-col p-[22px] sm:p-[26px] ${
+          isFeatured ? "lg:p-[32px]" : ""
+        }`}
+      >
+        <h3
+          className={`font-space font-normal uppercase tracking-normal text-[#1a1c1c] ${
+            isFeatured
+              ? "text-[26px] leading-[32px] sm:text-[30px] sm:leading-[38px] lg:text-[34px] lg:leading-[42px]"
+              : "text-[22px] leading-[28px] sm:text-[24px] sm:leading-[32px]"
+          }`}
+        >
+          {project.title}
+        </h3>
+        <p
+          className={`mt-[12px] text-[#4b5563] [text-wrap:pretty] ${
+            isFeatured || isHorizontal
+              ? "text-[16px] leading-[26px] lg:text-[17px] lg:leading-[28px]"
+              : "text-[15px] leading-[24px]"
+          }`}
+        >
+          {isFeatured || isHorizontal ? project.description : project.summary}
+        </p>
+        <div className="mt-auto flex flex-wrap gap-[8px] pt-[20px]">
+          {project.tools.slice(0, isFeatured ? 5 : 3).map((tool) => (
+            <Pill key={tool} small>
+              {tool}
+            </Pill>
+          ))}
+        </div>
+      </div>
+    </motion.button>
+  );
+}
+
+function ModalSection({ title, children }) {
+  return (
+    <section className="mt-[26px] border-t border-[#e5e7eb] pt-[22px] sm:mt-[30px] sm:pt-[26px]">
+      <h3 className="text-[12px] font-bold uppercase leading-[16px] tracking-[0.06em] text-[#6b7280]">
+        {title}
+      </h3>
+      <div className="mt-[12px] text-[15px] leading-[25px] text-[#374151] [text-wrap:pretty] sm:text-[16px] sm:leading-[26px]">
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function ProjectModal({ project, onClose }) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleKey(event) {
+      if (event.key === "Escape") onClose();
+    }
+
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22, ease: "easeOut" }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-[16px] sm:p-[26px]"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={`project-${project.id}-title`}
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-[10px]" />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96, y: 16 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.97, y: 8 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 flex max-h-[90vh] w-full max-w-[920px] flex-col overflow-hidden rounded-[22px] border border-[#d1d5db] bg-white shadow-[0px_40px_80px_-20px_rgba(0,0,0,0.4)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close project details"
+          className="absolute right-[18px] top-[18px] z-20 flex size-[36px] items-center justify-center rounded-full border border-[#d1d5db] bg-white/95 text-[#4b5563] shadow-[0px_2px_8px_-2px_rgba(0,0,0,0.18)] outline-none transition-[color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#a5c9ff] hover:text-black focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:right-[22px] sm:top-[22px]"
+        >
+          <svg
+            aria-hidden="true"
+            className="size-[16px]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+        <div className="overflow-y-auto">
+          <div className="relative h-[200px] sm:h-[260px] lg:h-[300px]">
+            <div className="absolute inset-0" style={{ backgroundImage: project.gradient }} />
+            {project.badge && (
+              <span
+                className={`absolute left-[22px] top-[22px] rounded-full border px-[16px] py-[7px] font-space text-[12px] font-bold uppercase leading-[16px] tracking-normal ${project.badgeClass} shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:left-[32px] sm:top-[32px]`}
+              >
+                {project.badge}
+              </span>
+            )}
+          </div>
+          <div className="px-[22px] py-[28px] sm:px-[40px] sm:py-[40px] lg:px-[48px]">
+            <h2
+              id={`project-${project.id}-title`}
+              className="font-space text-[28px] font-normal uppercase leading-[34px] tracking-normal text-[#1a1c1c] sm:text-[36px] sm:leading-[44px]"
+            >
+              {project.title}
+            </h2>
+            <p className="mt-[14px] text-[16px] leading-[26px] text-[#4b5563] [text-wrap:pretty] sm:text-[17px] sm:leading-[28px]">
+              {project.description}
+            </p>
+            <ModalSection title="How it was built">
+              <p>{project.process}</p>
+            </ModalSection>
+            <ModalSection title="Tools used">
+              <div className="flex flex-wrap gap-[8px]">
+                {project.tools.map((tool) => (
+                  <Pill key={tool} small>
+                    {tool}
+                  </Pill>
+                ))}
+              </div>
+            </ModalSection>
+            <ModalSection title="Results">
+              <p>{project.results}</p>
+            </ModalSection>
+            <ModalSection title="Observations">
+              <p>{project.observations}</p>
+            </ModalSection>
+            {project.metrics && project.metrics.length > 0 && (
+              <ModalSection title="Metrics">
+                <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-3">
+                  {project.metrics.map((metric) => (
+                    <div
+                      key={metric.label}
+                      className="rounded-[14px] border border-[#e5e7eb] bg-[#f9fafb] px-[18px] py-[16px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.04)]"
+                    >
+                      <p className="text-[11px] font-bold uppercase leading-[14px] tracking-[0.04em] text-[#6b7280]">
+                        {metric.label}
+                      </p>
+                      <p className="mt-[6px] font-space text-[24px] font-normal leading-[30px] text-[#1a1c1c]">
+                        {metric.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </ModalSection>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function ProjectsSection() {
+  const [openProject, setOpenProject] = useState(null);
+
+  const cards = [
+    { project: projects[0], variant: "featured", className: "md:col-span-2 lg:col-span-8 lg:row-span-2" },
+    { project: projects[1], variant: "compact", className: "lg:col-span-4 lg:row-span-1" },
+    { project: projects[2], variant: "compact", className: "lg:col-span-4 lg:row-span-1" },
+    { project: projects[3], variant: "horizontal", className: "md:col-span-2 lg:col-span-12" },
+  ];
+
   return (
     <section id="projects" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
       <div className="flex flex-col gap-[18px] border-b border-[#d1d5db] pb-[28px] sm:flex-row sm:items-end sm:justify-between">
@@ -731,35 +1045,23 @@ function ProjectsSection() {
           <img alt="" src={`${A}arrow-right.svg`} className="size-[18px]" />
         </a>
       </div>
-      <div className="mt-[35px] grid gap-[26px] sm:mt-[53px] lg:grid-cols-3 lg:gap-[35px]">
-        {projects.map((project) => (
-          <article key={project.title} className={`flex min-h-[616px] flex-col overflow-hidden rounded-[22px] ${border} bg-white p-px ${shadowCard} sm:rounded-[26px]`}>
-            <div className="relative h-[220px] shrink-0 border-b border-[#d1d5db] bg-[#f9fafb] sm:h-[246px]">
-              <div className="absolute inset-0 opacity-80" style={{ backgroundImage: project.gradient }} />
-              {project.badge && (
-                <span className={`absolute right-[22px] top-[22px] rounded-full border px-[19px] py-[8px] text-[13px] font-bold uppercase leading-[18px] tracking-normal ${project.badgeClass} shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] backdrop-blur-[2px]`}>
-                  {project.badge}
-                </span>
-              )}
-            </div>
-            <div className="flex flex-1 flex-col p-[26px] sm:p-[35px]">
-              <h3 className="pb-[13px] font-space text-[26px] font-normal uppercase leading-[35px] tracking-normal text-[#1a1c1c]">
-                {project.title}
-              </h3>
-              <p className="pb-[35px] text-[18px] leading-[29px] text-[#4b5563] [text-wrap:pretty]">
-                {project.description}
-              </p>
-              <div className="mt-auto flex flex-wrap gap-[13px] border-t border-[#d1d5db] pt-[26px]">
-                {project.tags.map((tag) => (
-                  <Pill key={tag} small>
-                    {tag}
-                  </Pill>
-                ))}
-              </div>
-            </div>
-          </article>
+      <div className="mt-[35px] grid grid-cols-1 gap-[22px] sm:mt-[53px] md:grid-cols-2 lg:grid-cols-12 lg:gap-[26px]">
+        {cards.map(({ project, variant, className }, index) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            variant={variant}
+            index={index}
+            className={className}
+            onOpen={setOpenProject}
+          />
         ))}
       </div>
+      <AnimatePresence>
+        {openProject && (
+          <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

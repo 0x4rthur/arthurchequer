@@ -178,13 +178,13 @@ function IconComponent({ size, pauseMouseTracking, ...props }) {
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const maxRadius = 160;
+      const maxRadius = 400;
       if (dist > maxRadius) {
         el.style.transform = 'translate(0px, 0px)';
         return;
       }
-      const nx = (dx / maxRadius) * 2;
-      const ny = (dy / maxRadius) * 2;
+      const nx = (dx / maxRadius) * 2.8;
+      const ny = (dy / maxRadius) * 2.8;
       el.style.transform = `translate(${nx}px, ${ny}px)`;
     };
     window.addEventListener('mousemove', onMove, { passive: true });
