@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { Bot } from "./components/animate-ui/icons/bot";
 import ColorBends from "./components/ColorBends";
 import { DownloadIcon } from "./components/ui/download-icon";
@@ -25,6 +26,10 @@ const shadowSoft = "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]";
 const border = "border border-[#d1d5db]";
 const pagePadding = "px-[20px] sm:px-[32px] lg:px-[48px]";
 const sectionSpacing = "mt-[104px] sm:mt-[128px] lg:mt-[160px]";
+const chatLayoutTransition = {
+  duration: 0.42,
+  ease: [0.22, 1, 0.36, 1],
+};
 
 const toolkit = [
   {
@@ -519,38 +524,52 @@ function ChatWidget() {
       </div>
       <div
         ref={messagesRef}
-        className={`min-h-0 flex-1 space-y-[24px] overflow-y-auto bg-white px-[16px] py-[24px] sm:px-[32px] sm:py-[32px] ${isResetting ? "chat-resetting" : ""}`}
+        className={`min-h-0 flex-1 space-y-[18px] overflow-y-auto bg-white px-[16px] py-[20px] sm:px-[28px] sm:py-[24px] ${isResetting ? "chat-resetting" : ""}`}
       >
         {messages.map((message, index) =>
           message.role === "agent" ? (
-            <div key={`${message.role}-${index}`} className="chat-message-in flex max-w-full items-start gap-[12px] sm:gap-[16px]">
-              <AgentAvatar
-                visible={!isTyping && index === lastAgentMessageIndex}
-                animateBot={message.animateBot}
-                eyeX={eyeX}
-                eyeY={eyeY}
-              />
-              <div className={`rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[16px] py-[16px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:px-[21px] sm:py-[18px]`}>
-                <p className="text-[16px] leading-[26px] text-[#374151]">{message.text}</p>
-              </div>
-            </div>
+            <motion.div
+              key={`${message.role}-${index}`}
+              layout
+              transition={{ layout: chatLayoutTransition }}
+              className={`chat-message-in chat-agent-row ${index === lastAgentMessageIndex && !isTyping ? "chat-agent-row-current" : ""}`}
+            >
+              {index === lastAgentMessageIndex && !isTyping ? (
+                <AgentAvatar animateBot={message.animateBot} eyeX={eyeX} eyeY={eyeY} />
+              ) : null}
+              <motion.div
+                layout
+                transition={{ layout: chatLayoutTransition }}
+                className={`chat-agent-bubble rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[14px] py-[13px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:px-[18px] sm:py-[15px]`}
+              >
+                <p className="text-[15px] leading-[24px] text-[#374151]">{message.text}</p>
+              </motion.div>
+            </motion.div>
           ) : (
             <div key={`${message.role}-${index}`} className="chat-message-in flex justify-end">
-              <div className="max-w-[82%] rounded-bl-[16px] rounded-br-[16px] rounded-tl-[16px] border border-black bg-black p-[18px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:max-w-[386px] sm:p-[21px]">
-                <p className="text-[16px] leading-[26px] text-white">{message.text}</p>
+              <div className="max-w-[82%] rounded-bl-[16px] rounded-br-[16px] rounded-tl-[16px] border border-black bg-black px-[16px] py-[14px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:max-w-[372px] sm:px-[18px] sm:py-[16px]">
+                <p className="text-[15px] leading-[24px] text-white">{message.text}</p>
               </div>
             </div>
           ),
         )}
         {isTyping && (
-          <div className="chat-message-in flex max-w-full items-start gap-[12px] sm:gap-[16px]">
-            <AgentAvatar visible animateEntrance animateBot eyeX={eyeX} eyeY={eyeY} />
-            <div className={`flex h-[52px] items-center gap-[6px] rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[21px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+          <motion.div
+            layout
+            transition={{ layout: chatLayoutTransition }}
+            className="chat-message-in chat-agent-row chat-agent-row-current"
+          >
+            <AgentAvatar animateEntrance animateBot eyeX={eyeX} eyeY={eyeY} />
+            <motion.div
+              layout
+              transition={{ layout: chatLayoutTransition }}
+              className={`chat-agent-bubble flex h-[46px] items-center gap-[6px] rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[18px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}
+            >
               <span className="typing-dot" />
               <span className="typing-dot animation-delay-150" />
               <span className="typing-dot animation-delay-300" />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
       </div>
       <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white px-[16px] pb-[20px] pt-[21px] sm:px-[20px]">
@@ -577,18 +596,16 @@ function ChatWidget() {
   );
 }
 
-function AgentAvatar({ visible, animateEntrance = false, animateBot = false, eyeX, eyeY }) {
+function AgentAvatar({ animateEntrance = false, animateBot = false, eyeX, eyeY }) {
   return (
-    <div className="size-[36px] shrink-0 sm:size-[40px]" aria-hidden={!visible}>
-      {visible && (
-        <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
-          {animateBot ? (
-            <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
-          ) : (
-            <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
-          )}
-        </div>
-      )}
+    <div className="size-[36px] shrink-0 sm:size-[40px]" aria-hidden="true">
+      <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+        {animateBot ? (
+          <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
+        ) : (
+          <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
+        )}
+      </div>
     </div>
   );
 }

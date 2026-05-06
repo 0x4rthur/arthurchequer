@@ -41,6 +41,38 @@ a {
   animation: chat-message-in 220ms ease-out both;
 }
 
+.chat-agent-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+.chat-agent-row > :last-child {
+  min-width: 0;
+}
+
+.chat-agent-bubble {
+  justify-self: start;
+  width: fit-content;
+  max-width: min(100%, 34rem);
+}
+
+.chat-agent-row-current {
+  gap: 12px;
+  grid-template-columns: 36px minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .chat-agent-bubble {
+    max-width: min(82%, 34rem);
+  }
+
+  .chat-agent-row-current {
+    gap: 16px;
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+}
+
 .typing-dot {
   width: 7px;
   height: 7px;
