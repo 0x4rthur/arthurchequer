@@ -336,7 +336,7 @@ function Hero() {
           <p className="max-w-[48ch] text-[18px] font-normal leading-[30px] text-[#4b5563] [text-wrap:pretty] sm:text-[19px] sm:leading-[31px]">
             A pragmatic <strong>AI Engineer</strong> with 1 year of hands-on experience building autonomous agents, robust LLM pipelines, and scalable backend infrastructure. Focused on creating quietly useful tools.
           </p>
-          <div className="flex w-full flex-col gap-[13px] pt-[9px] sm:w-auto sm:flex-row sm:flex-wrap sm:gap-[18px] lg:pt-[18px]">
+          <div className="flex flex-wrap items-center gap-x-[22px] gap-y-[13px] pt-[9px] lg:pt-[18px]">
             <a
               href={cvHref}
               download
@@ -347,7 +347,7 @@ function Hero() {
               Download CV
               <DownloadIcon ref={downloadIconRef} size={20} duration={0.9} className="shrink-0" />
             </a>
-            <a href="#toolkit" className="group flex min-h-[48px] w-full min-w-[180px] items-center justify-center gap-[10px] rounded-[13px] bg-white px-[20px] py-[13px] text-center text-[13px] font-normal uppercase leading-[18px] tracking-normal text-[#6b7280] outline-none transition-[color,transform] duration-200 hover:translate-y-0.5 hover:text-[#1a1c1c] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto">
+            <a href="#toolkit" className="group flex items-center gap-[9px] text-[13px] font-normal uppercase leading-[18px] tracking-normal text-[#6b7280] outline-none transition-[color,transform] duration-200 hover:text-[#1a1c1c] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
               Scroll down to explore more
               <svg
                 aria-hidden="true"

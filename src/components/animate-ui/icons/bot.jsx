@@ -157,11 +157,11 @@ function IconComponent({ size, pauseMouseTracking, ...props }) {
   const { controls } = useAnimateIconContext();
   const variants = getVariants(animations);
   const eyeRef = React.useRef(null);
+  const svgRef = React.useRef(null);
 
   React.useEffect(() => {
     const el = eyeRef.current;
     if (!el) return;
-    // CSS transition handles smooth following — no rAF needed
     el.style.transition = 'transform 0.16s ease-out';
 
     if (pauseMouseTracking) {
@@ -170,9 +170,21 @@ function IconComponent({ size, pauseMouseTracking, ...props }) {
     }
 
     const onMove = (e) => {
-      // normalize to -1..1, clamp to ±2px in SVG CSS space
-      const nx = ((e.clientX / window.innerWidth)  * 2 - 1) * 2;
-      const ny = ((e.clientY / window.innerHeight) * 2 - 1) * 2;
+      const svg = svgRef.current;
+      if (!svg) return;
+      const rect = svg.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxRadius = 160;
+      if (dist > maxRadius) {
+        el.style.transform = 'translate(0px, 0px)';
+        return;
+      }
+      const nx = (dx / maxRadius) * 2;
+      const ny = (dy / maxRadius) * 2;
       el.style.transform = `translate(${nx}px, ${ny}px)`;
     };
     window.addEventListener('mousemove', onMove, { passive: true });
@@ -181,6 +193,7 @@ function IconComponent({ size, pauseMouseTracking, ...props }) {
 
   return (
     <motion.svg
+      ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
