@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Bot } from "./components/animate-ui/icons/bot";
+import ColorBends from "./components/ColorBends";
 
 const A = "/assets/";
 const contactHref = "#contact";
@@ -285,16 +286,38 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="relative left-1/2 isolate mt-[174px] min-h-[620px] w-screen -translate-x-1/2 overflow-hidden py-[48px] sm:mt-[188px] sm:py-[64px] md:mt-[132px] lg:mt-[176px] lg:py-[72px]">
-      <div aria-hidden="true" className="absolute inset-0 -z-20 overflow-hidden opacity-90">
-        <div className="hero-warp" />
+    <section className="relative left-1/2 mt-[174px] min-h-[620px] w-screen -translate-x-1/2 overflow-hidden py-[48px] [contain:layout_style] sm:mt-[188px] sm:py-[64px] md:mt-[132px] lg:mt-[176px] lg:py-[72px]">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20">
+        <ColorBends
+          rotation={90}
+          speed={0.2}
+          colors={["#a4c8ff"]}
+          transparent
+          autoRotate={0}
+          scale={1}
+          frequency={0.8}
+          warpStrength={1}
+          mouseInfluence={0.3}
+          parallax={0.3}
+          noise={0}
+          iterations={1}
+          intensity={1.5}
+          bandWidth={7}
+        />
       </div>
-      <div className="absolute inset-0 -z-10 bg-white/38 backdrop-blur-[1px]" />
-      <div className="absolute inset-x-0 top-0 -z-10 h-[34%] bg-gradient-to-b from-white via-white/92 to-transparent" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0)_18%,rgba(255,255,255,0.44)_58%,rgba(255,255,255,0.96)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-[42%] bg-gradient-to-b from-transparent via-white/78 to-white" />
-      <div className="absolute inset-y-0 left-0 -z-10 w-[34vw] bg-gradient-to-r from-white via-white/82 to-transparent" />
-      <div className="absolute inset-y-0 right-0 -z-10 w-[22vw] bg-gradient-to-l from-white/88 via-white/42 to-transparent" />
+      {/* 6 overlay divs → 1; backdrop-blur removido (forçava readback GPU a cada frame) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{ background: [
+          'linear-gradient(to bottom,#fff 0%,rgba(255,255,255,.92) 7%,transparent 33%)',
+          'linear-gradient(to top,#fff 0%,rgba(255,255,255,.78) 17%,transparent 40%)',
+          'linear-gradient(to right,#fff 0%,rgba(255,255,255,.82) 13%,transparent 33%)',
+          'linear-gradient(to left,rgba(255,255,255,.88) 0%,rgba(255,255,255,.42) 7%,transparent 21%)',
+          'radial-gradient(ellipse at center,transparent 18%,rgba(255,255,255,.44) 58%,rgba(255,255,255,.96) 100%)',
+          'rgba(255,255,255,.40)',
+        ].join(',') }}
+      />
       <div className={`mx-auto grid w-full max-w-[1200px] gap-[48px] ${pagePadding} lg:min-h-[520px] lg:grid-cols-[minmax(0,1fr)_minmax(480px,520px)] lg:items-center lg:gap-[64px]`}>
         <div className="flex max-w-[560px] flex-col items-start gap-[28px] self-center lg:max-w-none">
           <h1 className="font-space text-[56px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[76px] lg:text-[96px]">
