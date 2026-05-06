@@ -285,26 +285,37 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className={`mt-[174px] grid gap-[48px] ${pagePadding} sm:mt-[188px] md:mt-[132px] lg:mt-[176px] lg:min-h-[520px] lg:grid-cols-[minmax(0,1fr)_minmax(480px,520px)] lg:items-center lg:gap-[64px]`}>
-      <div className="flex max-w-[560px] flex-col items-start gap-[28px] self-center lg:max-w-none">
-        <h1 className="font-space text-[56px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[76px] lg:text-[96px]">
-          Hi, I&apos;m
-          <br />
-          Arthur.
-        </h1>
-        <p className="max-w-[48ch] text-[18px] font-normal leading-[30px] text-[#4b5563] [text-wrap:pretty] sm:text-[19px] sm:leading-[31px]">
-          A pragmatic <strong>AI Engineer</strong> with 1 year of hands-on experience building autonomous agents, robust LLM pipelines, and scalable backend infrastructure. Focused on creating quietly useful tools.
-        </p>
-        <div className="flex w-full flex-col gap-[12px] pt-[8px] sm:w-auto sm:flex-row sm:flex-wrap sm:gap-[16px] lg:pt-[16px]">
-          <a href="#projects" className={`flex min-h-[56px] w-full min-w-[164px] items-center justify-center rounded-[12px] ${border} bg-[#a5c9ff] px-[33px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}>
-            VIEW PROJECTS
-          </a>
-          <a href={resumeHref} className={`flex min-h-[56px] w-full min-w-[164px] items-center justify-center rounded-[12px] ${border} bg-white px-[33px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#f9fafb] hover:shadow-[0px_14px_24px_-22px_rgba(17,24,39,0.35)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}>
-            RESUME
-          </a>
-        </div>
+    <section className="relative left-1/2 isolate mt-[174px] min-h-[620px] w-screen -translate-x-1/2 overflow-hidden py-[48px] sm:mt-[188px] sm:py-[64px] md:mt-[132px] lg:mt-[176px] lg:py-[72px]">
+      <div aria-hidden="true" className="absolute inset-0 -z-20 overflow-hidden opacity-90">
+        <div className="hero-warp" />
       </div>
-      <ChatWidget />
+      <div className="absolute inset-0 -z-10 bg-white/38 backdrop-blur-[1px]" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-[34%] bg-gradient-to-b from-white via-white/92 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0)_18%,rgba(255,255,255,0.44)_58%,rgba(255,255,255,0.96)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-[42%] bg-gradient-to-b from-transparent via-white/78 to-white" />
+      <div className="absolute inset-y-0 left-0 -z-10 w-[34vw] bg-gradient-to-r from-white via-white/82 to-transparent" />
+      <div className="absolute inset-y-0 right-0 -z-10 w-[22vw] bg-gradient-to-l from-white/88 via-white/42 to-transparent" />
+      <div className={`mx-auto grid w-full max-w-[1200px] gap-[48px] ${pagePadding} lg:min-h-[520px] lg:grid-cols-[minmax(0,1fr)_minmax(480px,520px)] lg:items-center lg:gap-[64px]`}>
+        <div className="flex max-w-[560px] flex-col items-start gap-[28px] self-center lg:max-w-none">
+          <h1 className="font-space text-[56px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[76px] lg:text-[96px]">
+            Hi, I&apos;m
+            <br />
+            Arthur.
+          </h1>
+          <p className="max-w-[48ch] text-[18px] font-normal leading-[30px] text-[#4b5563] [text-wrap:pretty] sm:text-[19px] sm:leading-[31px]">
+            A pragmatic <strong>AI Engineer</strong> with 1 year of hands-on experience building autonomous agents, robust LLM pipelines, and scalable backend infrastructure. Focused on creating quietly useful tools.
+          </p>
+          <div className="flex w-full flex-col gap-[12px] pt-[8px] sm:w-auto sm:flex-row sm:flex-wrap sm:gap-[16px] lg:pt-[16px]">
+            <a href="#projects" className={`flex min-h-[56px] w-full min-w-[164px] items-center justify-center rounded-[12px] ${border} bg-[#a5c9ff] px-[33px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}>
+              VIEW PROJECTS
+            </a>
+            <a href={resumeHref} className={`flex min-h-[56px] w-full min-w-[164px] items-center justify-center rounded-[12px] ${border} bg-white px-[33px] py-[17px] text-center text-[14px] font-bold uppercase leading-[20px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#f9fafb] hover:shadow-[0px_14px_24px_-22px_rgba(17,24,39,0.35)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}>
+              RESUME
+            </a>
+          </div>
+        </div>
+        <ChatWidget />
+      </div>
     </section>
   );
 }
