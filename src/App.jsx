@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bot } from "./components/animate-ui/icons/bot";
 import ColorBends from "./components/ColorBends";
 import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
@@ -133,7 +133,6 @@ const chatTabs = ["About", "Skills", "More"];
 const botAnimationDuration = 1300;
 const botAnimationLoops = 1;
 const botReplyDelay = 850;
-const botIdleBlinkDelay = 5000;
 
 const initialChatMessages = [
   {
@@ -355,7 +354,6 @@ function ChatWidget() {
   const typingTimerRef = useRef(null);
   const resetCommitTimerRef = useRef(null);
   const resetEndTimerRef = useRef(null);
-  const { blinkTick: idleBlinkTick, recordActivity } = useIdleBlink(botIdleBlinkDelay);
   const { eyeX, eyeY } = useBotEyeOffset();
 
   useEffect(() => {
@@ -382,8 +380,6 @@ function ChatWidget() {
     setMessages((current) => [...current, { role: "user", text: cleanDraft }]);
     setDraft("");
     setIsTyping(true);
-    recordActivity();
-
     window.clearTimeout(typingTimerRef.current);
     typingTimerRef.current = window.setTimeout(() => {
       setMessages((current) => [
@@ -432,8 +428,6 @@ function ChatWidget() {
     setIsResetting(true);
     setIsResetSpinning(true);
     setIsTyping(false);
-    recordActivity();
-
     resetCommitTimerRef.current = window.setTimeout(() => {
       setActiveTab("About");
       setMessages(initialChatMessages);
@@ -509,9 +503,9 @@ function ChatWidget() {
             <div key={`${message.role}-${index}`} className="chat-message-in flex max-w-full items-start gap-[12px] sm:gap-[16px]">
               <div className={`flex size-[36px] shrink-0 items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:size-[40px]`}>
                 {message.animateBot ? (
-                  <BotLoopIcon idleBlinkTick={idleBlinkTick} eyeX={eyeX} eyeY={eyeY} />
+                  <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
                 ) : (
-                  <IdleBlinkBotIcon idleBlinkTick={idleBlinkTick} eyeX={eyeX} eyeY={eyeY} />
+                  <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
                 )}
               </div>
               <div className={`rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[16px] py-[16px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:px-[21px] sm:py-[18px]`}>
@@ -563,41 +557,10 @@ function ChatWidget() {
   );
 }
 
-function useIdleBlink(delay) {
-  const [blinkTick, setBlinkTick] = useState(0);
-  const timerRef = useRef(null);
-
-  const scheduleBlink = useCallback(() => {
-    window.clearTimeout(timerRef.current);
-
-    timerRef.current = window.setTimeout(() => {
-      setBlinkTick((current) => current + 1);
-      scheduleBlink();
-    }, delay);
-  }, [delay]);
-
-  const recordActivity = useCallback(() => {
-    setBlinkTick((current) => (current === 0 ? current : 0));
-    scheduleBlink();
-  }, [scheduleBlink]);
-
-  useEffect(() => {
-    scheduleBlink();
-
-    return () => {
-      window.clearTimeout(timerRef.current);
-    };
-  }, [scheduleBlink]);
-
-  return { blinkTick, recordActivity };
-}
-
-function IdleBlinkBotIcon({ idleBlinkTick, eyeX, eyeY }) {
+function HoverBlinkBotIcon({ eyeX, eyeY }) {
   return (
     <Bot
-      key={idleBlinkTick}
       aria-hidden="true"
-      animate={idleBlinkTick > 0 ? "blink" : false}
       animateOnHover="blink"
       size={23}
       className="text-black"
@@ -607,7 +570,7 @@ function IdleBlinkBotIcon({ idleBlinkTick, eyeX, eyeY }) {
   );
 }
 
-function BotLoopIcon({ idleBlinkTick, eyeX, eyeY }) {
+function BotLoopIcon({ eyeX, eyeY }) {
   const [loopIndex, setLoopIndex] = useState(0);
   const isLooping = loopIndex < botAnimationLoops;
 
@@ -628,7 +591,7 @@ function BotLoopIcon({ idleBlinkTick, eyeX, eyeY }) {
   }, [loopIndex]);
 
   if (!isLooping) {
-    return <IdleBlinkBotIcon idleBlinkTick={idleBlinkTick} eyeX={eyeX} eyeY={eyeY} />;
+    return <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />;
   }
 
   return (
