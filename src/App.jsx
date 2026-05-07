@@ -21,11 +21,11 @@ const contactActions = [
 ];
 
 const shadowCard =
-  "shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)]";
-const shadowSoft = "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]";
+  "shadow-[0px_16.2px_20.7px_-4px_rgba(0,0,0,0.1),0px_6.6px_8.1px_-5px_rgba(0,0,0,0.1)]";
+const shadowSoft = "shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)]";
 const border = "border border-[#d1d5db]";
-const pagePadding = "px-[22px] sm:px-[35px] lg:px-[53px]";
-const sectionSpacing = "mt-[114px] sm:mt-[141px] lg:mt-[176px]";
+const pagePadding = "px-[18px] sm:px-[28.8px] lg:px-[43.2px]";
+const sectionSpacing = "mt-[93.6px] sm:mt-[115.2px] lg:mt-[144px]";
 const chatLayoutTransition = {
   duration: 0.42,
   ease: [0.22, 1, 0.36, 1],
@@ -35,19 +35,19 @@ const toolkit = [
   {
     title: "PYTHON",
     icon: "python-brand.png",
-    iconClass: "size-[41px]",
+    iconClass: "size-[33.3px]",
     tags: ["PANDAS", "NUMPY", "FASTAPI"],
   },
   {
     title: "LANGCHAIN",
     icon: "langchain-brand.png",
-    iconClass: "size-[41px]",
+    iconClass: "size-[33.3px]",
     tags: ["AGENTS", "RAG", "VECTOR DBS"],
   },
   {
     title: "HUGGING FACE",
     icon: "huggingface-brand.png",
-    iconClass: "h-[59px] w-[58px]",
+    iconClass: "h-[48.6px] w-[47.7px]",
     tags: ["TRANSFORMERS", "LLMS", "DIFFUSERS"],
   },
 ];
@@ -155,26 +155,26 @@ const skills = [
   {
     title: "AI / ML FRAMEWORKS",
     items: [
-      ["pytorch.png", "PyTorch", "h-[21px] w-[18px]", "gap-4"],
+      ["pytorch.png", "PyTorch", "h-[17.1px] w-[14.4px]", "gap-4"],
       ["keras.png", "Keras", "size-4", "gap-4"],
-      ["huggingface-small.png", "Hugging Face", "size-6 rounded-[11px]", "gap-[10px]"],
+      ["huggingface-small.png", "Hugging Face", "size-6 rounded-[9px]", "gap-[8.1px]"],
       ["langchain-small.png", "LangChain", "size-5", "gap-4"],
       ["langgraph.png", "LangGraph", "size-5", "gap-4"],
-      ["scikit.png", "scikit-learn", "h-[15px] w-[29px]", "gap-[10px]"],
+      ["scikit.png", "scikit-learn", "h-[12.6px] w-[23.4px]", "gap-[8.1px]"],
       ["opencv.png", "openCV", "size-5", "gap-4"],
     ],
   },
   {
     title: "LANGUAGES",
     items: [
-      ["python-mini.png", "Python", "size-[19px]", "gap-4"],
-      ["sql.png", "SQL", "h-5 w-[20px]", "gap-4"],
+      ["python-mini.png", "Python", "size-[15.3px]", "gap-4"],
+      ["sql.png", "SQL", "h-5 w-[16.2px]", "gap-4"],
     ],
   },
   {
     title: "DEVOPS",
     items: [
-      ["mlflow.png", "MLFlow", "size-[20px]", "gap-4"],
+      ["mlflow.png", "MLFlow", "size-[16.2px]", "gap-4"],
       ["wandb.png", <>Weights &amp; Biases<br />(W&amp;B)</>, "size-4", "gap-4"],
       ["github.png", "GitHub", "size-4", "gap-4"],
     ],
@@ -182,22 +182,22 @@ const skills = [
   {
     title: "BACK-END",
     items: [
-      ["fastapi.png", "FastAPI", "size-[20px]", "gap-4"],
-      ["chroma.png", "Chroma", "h-[21px] w-6", "gap-[10px]"],
+      ["fastapi.png", "FastAPI", "size-[16.2px]", "gap-4"],
+      ["chroma.png", "Chroma", "h-[17.1px] w-6", "gap-[8.1px]"],
     ],
   },
 ];
 
 const educationLeft = [
-  ["AI & ML Engineering", "Microsoft", "microsoft.png", "size-[53px]"],
-  ["Azure Fundamentals (AZ-900)", "Microsoft", "az900.png", "size-[64px]"],
-  ["Data Analytics Certificate", "Google", "google-data.png", "h-[64px] w-[67px]"],
-  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[46px] w-[79px]"],
+  ["AI & ML Engineering", "Microsoft", "microsoft.png", "size-[43.2px]"],
+  ["Azure Fundamentals (AZ-900)", "Microsoft", "az900.png", "size-[52.2px]"],
+  ["Data Analytics Certificate", "Google", "google-data.png", "h-[52.2px] w-[54.9px]"],
+  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[37.8px] w-[64.8px]"],
 ];
 
 const educationRight = [
-  ["Cyber Defense", "FIAP", "fiap.png", "size-[62px] rounded-[11px]"],
-  ["MBA - IA, Data Science e Big Data", "Ibmec", "ibmec.png", "size-[62px] rounded-[11px]"],
+  ["Cyber Defense", "FIAP", "fiap.png", "size-[50.4px] rounded-[9px]"],
+  ["MBA - IA, Data Science e Big Data", "Ibmec", "ibmec.png", "size-[50.4px] rounded-[9px]"],
 ];
 
 const navItems = [
@@ -297,24 +297,24 @@ function Nav() {
   }, []);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-[15px] z-50 px-[13px] sm:top-[20px] sm:px-[22px]">
+    <header className="pointer-events-none fixed inset-x-0 top-[12.6px] z-50 px-[10.8px] sm:top-[16.2px] sm:px-[18px]">
       <div
-        className={`nav-shell nav-float-in pointer-events-auto mx-auto flex h-[64px] w-full items-center justify-between rounded-full border px-[10px] pl-[20px] transition-[max-width,background-color,border-color,box-shadow] duration-[440ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-[79px] sm:px-[13px] sm:pl-[31px] ${
+        className={`nav-shell nav-float-in pointer-events-auto mx-auto flex h-[52.2px] w-full items-center justify-between rounded-full border px-[8.1px] pl-[16.2px] transition-[max-width,background-color,border-color,box-shadow] duration-[440ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-[64.8px] sm:px-[10.8px] sm:pl-[25.2px] ${
           isScrolled
-            ? "max-w-[858px] border-[#d1d5db] bg-white/92 shadow-[0px_18px_45px_-24px_rgba(17,24,39,0.42)] backdrop-blur-[20px]"
-            : "max-w-[1285px] border-[#e5e7eb] bg-white/78 shadow-[0px_10px_30px_-26px_rgba(17,24,39,0.34)] backdrop-blur-[15px]"
+            ? "max-w-[702px] border-[#d1d5db] bg-white/92 shadow-[0px_14.4px_36.9px_-19.6px_rgba(17,24,39,0.42)] backdrop-blur-[16.2px]"
+            : "max-w-[1051.2px] border-[#e5e7eb] bg-white/78 shadow-[0px_8.1px_24.3px_-21.2px_rgba(17,24,39,0.34)] backdrop-blur-[12.6px]"
         }`}
       >
         <a
           href="#top"
-          className="rounded-full font-space text-[18px] font-black uppercase leading-[24px] tracking-normal text-black outline-none transition-[color,transform] duration-300 ease-out hover:text-[#1f2937] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:text-[23px] sm:leading-[31px]"
+          className="rounded-full font-space text-[14.4px] font-black uppercase leading-[19.8px] tracking-normal text-black outline-none transition-[color,transform] duration-300 ease-out hover:text-[#1f2937] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:text-[18.9px] sm:leading-[25.2px]"
         >
           AI_ENGINEER
         </a>
 
         <nav
           aria-label="Primary navigation"
-          className="hidden items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb]/80 p-[6px] transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] md:flex"
+          className="hidden items-center rounded-full border border-[#e5e7eb] bg-[#f9fafb]/80 p-[5px] transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] md:flex"
         >
           {navItems.map(({ label, id }) => {
             const isActive = activeSection === id;
@@ -324,9 +324,9 @@ function Nav() {
                 key={id}
                 href={`#${id}`}
                 aria-current={isActive ? "page" : undefined}
-                className={`rounded-full px-[21px] py-[11px] font-space text-[13px] font-bold uppercase leading-[20px] tracking-normal outline-none transition-[background-color,color,box-shadow,transform] duration-300 ease-out focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f9fafb] ${
+                className={`rounded-full px-[17.1px] py-[9px] font-space text-[10.8px] font-bold uppercase leading-[16.2px] tracking-normal outline-none transition-[background-color,color,box-shadow,transform] duration-300 ease-out focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f9fafb] ${
                   isActive
-                    ? "bg-white text-black shadow-[0px_1px_2px_0px_rgba(0,0,0,0.08)]"
+                    ? "bg-white text-black shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.08)]"
                     : "text-[#6b7280] hover:bg-white/70 hover:text-[#111827]"
                 }`}
               >
@@ -338,20 +338,20 @@ function Nav() {
 
         <a
           href={contactHref}
-          className="rounded-full border border-[#8fbaff] bg-[#a5c9ff] px-[13px] py-[10px] text-center font-space text-[12px] font-bold uppercase leading-[18px] tracking-normal text-black shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.55)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:px-[26px] sm:py-[14px] sm:text-[13px] sm:leading-[20px]"
+          className="rounded-full border border-[#8fbaff] bg-[#a5c9ff] px-[10.8px] py-[8.1px] text-center font-space text-[9.9px] font-bold uppercase leading-[14.4px] tracking-normal text-black shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_11.7px_19.8px_-16.4px_rgba(17,24,39,0.55)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:px-[21.6px] sm:py-[11.7px] sm:text-[10.8px] sm:leading-[16.2px]"
         >
           CONTACT ME
         </a>
       </div>
       <nav
         aria-label="Mobile navigation"
-        className="pointer-events-auto mx-auto mt-[9px] flex w-fit max-w-[calc(100vw-26px)] items-center gap-[4px] rounded-full border border-[#e5e7eb] bg-white/92 p-[6px] shadow-[0px_10px_30px_-24px_rgba(17,24,39,0.38)] backdrop-blur-[15px] md:hidden"
+        className="pointer-events-auto mx-auto mt-[7.4px] flex w-fit max-w-[calc(100vw-21.2px)] items-center gap-[3.2px] rounded-full border border-[#e5e7eb] bg-white/92 p-[5px] shadow-[0px_8.1px_24.3px_-19.6px_rgba(17,24,39,0.38)] backdrop-blur-[12.6px] md:hidden"
       >
         {navItems.map(({ label, id }) => (
           <a
             key={id}
             href={`#${id}`}
-            className="rounded-full px-[13px] py-[9px] font-space text-[11px] font-bold uppercase leading-[15px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:bg-[#f9fafb] hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="rounded-full px-[10.8px] py-[7.4px] font-space text-[9px] font-bold uppercase leading-[12.6px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:bg-[#f9fafb] hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
             {label}
           </a>
@@ -365,7 +365,7 @@ function Hero() {
   const downloadIconRef = useRef(null);
 
   return (
-    <section className="relative left-1/2 mt-[191px] min-h-[682px] w-screen -translate-x-1/2 overflow-hidden py-[53px] [contain:layout_style] sm:mt-[207px] sm:py-[70px] md:mt-[145px] lg:mt-[194px] lg:py-[79px]">
+    <section className="relative left-1/2 mt-[156.6px] min-h-[558px] w-screen -translate-x-1/2 overflow-hidden py-[43.2px] [contain:layout_style] sm:mt-[169.2px] sm:py-[57.6px] md:mt-[118.8px] lg:mt-[158.4px] lg:py-[64.8px]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20">
         <ColorBends
           rotation={90}
@@ -397,32 +397,32 @@ function Hero() {
           'rgba(255,255,255,.40)',
         ].join(',') }}
       />
-      <div className={`mx-auto grid w-full max-w-[1320px] gap-[53px] ${pagePadding} lg:min-h-[572px] lg:grid-cols-[minmax(0,1fr)_minmax(480px,660px)] lg:items-center lg:gap-[70px]`}>
-        <div className="flex max-w-[616px] flex-col items-start gap-[31px] self-center lg:max-w-none">
-          <h1 className="font-space text-[62px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[84px] lg:text-[106px]">
+      <div className={`mx-auto grid w-full max-w-[1080px] gap-[43.2px] ${pagePadding} lg:min-h-[468px] lg:grid-cols-[minmax(0,1fr)_minmax(392.4px,540px)] lg:items-center lg:gap-[57.6px]`}>
+        <div className="flex max-w-[504px] flex-col items-start gap-[25.2px] self-center lg:max-w-none">
+          <h1 className="font-space text-[50.4px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[68.4px] lg:text-[86.4px]">
             Hi, I&apos;m
             <br />
             Arthur.
           </h1>
-          <p className="max-w-[48ch] text-[18px] font-normal leading-[30px] text-[#4b5563] [text-wrap:pretty] sm:text-[19px] sm:leading-[31px]">
+          <p className="max-w-[48ch] text-[14.4px] font-normal leading-[24.3px] text-[#4b5563] [text-wrap:pretty] sm:text-[15.3px] sm:leading-[25.2px]">
             A pragmatic <strong>AI Engineer</strong> with 1 year of hands-on experience building autonomous agents, robust LLM pipelines, and scalable backend infrastructure. Focused on creating quietly useful tools.
           </p>
-          <div className="flex flex-wrap items-center gap-x-[22px] gap-y-[13px] pt-[9px] lg:pt-[18px]">
+          <div className="flex flex-wrap items-center gap-x-[18px] gap-y-[10.8px] pt-[7.4px] lg:pt-[14.4px]">
             <a
               href={cvHref}
               download
               onMouseEnter={() => downloadIconRef.current?.startAnimation()}
               onMouseLeave={() => downloadIconRef.current?.stopAnimation()}
-              className={`group flex min-h-[62px] w-full min-w-[180px] items-center justify-center gap-[11px] rounded-[13px] ${border} bg-[#a5c9ff] px-[31px] py-[19px] text-center text-[15px] font-bold uppercase leading-[22px] tracking-normal text-[#1a1c1c] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_14px_24px_-20px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}
+              className={`group flex min-h-[50.4px] w-full min-w-[147.6px] items-center justify-center gap-[9px] rounded-[10.8px] ${border} bg-[#a5c9ff] px-[25.2px] py-[15.3px] text-center text-[12.6px] font-bold uppercase leading-[18px] tracking-normal text-[#1a1c1c] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] outline-none transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#97c0ff] hover:shadow-[0px_11.7px_19.8px_-16.4px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:w-auto`}
             >
               Download CV
-              <DownloadIcon ref={downloadIconRef} size={20} duration={0.9} className="shrink-0" />
+              <DownloadIcon ref={downloadIconRef} size={18} duration={0.9} className="shrink-0" />
             </a>
-            <a href="#toolkit" className="group flex items-center gap-[9px] text-[13px] font-normal uppercase leading-[18px] tracking-normal text-[#6b7280] outline-none transition-[color,transform] duration-200 hover:text-[#1a1c1c] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
+            <a href="#toolkit" className="group flex items-center gap-[7.4px] text-[10.8px] font-normal uppercase leading-[14.4px] tracking-normal text-[#6b7280] outline-none transition-[color,transform] duration-200 hover:text-[#1a1c1c] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
               Scroll down to explore more
               <svg
                 aria-hidden="true"
-                className="size-[17px] shrink-0 transition-transform duration-200 group-hover:translate-y-[2px]"
+                className="size-[13.5px] shrink-0 transition-transform duration-200 group-hover:translate-y-[1.6px]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -562,31 +562,31 @@ function ChatWidget() {
 
   return (
     <div
-      className={`flex h-[572px] min-w-0 flex-col overflow-hidden rounded-[22px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[11px] sm:rounded-[26px] lg:h-[550px] lg:w-full`}
+      className={`flex h-[468px] min-w-0 flex-col overflow-hidden rounded-[18px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[9px] sm:rounded-[21.6px] lg:h-[450px] lg:w-full`}
     >
-      <div className="relative z-20 min-h-[78px] shrink-0 border-b border-[#d1d5db] bg-white/[.97] px-[16px] py-[18px] backdrop-blur-[7px] sm:px-[20px] sm:py-[20px]">
-        <div className="flex h-full items-center gap-[8px] sm:gap-[16px]">
+      <div className="relative z-20 min-h-[63.9px] shrink-0 border-b border-[#d1d5db] bg-white/[.97] px-[13.5px] py-[14.4px] backdrop-blur-[5.8px] sm:px-[16.2px] sm:py-[16.2px]">
+        <div className="flex h-full items-center gap-[6.6px] sm:gap-[13.5px]">
           {chatTabs.map((tab) => (
             <button
               key={tab}
               onClick={() => selectTab(tab)}
-              className="cursor-pointer rounded-[8px] border border-[#e5e7eb] bg-white px-[12px] py-[8px] text-center text-[13px] font-medium leading-[18px] tracking-normal text-[#6b7280] shadow-[0px_1px_1px_rgba(0,0,0,0.03)] outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-[#a5c9ff] hover:bg-[#a5c9ff] hover:text-black hover:shadow-[0px_8px_18px_-16px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f9fafb] sm:px-[18px]"
+              className="cursor-pointer rounded-[6.6px] border border-[#e5e7eb] bg-white px-[9.9px] py-[6.6px] text-center text-[10.8px] font-medium leading-[14.4px] tracking-normal text-[#6b7280] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.03)] outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-[#a5c9ff] hover:bg-[#a5c9ff] hover:text-black hover:shadow-[0px_6.6px_14.4px_-13px_rgba(17,24,39,0.45)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f9fafb] sm:px-[14.4px]"
               type="button"
             >
               {tab}
             </button>
           ))}
-          <div className="ml-auto hidden h-[38px] items-center gap-[12px] sm:flex">
+          <div className="ml-auto hidden h-[31.5px] items-center gap-[9.9px] sm:flex">
             <button
               type="button"
               onClick={resetChat}
               aria-label="Reset conversation"
               disabled={isResetting}
-              className="group relative mr-[4px] flex size-[28px] items-center justify-center rounded-full border border-[#d1d5db] bg-white text-[#6b7280] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] transition-colors duration-200 hover:border-[#a5c9ff] hover:text-black disabled:cursor-wait disabled:border-[#a5c9ff] disabled:text-black"
+              className="group relative mr-[3.2px] flex size-[22.5px] items-center justify-center rounded-full border border-[#d1d5db] bg-white text-[#6b7280] shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] transition-colors duration-200 hover:border-[#a5c9ff] hover:text-black disabled:cursor-wait disabled:border-[#a5c9ff] disabled:text-black"
             >
               <svg
                 aria-hidden="true"
-                className={`size-[14px] ${isResetSpinning ? "reset-spin-clockwise" : ""}`}
+                className={`size-[11.7px] ${isResetSpinning ? "reset-spin-clockwise" : ""}`}
                 fill="none"
                 stroke="currentColor"
                 strokeLinecap="round"
@@ -599,12 +599,12 @@ function ChatWidget() {
                 <path d="M21 12a9 9 0 0 1-15.1 6.6L3 16" />
                 <path d="M3 21v-5h5" />
               </svg>
-              <span className="pointer-events-none absolute left-1/2 top-[37px] z-50 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[9px] border border-[#d1d5db] bg-white px-[11px] py-[8px] text-[12px] font-medium leading-[15px] tracking-normal text-[#4b5563] opacity-0 shadow-[0px_14px_24px_-10px_rgba(17,24,39,0.22),0px_4px_8px_-6px_rgba(17,24,39,0.18)] transition-all duration-150 before:absolute before:left-1/2 before:top-[-6px] before:size-[10px] before:-translate-x-1/2 before:rotate-45 before:border-l before:border-t before:border-[#d1d5db] before:bg-white group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+              <span className="pointer-events-none absolute left-1/2 top-[30.6px] z-50 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[7.4px] border border-[#d1d5db] bg-white px-[9px] py-[6.6px] text-[9.9px] font-medium leading-[12.6px] tracking-normal text-[#4b5563] opacity-0 shadow-[0px_11.7px_19.8px_-8.1px_rgba(17,24,39,0.22),0px_3.2px_6.6px_-5px_rgba(17,24,39,0.18)] transition-all duration-150 before:absolute before:left-1/2 before:top-[-5px] before:size-[8.1px] before:-translate-x-1/2 before:rotate-45 before:border-l before:border-t before:border-[#d1d5db] before:bg-white group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
                 Reset chat
               </span>
             </button>
-            <span className="agent-active-dot size-[11px] rounded-full bg-[#22c55e]" />
-            <span className="whitespace-nowrap text-[11px] font-medium uppercase leading-[15px] tracking-normal text-[#6b7280]">
+            <span className="agent-active-dot size-[9px] rounded-full bg-[#22c55e]" />
+            <span className="whitespace-nowrap text-[9px] font-medium uppercase leading-[12.6px] tracking-normal text-[#6b7280]">
               AGENT ACTIVE
             </span>
           </div>
@@ -612,7 +612,7 @@ function ChatWidget() {
       </div>
       <div
         ref={messagesRef}
-        className={`chat-messages-surface relative z-0 min-h-0 flex-1 space-y-[18px] overflow-y-auto px-[16px] py-[20px] sm:px-[28px] sm:py-[24px] ${isResetting ? "chat-resetting" : ""}`}
+        className={`chat-messages-surface relative z-0 min-h-0 flex-1 space-y-[14.4px] overflow-y-auto px-[13.5px] py-[16.2px] sm:px-[22.5px] sm:py-[19.8px] ${isResetting ? "chat-resetting" : ""}`}
       >
         {messages.map((message, index) =>
           message.role === "agent" ? (
@@ -628,15 +628,15 @@ function ChatWidget() {
               <motion.div
                 layout
                 transition={{ layout: chatLayoutTransition }}
-                className={`chat-agent-bubble rounded-bl-[16px] rounded-br-[16px] rounded-tr-[16px] ${border} bg-[#f9fafb] px-[14px] py-[13px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:px-[18px] sm:py-[15px]`}
+                className={`chat-agent-bubble rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tr-[13.5px] ${border} bg-[#f9fafb] px-[11.7px] py-[10.8px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:px-[14.4px] sm:py-[12.6px]`}
               >
-                <p className="text-[15px] leading-[24px] text-[#374151]">{message.text}</p>
+                <p className="text-[12.6px] leading-[19.8px] text-[#374151]">{message.text}</p>
               </motion.div>
             </motion.div>
           ) : (
             <div key={`${message.role}-${index}`} className="chat-message-in flex justify-end">
-              <div className="max-w-[82%] rounded-bl-[16px] rounded-br-[16px] rounded-tl-[16px] border border-black bg-black px-[16px] py-[14px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:max-w-[409px] sm:px-[18px] sm:py-[16px]">
-                <p className="text-[15px] leading-[24px] text-white">{message.text}</p>
+              <div className="max-w-[82%] rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tl-[13.5px] border border-black bg-black px-[13.5px] py-[11.7px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:max-w-[334.8px] sm:px-[14.4px] sm:py-[13.5px]">
+                <p className="text-[12.6px] leading-[19.8px] text-white">{message.text}</p>
               </div>
             </div>
           ),
@@ -651,7 +651,7 @@ function ChatWidget() {
             <motion.div
               layout
               transition={{ layout: chatLayoutTransition }}
-              className="chat-typing-indicator flex h-[36px] items-center gap-[6px] sm:h-[40px]"
+              className="chat-typing-indicator flex h-[29.7px] items-center gap-[5px] sm:h-[32.4px]"
             >
               <span className="typing-dot" />
               <span className="typing-dot animation-delay-150" />
@@ -660,23 +660,23 @@ function ChatWidget() {
           </motion.div>
         )}
       </div>
-      <div className="h-[98px] shrink-0 border-t border-[#d1d5db] bg-white/[.97] px-[16px] pb-[20px] pt-[21px] backdrop-blur-[7px] sm:px-[20px]">
-        <form className="flex h-[57px] items-center gap-[12px]" onSubmit={sendMessage}>
+      <div className="h-[80.1px] shrink-0 border-t border-[#d1d5db] bg-white/[.97] px-[13.5px] pb-[16.2px] pt-[17.1px] backdrop-blur-[5.8px] sm:px-[16.2px]">
+        <form className="flex h-[46.8px] items-center gap-[9.9px]" onSubmit={sendMessage}>
           <input
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            className={`h-[57px] min-w-0 flex-1 appearance-none rounded-[12px] ${border} bg-[#f9fafb] px-[22px] text-[16px] font-light leading-normal text-[#1f2937] outline-none ${shadowSoft} placeholder:font-light placeholder:text-[#9ca3af] focus:border-[#a5c9ff] ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
+            className={`h-[46.8px] min-w-0 flex-1 appearance-none rounded-[9.9px] ${border} bg-[#f9fafb] px-[18px] text-[13.5px] font-light leading-normal text-[#1f2937] outline-none ${shadowSoft} placeholder:font-light placeholder:text-[#9ca3af] focus:border-[#a5c9ff] ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
             placeholder={isResetting ? "Resetting chat..." : "Ask the agent..."}
             aria-label="Ask the agent"
             disabled={isResetting}
           />
           <button
-            className="flex h-[57px] w-[56px] shrink-0 items-center justify-center rounded-[12px] border border-black bg-black shadow-[0px_1px_1px_rgba(0,0,0,0.05)] transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-40 sm:w-[69px]"
+            className="flex h-[46.8px] w-[45.9px] shrink-0 items-center justify-center rounded-[9.9px] border border-black bg-black shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-40 sm:w-[56.7px]"
             type="submit"
             aria-label="Send message"
             disabled={!draft.trim() || isTyping || isResetting}
           >
-            <img alt="" src={`${A}send-icon.svg`} className="h-[16px] w-[19px]" />
+            <img alt="" src={`${A}send-icon.svg`} className="h-[13.5px] w-[15.3px]" />
           </button>
         </form>
       </div>
@@ -686,8 +686,8 @@ function ChatWidget() {
 
 function AgentAvatar({ animateEntrance = false, animateBot = false, eyeX, eyeY }) {
   return (
-    <div className="size-[52px] shrink-0 sm:size-[60px]" aria-hidden="true" onMouseDown={e => e.preventDefault()}>
-      <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+    <div className="size-[42.3px] shrink-0 sm:size-[49.5px]" aria-hidden="true" onMouseDown={e => e.preventDefault()}>
+      <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)]`}>
         {animateBot ? (
           <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
         ) : (
@@ -753,7 +753,7 @@ function BotLoopIcon({ eyeX, eyeY }) {
 
 function SectionTitle({ children }) {
   return (
-    <h2 className="font-space text-[37px] font-normal uppercase leading-[42px] tracking-normal text-[#111827] [text-wrap:balance] sm:text-[44px] sm:leading-[46px] lg:text-[53px] lg:leading-[53px]">
+    <h2 className="font-space text-[30.6px] font-normal uppercase leading-[34.2px] tracking-normal text-[#111827] [text-wrap:balance] sm:text-[36px] sm:leading-[37.8px] lg:text-[43.2px] lg:leading-[43.2px]">
       {children}
     </h2>
   );
@@ -761,7 +761,7 @@ function SectionTitle({ children }) {
 
 function Pill({ children, small = false }) {
   return (
-    <span className={`inline-flex shrink-0 items-center rounded-full border border-[#d1d5db] bg-[#f9fafb] ${small ? "px-[10px] py-[6px] rounded-[4px] border-[#e5e7eb]" : "px-[19px] py-[8px]"} text-[13px] font-bold uppercase leading-[18px] tracking-normal text-[#6b7280] shadow-[0px_1px_1px_rgba(0,0,0,0.05)]`}>
+    <span className={`inline-flex shrink-0 items-center rounded-full border border-[#d1d5db] bg-[#f9fafb] ${small ? "px-[8.1px] py-[5px] rounded-[3.2px] border-[#e5e7eb]" : "px-[15.3px] py-[6.6px]"} text-[10.8px] font-bold uppercase leading-[14.4px] tracking-normal text-[#6b7280] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)]`}>
       {children}
     </span>
   );
@@ -769,26 +769,26 @@ function Pill({ children, small = false }) {
 
 function ToolkitSection() {
   return (
-    <section id="toolkit" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
+    <section id="toolkit" className={`${sectionSpacing} ${pagePadding} pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
       <SectionTitle>MY CORE AI TOOLKIT</SectionTitle>
-      <div className="mt-[35px] grid gap-[22px] sm:mt-[53px] lg:grid-cols-3 lg:gap-[26px]">
+      <div className="mt-[28.8px] grid gap-[18px] sm:mt-[43.2px] lg:grid-cols-3 lg:gap-[21.6px]">
         {toolkit.map((item, index) => (
           <motion.article
             key={item.title}
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: true, margin: "-49px" }}
             transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -4, transition: { duration: 0.22, ease: "easeOut" } }}
-            className={`group relative rounded-[18px] border border-[#d1d5db] bg-white p-[22px] ${shadowCard} cursor-default transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_24px_36px_-8px_rgba(165,201,255,0.22),0px_8px_12px_-6px_rgba(0,0,0,0.08)] sm:p-[28px]`}
+            className={`group relative rounded-[14.4px] border border-[#d1d5db] bg-white p-[18px] ${shadowCard} cursor-default transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_19.8px_29.7px_-6.6px_rgba(165,201,255,0.22),0px_6.6px_9.9px_-5px_rgba(0,0,0,0.08)] sm:p-[22.5px]`}
           >
-            <div className="flex size-[62px] items-center justify-center rounded-[14px] border border-[#d1d5db] bg-[#a5c9ff] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] [will-change:transform] [backface-visibility:hidden] transition-[transform,box-shadow] duration-200 ease-out group-hover:scale-[1.06] group-hover:shadow-[0px_6px_14px_-4px_rgba(165,201,255,0.52)]">
+            <div className="flex size-[50.4px] items-center justify-center rounded-[11.7px] border border-[#d1d5db] bg-[#a5c9ff] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] [will-change:transform] [backface-visibility:hidden] transition-[transform,box-shadow] duration-200 ease-out group-hover:scale-[1.06] group-hover:shadow-[0px_5px_11.7px_-3.2px_rgba(165,201,255,0.52)]">
               <img alt="" src={`${A}${item.icon}`} className={`${item.iconClass} object-cover`} />
             </div>
-            <h3 className="pt-[24px] font-space text-[24px] font-normal uppercase leading-[32px] tracking-normal text-[#1a1c1c]">
+            <h3 className="pt-[19.8px] font-space text-[19.8px] font-normal uppercase leading-[26.1px] tracking-normal text-[#1a1c1c]">
               {item.title}
             </h3>
-            <div className="mt-[16px] flex flex-wrap gap-[8px]">
+            <div className="mt-[13.5px] flex flex-wrap gap-[6.6px]">
               {item.tags.map((tag) => (
                 <Pill key={tag}>{tag}</Pill>
               ))}
@@ -810,10 +810,10 @@ function ProjectCard({ project, variant, index, className = "", onOpen }) {
       onClick={() => onOpen(project)}
       initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: "-65.4px" }}
       transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -5, transition: { duration: 0.24, ease: "easeOut" } }}
-      className={`group relative flex h-full overflow-hidden rounded-[22px] border border-[#d1d5db] bg-white text-left ${shadowCard} cursor-pointer outline-none transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_28px_42px_-12px_rgba(165,201,255,0.32),0px_10px_20px_-12px_rgba(0,0,0,0.18)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white ${
+      className={`group relative flex h-full overflow-hidden rounded-[18px] border border-[#d1d5db] bg-white text-left ${shadowCard} cursor-pointer outline-none transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_22.5px_34.2px_-9.9px_rgba(165,201,255,0.32),0px_8.1px_16.2px_-9.9px_rgba(0,0,0,0.18)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white ${
         isHorizontal ? "flex-col md:flex-row" : "flex-col"
       } ${className}`}
       aria-label={`Open ${project.title} details`}
@@ -821,10 +821,10 @@ function ProjectCard({ project, variant, index, className = "", onOpen }) {
       <div
         className={`relative shrink-0 overflow-hidden ${
           isHorizontal
-            ? "h-[180px] md:h-auto md:w-[44%]"
+            ? "h-[147.6px] md:h-auto md:w-[44%]"
             : isFeatured
-              ? "h-[240px] sm:h-[280px] lg:h-[340px]"
-              : "h-[180px] sm:h-[200px]"
+              ? "h-[196.2px] sm:h-[229.5px] lg:h-[278.1px]"
+              : "h-[147.6px] sm:h-[163.8px]"
         }`}
       >
         <div
@@ -833,17 +833,17 @@ function ProjectCard({ project, variant, index, className = "", onOpen }) {
         />
         {project.badge && (
           <span
-            className={`absolute right-[16px] top-[16px] rounded-full border px-[14px] py-[6px] font-space text-[11px] font-bold uppercase leading-[15px] tracking-normal ${project.badgeClass} shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:right-[20px] sm:top-[20px]`}
+            className={`absolute right-[13.5px] top-[13.5px] rounded-full border px-[11.7px] py-[5px] font-space text-[9px] font-bold uppercase leading-[12.6px] tracking-normal ${project.badgeClass} shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[1.6px] sm:right-[16.2px] sm:top-[16.2px]`}
           >
             {project.badge}
           </span>
         )}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
-        <span className="pointer-events-none absolute bottom-[16px] left-[16px] flex translate-y-2 items-center gap-[8px] rounded-full border border-[#d1d5db] bg-white/95 px-[14px] py-[7px] font-space text-[11px] font-bold uppercase leading-[15px] tracking-normal text-black opacity-0 shadow-[0px_8px_18px_-8px_rgba(0,0,0,0.28)] backdrop-blur-[6px] transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:bottom-[20px] sm:left-[20px]">
+        <span className="pointer-events-none absolute bottom-[13.5px] left-[13.5px] flex translate-y-2 items-center gap-[6.6px] rounded-full border border-[#d1d5db] bg-white/95 px-[11.7px] py-[5.8px] font-space text-[9px] font-bold uppercase leading-[12.6px] tracking-normal text-black opacity-0 shadow-[0px_6.6px_14.4px_-6.6px_rgba(0,0,0,0.28)] backdrop-blur-[5px] transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:bottom-[16.2px] sm:left-[16.2px]">
           See more about
           <svg
             aria-hidden="true"
-            className="size-[12px]"
+            className="size-[9.9px]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -857,29 +857,29 @@ function ProjectCard({ project, variant, index, className = "", onOpen }) {
         </span>
       </div>
       <div
-        className={`flex min-w-0 flex-1 flex-col p-[22px] sm:p-[26px] ${
-          isFeatured ? "lg:p-[32px]" : ""
+        className={`flex min-w-0 flex-1 flex-col p-[18px] sm:p-[21.6px] ${
+          isFeatured ? "lg:p-[26.1px]" : ""
         }`}
       >
         <h3
           className={`font-space font-normal uppercase tracking-normal text-[#1a1c1c] ${
             isFeatured
-              ? "text-[26px] leading-[32px] sm:text-[30px] sm:leading-[38px] lg:text-[34px] lg:leading-[42px]"
-              : "text-[22px] leading-[28px] sm:text-[24px] sm:leading-[32px]"
+              ? "text-[21.6px] leading-[26.1px] sm:text-[24.3px] sm:leading-[31.5px] lg:text-[27.9px] lg:leading-[34.2px]"
+              : "text-[18px] leading-[22.5px] sm:text-[19.8px] sm:leading-[26.1px]"
           }`}
         >
           {project.title}
         </h3>
         <p
-          className={`mt-[12px] text-[#4b5563] [text-wrap:pretty] ${
+          className={`mt-[9.9px] text-[#4b5563] [text-wrap:pretty] ${
             isFeatured || isHorizontal
-              ? "text-[16px] leading-[26px] lg:text-[17px] lg:leading-[28px]"
-              : "text-[15px] leading-[24px]"
+              ? "text-[13.5px] leading-[21.6px] lg:text-[13.5px] lg:leading-[22.5px]"
+              : "text-[12.6px] leading-[19.8px]"
           }`}
         >
           {isFeatured || isHorizontal ? project.description : project.summary}
         </p>
-        <div className="mt-auto flex flex-wrap gap-[8px] pt-[20px]">
+        <div className="mt-auto flex flex-wrap gap-[6.6px] pt-[16.2px]">
           {project.tools.slice(0, isFeatured ? 5 : 3).map((tool) => (
             <Pill key={tool} small>
               {tool}
@@ -893,11 +893,11 @@ function ProjectCard({ project, variant, index, className = "", onOpen }) {
 
 function ModalSection({ title, children }) {
   return (
-    <section className="mt-[26px] border-t border-[#e5e7eb] pt-[22px] sm:mt-[30px] sm:pt-[26px]">
-      <h3 className="text-[12px] font-bold uppercase leading-[16px] tracking-[0.06em] text-[#6b7280]">
+    <section className="mt-[21.6px] border-t border-[#e5e7eb] pt-[18px] sm:mt-[24.3px] sm:pt-[21.6px]">
+      <h3 className="text-[9.9px] font-bold uppercase leading-[13.5px] tracking-[0.06em] text-[#6b7280]">
         {title}
       </h3>
-      <div className="mt-[12px] text-[15px] leading-[25px] text-[#374151] [text-wrap:pretty] sm:text-[16px] sm:leading-[26px]">
+      <div className="mt-[9.9px] text-[12.6px] leading-[20.7px] text-[#374151] [text-wrap:pretty] sm:text-[13.5px] sm:leading-[21.6px]">
         {children}
       </div>
     </section>
@@ -926,30 +926,30 @@ function ProjectModal({ project, onClose }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.22, ease: "easeOut" }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-[16px] sm:p-[26px]"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-[13.5px] sm:p-[21.6px]"
       role="dialog"
       aria-modal="true"
       aria-labelledby={`project-${project.id}-title`}
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/55 backdrop-blur-[10px]" />
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-[8.1px]" />
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.97, y: 8 }}
         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 flex max-h-[90vh] w-full max-w-[920px] flex-col overflow-hidden rounded-[22px] border border-[#d1d5db] bg-white shadow-[0px_40px_80px_-20px_rgba(0,0,0,0.4)]"
+        className="relative z-10 flex max-h-[90vh] w-full max-w-[752.4px] flex-col overflow-hidden rounded-[18px] border border-[#d1d5db] bg-white shadow-[0px_32.4px_65.7px_-16.4px_rgba(0,0,0,0.4)]"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close project details"
-          className="absolute right-[18px] top-[18px] z-20 flex size-[36px] items-center justify-center rounded-full border border-[#d1d5db] bg-white/95 text-[#4b5563] shadow-[0px_2px_8px_-2px_rgba(0,0,0,0.18)] outline-none transition-[color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#a5c9ff] hover:text-black focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:right-[22px] sm:top-[22px]"
+          className="absolute right-[14.4px] top-[14.4px] z-20 flex size-[29.7px] items-center justify-center rounded-full border border-[#d1d5db] bg-white/95 text-[#4b5563] shadow-[0px_1.6px_6.6px_-1.6px_rgba(0,0,0,0.18)] outline-none transition-[color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#a5c9ff] hover:text-black focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:right-[18px] sm:top-[18px]"
         >
           <svg
             aria-hidden="true"
-            className="size-[16px]"
+            className="size-[13.5px]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -962,31 +962,31 @@ function ProjectModal({ project, onClose }) {
           </svg>
         </button>
         <div className="overflow-y-auto">
-          <div className="relative h-[200px] sm:h-[260px] lg:h-[300px]">
+          <div className="relative h-[163.8px] sm:h-[212.4px] lg:h-[245.7px]">
             <div className="absolute inset-0" style={{ backgroundImage: project.gradient }} />
             {project.badge && (
               <span
-                className={`absolute left-[22px] top-[22px] rounded-full border px-[16px] py-[7px] font-space text-[12px] font-bold uppercase leading-[16px] tracking-normal ${project.badgeClass} shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] backdrop-blur-[2px] sm:left-[32px] sm:top-[32px]`}
+                className={`absolute left-[18px] top-[18px] rounded-full border px-[13.5px] py-[5.8px] font-space text-[9.9px] font-bold uppercase leading-[13.5px] tracking-normal ${project.badgeClass} shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[1.6px] sm:left-[26.1px] sm:top-[26.1px]`}
               >
                 {project.badge}
               </span>
             )}
           </div>
-          <div className="px-[22px] py-[28px] sm:px-[40px] sm:py-[40px] lg:px-[48px]">
+          <div className="px-[18px] py-[22.5px] sm:px-[32.4px] sm:py-[32.4px] lg:px-[39.6px]">
             <h2
               id={`project-${project.id}-title`}
-              className="font-space text-[28px] font-normal uppercase leading-[34px] tracking-normal text-[#1a1c1c] sm:text-[36px] sm:leading-[44px]"
+              className="font-space text-[22.5px] font-normal uppercase leading-[27.9px] tracking-normal text-[#1a1c1c] sm:text-[29.7px] sm:leading-[36px]"
             >
               {project.title}
             </h2>
-            <p className="mt-[14px] text-[16px] leading-[26px] text-[#4b5563] [text-wrap:pretty] sm:text-[17px] sm:leading-[28px]">
+            <p className="mt-[11.7px] text-[13.5px] leading-[21.6px] text-[#4b5563] [text-wrap:pretty] sm:text-[13.5px] sm:leading-[22.5px]">
               {project.description}
             </p>
             <ModalSection title="How it was built">
               <p>{project.process}</p>
             </ModalSection>
             <ModalSection title="Tools used">
-              <div className="flex flex-wrap gap-[8px]">
+              <div className="flex flex-wrap gap-[6.6px]">
                 {project.tools.map((tool) => (
                   <Pill key={tool} small>
                     {tool}
@@ -1002,16 +1002,16 @@ function ProjectModal({ project, onClose }) {
             </ModalSection>
             {project.metrics && project.metrics.length > 0 && (
               <ModalSection title="Metrics">
-                <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-[9.9px] sm:grid-cols-3">
                   {project.metrics.map((metric) => (
                     <div
                       key={metric.label}
-                      className="rounded-[14px] border border-[#e5e7eb] bg-[#f9fafb] px-[18px] py-[16px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.04)]"
+                      className="rounded-[11.7px] border border-[#e5e7eb] bg-[#f9fafb] px-[14.4px] py-[13.5px] shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.04)]"
                     >
-                      <p className="text-[11px] font-bold uppercase leading-[14px] tracking-[0.04em] text-[#6b7280]">
+                      <p className="text-[9px] font-bold uppercase leading-[11.7px] tracking-[0.04em] text-[#6b7280]">
                         {metric.label}
                       </p>
-                      <p className="mt-[6px] font-space text-[24px] font-normal leading-[30px] text-[#1a1c1c]">
+                      <p className="mt-[5px] font-space text-[19.8px] font-normal leading-[24.3px] text-[#1a1c1c]">
                         {metric.value}
                       </p>
                     </div>
@@ -1037,15 +1037,15 @@ function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
-      <div className="flex flex-col gap-[18px] border-b border-[#d1d5db] pb-[28px] sm:flex-row sm:items-end sm:justify-between">
+    <section id="projects" className={`${sectionSpacing} ${pagePadding} pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
+      <div className="flex flex-col gap-[14.4px] border-b border-[#d1d5db] pb-[22.5px] sm:flex-row sm:items-end sm:justify-between">
         <SectionTitle>SELECTED PROJECTS</SectionTitle>
-        <a href="#projects" className="flex shrink-0 items-center gap-[9px] text-center text-[15px] font-bold uppercase leading-[22px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
+        <a href="#projects" className="flex shrink-0 items-center gap-[7.4px] text-center text-[12.6px] font-bold uppercase leading-[18px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
           VIEW ALL
-          <img alt="" src={`${A}arrow-right.svg`} className="size-[18px]" />
+          <img alt="" src={`${A}arrow-right.svg`} className="size-[14.4px]" />
         </a>
       </div>
-      <div className="mt-[35px] grid grid-cols-1 gap-[22px] sm:mt-[53px] md:grid-cols-2 lg:grid-cols-12 lg:gap-[26px]">
+      <div className="mt-[28.8px] grid grid-cols-1 gap-[18px] sm:mt-[43.2px] md:grid-cols-2 lg:grid-cols-12 lg:gap-[21.6px]">
         {cards.map(({ project, variant, className }, index) => (
           <ProjectCard
             key={project.id}
@@ -1068,19 +1068,19 @@ function ProjectsSection() {
 
 function SkillsSection() {
   return (
-    <section id="skills" className={`${sectionSpacing} ${pagePadding} pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
+    <section id="skills" className={`${sectionSpacing} ${pagePadding} pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
       <SectionTitle>SKILLS</SectionTitle>
-      <div className="mt-[35px] grid gap-[26px] sm:mt-[53px] md:grid-cols-2 lg:grid-cols-4 lg:gap-[35px]">
+      <div className="mt-[28.8px] grid gap-[21.6px] sm:mt-[43.2px] md:grid-cols-2 lg:grid-cols-4 lg:gap-[28.8px]">
         {skills.map((column) => (
-          <article key={column.title} className={`h-full min-h-[286px] rounded-[18px] ${border} bg-white p-[26px] ${shadowCard} sm:p-[36px] lg:min-h-[457px]`}>
-            <h3 className="border-b border-[#d1d5db] pb-[19px] text-[15px] font-bold uppercase leading-[22px] tracking-normal text-[#111827]">
+          <article key={column.title} className={`h-full min-h-[234px] rounded-[14.4px] ${border} bg-white p-[21.6px] ${shadowCard} sm:p-[29.7px] lg:min-h-[373.5px]`}>
+            <h3 className="border-b border-[#d1d5db] pb-[15.3px] text-[12.6px] font-bold uppercase leading-[18px] tracking-normal text-[#111827]">
               {column.title}
             </h3>
-            <div className="mt-[26px] flex flex-col gap-[22px]">
+            <div className="mt-[21.6px] flex flex-col gap-[18px]">
               {column.items.map(([icon, label, sizeClass, gapClass]) => (
                 <div key={icon} className={`flex items-center ${gapClass}`}>
                   <img alt="" src={`${A}${icon}`} className={`${sizeClass} shrink-0 object-cover`} />
-                  <span className="text-[18px] leading-[26px] text-[#4b5563]">{label}</span>
+                  <span className="text-[14.4px] leading-[21.6px] text-[#4b5563]">{label}</span>
                 </div>
               ))}
             </div>
@@ -1093,15 +1093,15 @@ function SkillsSection() {
 
 function EducationCard({ title, school, icon, iconClass }) {
   return (
-    <article className={`flex min-h-[174px] items-center justify-between gap-[22px] rounded-[18px] ${border} bg-white p-[26px] ${shadowCard} sm:p-[36px] lg:h-[174px]`}>
+    <article className={`flex min-h-[142.2px] items-center justify-between gap-[18px] rounded-[14.4px] ${border} bg-white p-[21.6px] ${shadowCard} sm:p-[29.7px] lg:h-[142.2px]`}>
       <div className="min-w-0">
-        <h3 className="font-space text-[24px] font-normal leading-[32px] tracking-normal text-[#1a1c1c] sm:text-[26px] sm:leading-[35px] lg:text-[24px] lg:leading-[32px] xl:text-[26px] xl:leading-[35px]">
+        <h3 className="font-space text-[19.8px] font-normal leading-[26.1px] tracking-normal text-[#1a1c1c] sm:text-[21.6px] sm:leading-[28.8px] lg:text-[19.8px] lg:leading-[26.1px] xl:text-[21.6px] xl:leading-[28.8px]">
           {title}
         </h3>
-        <p className="mt-[9px] text-[18px] font-medium leading-[26px] text-[#111827]">{school}</p>
-        <p className="mt-[9px] text-[15px] leading-[22px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
+        <p className="mt-[7.4px] text-[14.4px] font-medium leading-[21.6px] text-[#111827]">{school}</p>
+        <p className="mt-[7.4px] text-[12.6px] leading-[18px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
       </div>
-      <div className="flex h-[70px] w-[84px] shrink-0 items-center justify-center overflow-visible sm:w-[97px]">
+      <div className="flex h-[57.6px] w-[68.4px] shrink-0 items-center justify-center overflow-visible sm:w-[79.2px]">
         <img alt="" src={`${A}${icon}`} className={`${iconClass} object-contain`} />
       </div>
     </article>
@@ -1110,16 +1110,16 @@ function EducationCard({ title, school, icon, iconClass }) {
 
 function EducationSection() {
   return (
-    <section id="education" className={`${sectionSpacing} ${pagePadding} pb-[26px] pt-[35px] sm:pt-[53px] lg:pt-[70px]`}>
+    <section id="education" className={`${sectionSpacing} ${pagePadding} pb-[21.6px] pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
       <SectionTitle>EDUCATION</SectionTitle>
-      <div className="relative mt-[35px] grid gap-[26px] sm:mt-[53px] lg:grid-cols-2 lg:gap-[35px]">
+      <div className="relative mt-[28.8px] grid gap-[21.6px] sm:mt-[43.2px] lg:grid-cols-2 lg:gap-[28.8px]">
         <div className="absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#d1d5db] lg:block" />
-        <div className="flex flex-col gap-[26px] lg:gap-[35px] lg:pr-[18px]">
+        <div className="flex flex-col gap-[21.6px] lg:gap-[28.8px] lg:pr-[14.4px]">
           {educationLeft.map(([title, school, icon, iconClass]) => (
             <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} />
           ))}
         </div>
-        <div className="flex flex-col gap-[26px] lg:gap-[35px] lg:pl-[18px] lg:pt-[105px]">
+        <div className="flex flex-col gap-[21.6px] lg:gap-[28.8px] lg:pl-[14.4px] lg:pt-[85.5px]">
           {educationRight.map(([title, school, icon, iconClass]) => (
             <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} />
           ))}
@@ -1131,25 +1131,25 @@ function EducationSection() {
 
 function ContactCta() {
   return (
-    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-44px)] max-w-[986px] overflow-hidden rounded-[18px] ${border} bg-white px-[26px] py-[53px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] sm:w-[calc(100%-70px)] sm:px-[44px] sm:py-[70px] lg:w-[calc(100%-106px)] lg:px-[54px] lg:py-[89px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
-      <div className="flex flex-col gap-[40px] lg:min-h-[145px] lg:flex-row lg:gap-0">
-        <div className="w-full lg:w-[386px]">
-          <h2 className="font-space text-[35px] font-normal uppercase leading-[40px] tracking-normal text-[#111827] sm:text-[44px] sm:leading-[48px]">
+    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-36px)] max-w-[806.4px] overflow-hidden rounded-[14.4px] ${border} bg-white px-[21.6px] py-[43.2px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.25)] sm:w-[calc(100%-57.2px)] sm:px-[36px] sm:py-[57.6px] lg:w-[calc(100%-86.8px)] lg:px-[44.1px] lg:py-[72.9px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
+      <div className="flex flex-col gap-[32.4px] lg:min-h-[118.8px] lg:flex-row lg:gap-0">
+        <div className="w-full lg:w-[315.9px]">
+          <h2 className="font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:text-[36px] sm:leading-[39.6px]">
             LET&apos;S BUILD
             <br />
             SOMETHING
           </h2>
-          <span className="mt-[2px] inline-block max-w-full rounded-[4px] border border-[rgba(165,201,255,0.3)] bg-[rgba(165,201,255,0.4)] px-[10px] py-[7px] font-space text-[35px] font-normal uppercase leading-[40px] tracking-normal text-[#111827] sm:-mt-[7px] sm:text-[44px] sm:leading-[48px]">
+          <span className="mt-[1.6px] inline-block max-w-full rounded-[3.2px] border border-[rgba(165,201,255,0.3)] bg-[rgba(165,201,255,0.4)] px-[8.1px] py-[5.8px] font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:-mt-[5.8px] sm:text-[36px] sm:leading-[39.6px]">
             QUIETLY USEFUL.
           </span>
         </div>
-        <div className="hidden h-[106px] w-px bg-[#9ca3af] lg:ml-[53px] lg:mr-[53px] lg:mt-[20px] lg:block" />
-        <div className="lg:mt-[29px] lg:w-[386px]">
-          <p className="text-[11px] font-bold uppercase leading-[17px] tracking-normal text-[#6b7280]">CONTACT ME:</p>
-          <div className="mt-[18px] flex gap-[18px]">
+        <div className="hidden h-[86.4px] w-px bg-[#9ca3af] lg:ml-[43.2px] lg:mr-[43.2px] lg:mt-[16.2px] lg:block" />
+        <div className="lg:mt-[23.4px] lg:w-[315.9px]">
+          <p className="text-[9px] font-bold uppercase leading-[13.5px] tracking-normal text-[#6b7280]">CONTACT ME:</p>
+          <div className="mt-[14.4px] flex gap-[14.4px]">
             {contactActions.map(([icon, label, href]) => (
-              <a key={icon} href={href} aria-label={label} className={`flex size-[53px] items-center justify-center rounded-[9px] border border-[#e5e7eb] bg-[#f9fafb]/50 p-px ${shadowSoft}`}>
-                <img alt="" src={`${A}${icon}`} className={icon === "share.svg" ? "h-[18px] w-[17px]" : "h-[15px] w-[18px]"} />
+              <a key={icon} href={href} aria-label={label} className={`flex size-[43.2px] items-center justify-center rounded-[7.4px] border border-[#e5e7eb] bg-[#f9fafb]/50 p-px ${shadowSoft}`}>
+                <img alt="" src={`${A}${icon}`} className={icon === "share.svg" ? "h-[14.4px] w-[13.5px]" : "h-[12.6px] w-[14.4px]"} />
               </a>
             ))}
           </div>
@@ -1161,18 +1161,18 @@ function ContactCta() {
 
 function Footer() {
   return (
-    <footer className="mx-[22px] mt-[114px] flex min-h-[138px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[53px] pt-[44px] shadow-[0px_1px_1px_rgba(0,0,0,0.05)] sm:mx-[35px] lg:mx-[53px] lg:mt-[176px] lg:flex-row lg:items-center lg:justify-between lg:pt-[54px]">
-      <a href="#top" className="font-space text-[22px] font-black uppercase leading-[31px] tracking-normal text-[#111827]">
+    <footer className="mx-[18px] mt-[93.6px] flex min-h-[112.5px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[43.2px] pt-[36px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:mx-[28.8px] lg:mx-[43.2px] lg:mt-[144px] lg:flex-row lg:items-center lg:justify-between lg:pt-[44.1px]">
+      <a href="#top" className="font-space text-[18px] font-black uppercase leading-[25.2px] tracking-normal text-[#111827]">
         AI_ENGINEER
       </a>
-      <nav className="flex flex-wrap justify-start gap-[35px] lg:justify-center">
+      <nav className="flex flex-wrap justify-start gap-[28.8px] lg:justify-center">
         {Object.entries(socialLinks).map(([item, href]) => (
-          <a key={item} href={href} className="font-space text-[13px] font-medium uppercase leading-[18px] tracking-normal text-[#4b5563]">
+          <a key={item} href={href} className="font-space text-[10.8px] font-medium uppercase leading-[14.4px] tracking-normal text-[#4b5563]">
             {item}
           </a>
         ))}
       </nav>
-      <p className="text-left font-space text-[13px] font-medium uppercase leading-[18px] tracking-normal text-[#6b7280] lg:text-right">
+      <p className="text-left font-space text-[10.8px] font-medium uppercase leading-[14.4px] tracking-normal text-[#6b7280] lg:text-right">
         &copy; 2024 AI ENGINEER PORTFOLIO. BUILT WITH PRECISION.
       </p>
     </footer>
@@ -1181,9 +1181,9 @@ function Footer() {
 
 export default function App() {
   return (
-    <div id="top" className="min-h-screen overflow-x-hidden bg-white">
+    <div id="top" className="site-compact min-h-screen overflow-x-hidden bg-white">
       <Nav />
-      <main className="mx-auto w-full max-w-[1320px]">
+      <main className="mx-auto w-full max-w-[1080px]">
         <Hero />
         <ToolkitSection />
         <ProjectsSection />

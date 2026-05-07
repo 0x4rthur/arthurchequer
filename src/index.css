@@ -9,9 +9,9 @@
 }
 
 html {
-  font-size: 110%;
+  font-size: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: 123px;
+  scroll-padding-top: 100.8px;
 }
 
 body {
@@ -20,6 +20,20 @@ body {
   background: #ffffff;
   color: #1a1c1c;
   font-family: "Inter", sans-serif;
+}
+
+.site-compact {
+  --site-scale: 0.9;
+  min-height: calc(100vh / var(--site-scale));
+  transform-origin: top left;
+  width: calc(100% / var(--site-scale));
+  zoom: var(--site-scale);
+}
+
+@supports not (zoom: 1) {
+  .site-compact {
+    transform: scale(var(--site-scale));
+  }
 }
 
 button,
@@ -44,10 +58,10 @@ a {
 
 .chat-messages-surface {
   background: rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(18px) saturate(1.06);
+  backdrop-filter: blur(14.4px) saturate(1.06);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.68),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    inset 0 0.9px 0 rgba(255, 255, 255, 0.68),
+    inset 0 0 0 0.9px rgba(255, 255, 255, 0.22);
 }
 
 .chat-agent-row {
@@ -67,8 +81,8 @@ a {
 }
 
 .chat-agent-row-current {
-  gap: 12px;
-  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 9.9px;
+  grid-template-columns: 42.3px minmax(0, 1fr);
 }
 
 .chat-typing-row {
@@ -85,14 +99,14 @@ a {
   }
 
   .chat-agent-row-current {
-    gap: 16px;
-    grid-template-columns: 60px minmax(0, 1fr);
+    gap: 13.5px;
+    grid-template-columns: 49.5px minmax(0, 1fr);
   }
 }
 
 .typing-dot {
-  width: 8px;
-  height: 8px;
+  width: 6.6px;
+  height: 6.6px;
   border-radius: 9999px;
   background: #a5c9ff;
   animation: typing-dot 900ms ease-in-out infinite;
@@ -117,7 +131,7 @@ a {
   }
   50% {
     border-color: #a4c8ff;
-    box-shadow: 0 0 0 3px rgba(164, 200, 255, 0.18);
+    box-shadow: 0 0 0 2.4px rgba(164, 200, 255, 0.18);
   }
 }
 
@@ -128,7 +142,7 @@ a {
 @keyframes reset-border-fadeout {
   from {
     border-color: #a4c8ff;
-    box-shadow: 0 0 0 3px rgba(164, 200, 255, 0.18);
+    box-shadow: 0 0 0 2.4px rgba(164, 200, 255, 0.18);
   }
   to {
     border-color: #d1d5db;
@@ -166,7 +180,7 @@ a {
 @keyframes nav-float-in {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.99);
+    transform: translateY(-6.6px) scale(0.99);
   }
 
   to {
@@ -178,7 +192,7 @@ a {
 @keyframes chat-message-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6.6px);
   }
 
   to {
@@ -205,12 +219,12 @@ a {
 
   42% {
     opacity: 0.18;
-    transform: translateY(4px) scale(0.992);
+    transform: translateY(3.2px) scale(0.992);
   }
 
   58% {
     opacity: 0.18;
-    transform: translateY(4px) scale(0.992);
+    transform: translateY(3.2px) scale(0.992);
   }
 
   100% {
@@ -231,7 +245,7 @@ a {
   40% {
     background: #8fbaff;
     opacity: 1;
-    transform: translateY(-4px);
+    transform: translateY(-3.2px);
   }
 }
 
@@ -278,13 +292,13 @@ a {
   }
 
   72% {
-    box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+    box-shadow: 0 0 0 5.8px rgba(34, 197, 94, 0);
     opacity: 1;
     transform: scale(1.04);
   }
 
   100% {
-    box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+    box-shadow: 0 0 0 5.8px rgba(34, 197, 94, 0);
     opacity: 1;
     transform: scale(1);
   }
