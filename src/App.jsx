@@ -28,10 +28,7 @@ const shadowSoft = "shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)]";
 const border = "border border-[#d1d5db]";
 const pagePadding = "px-[18px] sm:px-[28px] lg:px-[40px]";
 const sectionSpacing = "mt-[80px] sm:mt-[96px] lg:mt-[112px]";
-const chatLayoutTransition = {
-  duration: 0.42,
-  ease: [0.22, 1, 0.36, 1],
-};
+
 
 const toolkit = [
   {
@@ -772,13 +769,14 @@ function ChatWidget() {
               {messages.map((message, index) => {
                 const isCurrent = index === lastAgentMessageIndex && !isTyping;
                 return message.role === "agent" ? (
-                  <div key={`a-${index}`} className="chat-agent-row chat-agent-row-current">
-                    <div
-                      className="relative size-[42.3px] shrink-0 sm:size-[49.5px]"
-                      aria-hidden="true"
-                      onMouseDown={e => e.preventDefault()}
-                    >
-                      {isCurrent && (
+                  <div key={`a-${index}`} className="relative" style={{ minHeight: 42.3 }}>
+                    {isCurrent && (
+                      <div
+                        className="absolute left-0 top-0"
+                        style={{ width: 42.3, height: 42.3 }}
+                        aria-hidden="true"
+                        onMouseDown={e => e.preventDefault()}
+                      >
                         <motion.div
                           layoutId="bot-avatar"
                           className="absolute inset-0"
@@ -786,12 +784,18 @@ function ChatWidget() {
                         >
                           <AgentAvatar animateBot={message.animateBot} eyeX={eyeX} eyeY={eyeY} />
                         </motion.div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                     <motion.div
-                      initial={{ opacity: 0, x: -8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      initial={{ opacity: 0 }}
+                      animate={{
+                        opacity: 1,
+                        marginLeft: isCurrent ? 52.2 : 0,
+                      }}
+                      transition={{
+                        opacity: { duration: 0.3, ease: "easeOut", delay: (isCurrent && message.animateBot) ? 0.7 : 0 },
+                        marginLeft: { duration: 0.42, ease: [0.22, 1, 0.36, 1], delay: isCurrent ? 0 : 0.2 },
+                      }}
                       className={`chat-agent-bubble rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tr-[13.5px] ${border} bg-[#f9fafb] px-[11.7px] py-[10.8px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:px-[14.4px] sm:py-[12.6px]`}
                     >
                       <p className="text-[12.6px] leading-[19.8px] text-[#374151]">{message.text}</p>
@@ -826,7 +830,8 @@ function ChatWidget() {
                   >
                     <motion.div
                       layoutId="bot-avatar"
-                      className="size-[42.3px] shrink-0 sm:size-[49.5px]"
+                      style={{ width: 42.3, height: 42.3 }}
+                      className="shrink-0"
                       aria-hidden="true"
                       onMouseDown={e => e.preventDefault()}
                       transition={{ type: "spring", stiffness: 400, damping: 40 }}
