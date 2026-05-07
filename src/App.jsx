@@ -769,11 +769,11 @@ function ChatWidget() {
               {messages.map((message, index) => {
                 const isCurrent = index === lastAgentMessageIndex && !isTyping;
                 return message.role === "agent" ? (
-                  <div key={`a-${index}`} className="relative" style={{ minHeight: 42.3 }}>
+                  <div key={`a-${index}`} className="relative" style={{ minHeight: 45 }}>
                     {isCurrent && (
                       <div
                         className="absolute left-0 top-0"
-                        style={{ width: 42.3, height: 42.3 }}
+                        style={{ width: 45, height: 45 }}
                         aria-hidden="true"
                         onMouseDown={e => e.preventDefault()}
                       >
@@ -790,11 +790,11 @@ function ChatWidget() {
                       initial={{ opacity: 0 }}
                       animate={{
                         opacity: 1,
-                        marginLeft: isCurrent ? 52.2 : 0,
+                        marginLeft: isCurrent ? 54.9 : 0,
                       }}
                       transition={{
-                        opacity: { duration: 0.3, ease: "easeOut", delay: (isCurrent && message.animateBot) ? 0.7 : 0 },
-                        marginLeft: { duration: 0.42, ease: [0.22, 1, 0.36, 1], delay: isCurrent ? 0 : 0.2 },
+                        opacity: { duration: 0.22, ease: "easeOut", delay: (isCurrent && message.animateBot) ? 0.15 : 0 },
+                        marginLeft: { duration: 0.3, ease: [0.22, 1, 0.36, 1], delay: isCurrent ? 0 : 0.1 },
                       }}
                       className={`chat-agent-bubble rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tr-[13.5px] ${border} bg-[#f9fafb] px-[11.7px] py-[10.8px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:px-[14.4px] sm:py-[12.6px]`}
                     >
@@ -830,7 +830,7 @@ function ChatWidget() {
                   >
                     <motion.div
                       layoutId="bot-avatar"
-                      style={{ width: 42.3, height: 42.3 }}
+                      style={{ width: 45, height: 45 }}
                       className="shrink-0"
                       aria-hidden="true"
                       onMouseDown={e => e.preventDefault()}
@@ -878,11 +878,13 @@ function ChatWidget() {
 function AgentAvatar({ animateBot = false, eyeX, eyeY }) {
   return (
     <div className="flex size-full items-center justify-center rounded-full border border-[#d1d5db] bg-[#a5c9ff] p-px shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)]">
-      {animateBot ? (
-        <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
-      ) : (
-        <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
-      )}
+      <div className="translate-x-[1px] -translate-y-[2px]">
+        {animateBot ? (
+          <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
+        ) : (
+          <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
+        )}
+      </div>
     </div>
   );
 }
