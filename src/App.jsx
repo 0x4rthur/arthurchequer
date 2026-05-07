@@ -846,18 +846,18 @@ function ChatWidget() {
         </AnimatePresence>
       </div>
       <ChatScrollbar containerRef={messagesRef} visible={isChatScrolling} />
-      <div className="h-[80.1px] shrink-0 border-t border-[#d1d5db] bg-white/[.97] px-[13.5px] pb-[16.2px] pt-[17.1px] backdrop-blur-[5.8px] sm:px-[16.2px]">
-        <form className="flex h-[46.8px] items-center gap-[9.9px]" onSubmit={sendMessage}>
+      <div className="h-[80.1px] shrink-0 border-t border-[#e9ecf0] bg-white/[.97] px-[13.5px] pb-[16.2px] pt-[17.1px] backdrop-blur-[5.8px] sm:px-[16.2px]">
+        <form className="flex h-[46.8px] items-center gap-[10.8px]" onSubmit={sendMessage}>
           <input
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            className={`h-[46.8px] min-w-0 flex-1 appearance-none rounded-[9.9px] ${border} bg-[#f9fafb] px-[18px] text-[13.5px] font-light leading-normal text-[#1f2937] outline-none ${shadowSoft} placeholder:font-light placeholder:text-[#9ca3af] focus:border-[#a5c9ff] ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
+            className={`h-[46.8px] min-w-0 flex-1 appearance-none rounded-full border border-[#e2e6eb] bg-[#f4f6f9] px-[20px] text-[13.5px] font-light leading-normal text-[#1f2937] outline-none shadow-[0px_1px_2px_rgba(0,0,0,0.04)] placeholder:font-light placeholder:text-[#a8b0bb] focus:border-[#a5c9ff] focus:bg-white ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
             placeholder={isResetting ? "Resetting chat..." : "Ask the agent..."}
             aria-label="Ask the agent"
             disabled={isResetting}
           />
           <button
-            className="flex h-[46.8px] w-[45.9px] shrink-0 items-center justify-center rounded-[9.9px] border border-black bg-black shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-40 sm:w-[56.7px]"
+            className="flex size-[46.8px] shrink-0 items-center justify-center rounded-full bg-[#a5c9ff] shadow-[0px_1px_4px_rgba(165,201,255,0.5)] transition-all duration-200 hover:bg-[#8fbcff] hover:shadow-[0px_2px_8px_rgba(165,201,255,0.6)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
             type="submit"
             aria-label="Send message"
             disabled={!draft.trim() || isTyping || isResetting}
