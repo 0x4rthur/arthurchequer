@@ -24,8 +24,8 @@ const shadowCard =
   "shadow-[0px_16.2px_20.7px_-4px_rgba(0,0,0,0.1),0px_6.6px_8.1px_-5px_rgba(0,0,0,0.1)]";
 const shadowSoft = "shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)]";
 const border = "border border-[#d1d5db]";
-const pagePadding = "px-[18px] sm:px-[28.8px] lg:px-[43.2px]";
-const sectionSpacing = "mt-[93.6px] sm:mt-[115.2px] lg:mt-[144px]";
+const pagePadding = "px-[18px] sm:px-[28px] lg:px-[40px]";
+const sectionSpacing = "mt-[80px] sm:mt-[96px] lg:mt-[112px]";
 const chatLayoutTransition = {
   duration: 0.42,
   ease: [0.22, 1, 0.36, 1],
@@ -301,8 +301,8 @@ function Nav() {
       <div
         className={`nav-shell nav-float-in pointer-events-auto mx-auto flex h-[52.2px] w-full items-center justify-between rounded-full border px-[8.1px] pl-[16.2px] transition-[max-width,background-color,border-color,box-shadow] duration-[440ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-[64.8px] sm:px-[10.8px] sm:pl-[25.2px] ${
           isScrolled
-            ? "max-w-[702px] border-[#d1d5db] bg-white/92 shadow-[0px_14.4px_36.9px_-19.6px_rgba(17,24,39,0.42)] backdrop-blur-[16.2px]"
-            : "max-w-[1051.2px] border-[#e5e7eb] bg-white/78 shadow-[0px_8.1px_24.3px_-21.2px_rgba(17,24,39,0.34)] backdrop-blur-[12.6px]"
+            ? "max-w-[700px] border-[#d1d5db] bg-white/92 shadow-[0px_14.4px_36.9px_-19.6px_rgba(17,24,39,0.42)] backdrop-blur-[16.2px]"
+            : "max-w-[1080px] border-[#e5e7eb] bg-white/78 shadow-[0px_8.1px_24.3px_-21.2px_rgba(17,24,39,0.34)] backdrop-blur-[12.6px]"
         }`}
       >
         <a
@@ -1079,7 +1079,7 @@ function SkillsSection() {
             <div className="mt-[21.6px] flex flex-col gap-[18px]">
               {column.items.map(([icon, label, sizeClass, gapClass]) => (
                 <div key={icon} className={`flex items-center ${gapClass}`}>
-                  <img alt="" src={`${A}${icon}`} className={`${sizeClass} shrink-0 object-cover`} />
+                  <img alt="" src={`${A}${icon}`} loading="lazy" className={`${sizeClass} shrink-0 object-cover`} />
                   <span className="text-[14.4px] leading-[21.6px] text-[#4b5563]">{label}</span>
                 </div>
               ))}
@@ -1102,7 +1102,7 @@ function EducationCard({ title, school, icon, iconClass }) {
         <p className="mt-[7.4px] text-[12.6px] leading-[18px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
       </div>
       <div className="flex h-[57.6px] w-[68.4px] shrink-0 items-center justify-center overflow-visible sm:w-[79.2px]">
-        <img alt="" src={`${A}${icon}`} className={`${iconClass} object-contain`} />
+        <img alt="" src={`${A}${icon}`} loading="lazy" className={`${iconClass} object-contain`} />
       </div>
     </article>
   );
@@ -1131,7 +1131,7 @@ function EducationSection() {
 
 function ContactCta() {
   return (
-    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-36px)] max-w-[806.4px] overflow-hidden rounded-[14.4px] ${border} bg-white px-[21.6px] py-[43.2px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.25)] sm:w-[calc(100%-57.2px)] sm:px-[36px] sm:py-[57.6px] lg:w-[calc(100%-86.8px)] lg:px-[44.1px] lg:py-[72.9px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
+    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-36px)] max-w-[800px] overflow-hidden rounded-[14.4px] ${border} bg-white px-[21.6px] py-[43.2px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.25)] sm:w-[calc(100%-56px)] sm:px-[36px] sm:py-[57.6px] lg:w-[calc(100%-80px)] lg:px-[44.1px] lg:py-[72.9px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
       <div className="flex flex-col gap-[32.4px] lg:min-h-[118.8px] lg:flex-row lg:gap-0">
         <div className="w-full lg:w-[315.9px]">
           <h2 className="font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:text-[36px] sm:leading-[39.6px]">
@@ -1161,7 +1161,7 @@ function ContactCta() {
 
 function Footer() {
   return (
-    <footer className="mx-[18px] mt-[93.6px] flex min-h-[112.5px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[43.2px] pt-[36px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:mx-[28.8px] lg:mx-[43.2px] lg:mt-[144px] lg:flex-row lg:items-center lg:justify-between lg:pt-[44.1px]">
+    <footer className="mx-[18px] mt-[93.6px] flex min-h-[112.5px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[43.2px] pt-[36px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:mx-[28px] lg:mx-[40px] lg:mt-[144px] lg:flex-row lg:items-center lg:justify-between lg:pt-[44.1px]">
       <a href="#top" className="font-space text-[18px] font-black uppercase leading-[25.2px] tracking-normal text-[#111827]">
         AI_ENGINEER
       </a>
@@ -1181,7 +1181,7 @@ function Footer() {
 
 export default function App() {
   return (
-    <div id="top" className="site-compact min-h-screen overflow-x-hidden bg-white">
+    <div id="top" className="min-h-screen overflow-x-hidden bg-white">
       <Nav />
       <main className="mx-auto w-full max-w-[1080px]">
         <Hero />
