@@ -26,14 +26,15 @@ const BentoCard = ({
   <div
     role="button"
     tabIndex={0}
-    onClick={onClick}
-    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick?.()}
+    onClick={(e) => onClick?.(e)}
+    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick?.(e)}
     className={cn(
       "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-[18px] cursor-pointer outline-none",
       "bg-white border border-[#d1d5db]",
       "shadow-[0px_2px_4px_rgba(0,0,0,.04),0px_8px_24px_rgba(0,0,0,.04)]",
-      "transition-[border-color,box-shadow] duration-200 ease-out",
+      "will-change-transform transition-[border-color,box-shadow] duration-200 ease-out",
       "hover:border-[#a5c9ff] hover:shadow-[0px_22.5px_34.2px_-9.9px_rgba(165,201,255,0.32),0px_8.1px_16.2px_-9.9px_rgba(0,0,0,0.18)]",
+      "active:scale-[0.98]",
       "focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4",
       className
     )}

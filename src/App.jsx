@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Bot } from "./components/animate-ui/icons/bot";
 import ColorBends from "./components/ColorBends";
 import { DownloadIcon } from "./components/ui/download-icon";
@@ -534,6 +534,47 @@ function ChatScrollbar({ containerRef, visible }) {
   );
 }
 
+function ExpandedScrollbar({ containerRef, visible }) {
+  const [thumb, setThumb] = useState({ height: 0, top: 0 });
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => {
+      const ratio = el.clientHeight / el.scrollHeight;
+      if (ratio >= 1) { setThumb({ height: 0, top: 0 }); return; }
+      const h = Math.max(ratio * el.clientHeight, 28);
+      const maxTop = el.clientHeight - h;
+      setThumb({ height: h, top: (el.scrollTop / (el.scrollHeight - el.clientHeight)) * maxTop });
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => { el.removeEventListener("scroll", update); ro.disconnect(); };
+  }, [containerRef]);
+
+  return (
+    <AnimatePresence>
+      {visible && thumb.height > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
+          className="pointer-events-none absolute bottom-0 right-[5px] top-[140px] z-10 w-[4px] sm:top-[180px]"
+        >
+          <motion.div
+            className="absolute w-full rounded-full bg-[#1a1c1c]/[.22]"
+            animate={{ height: thumb.height, top: thumb.top }}
+            transition={{ duration: 0.06, ease: "linear" }}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 function ChatWidget() {
   const [activeTab, setActiveTab] = useState("About");
   const [messages, setMessages] = useState(initialChatMessages);
@@ -957,130 +998,172 @@ function ModalSection({ title, children }) {
   );
 }
 
-function ProjectModal({ project, onClose }) {
+function ProjectExpanded({ project, onClose }) {
+  const shouldReduceMotion = useReducedMotion();
+  const panelRef = useRef(null);
+  const scrollRef = useRef(null);
+  const [isScrollVisible, setIsScrollVisible] = useState(false);
+  const scrollTimerRef = useRef(null);
+
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    function handleKey(event) {
-      if (event.key === "Escape") onClose();
-    }
-
+    const handleKey = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  useEffect(() => {
+    let handler = null;
+    const id = window.setTimeout(() => {
+      handler = (e) => {
+        if (panelRef.current && !panelRef.current.contains(e.target)) onClose();
+      };
+      document.addEventListener("mousedown", handler);
+    }, 150);
     return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKey);
+      window.clearTimeout(id);
+      if (handler) document.removeEventListener("mousedown", handler);
     };
   }, [onClose]);
 
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTop = 0;
+    const onScroll = () => {
+      setIsScrollVisible(true);
+      clearTimeout(scrollTimerRef.current);
+      scrollTimerRef.current = setTimeout(() => setIsScrollVisible(false), 800);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      clearTimeout(scrollTimerRef.current);
+    };
+  }, []);
+
+  const layoutTransition = shouldReduceMotion
+    ? { duration: 0.15 }
+    : { duration: 0.46, ease: [0.22, 1, 0.36, 1] };
+
+  const contentTransition = shouldReduceMotion
+    ? { duration: 0.1 }
+    : { delay: 0.28, duration: 0.32, ease: [0.22, 1, 0.36, 1] };
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.22, ease: "easeOut" }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-[13.5px] sm:p-[21.6px]"
+      ref={panelRef}
+      layoutId={`card-${project.id}`}
+      className="absolute inset-0 z-30 flex flex-col overflow-hidden rounded-[32px] border border-[#d1d5db] bg-white shadow-[0px_24px_48px_-12px_rgba(0,0,0,0.22),0px_8px_16px_-8px_rgba(0,0,0,0.1)]"
+      transition={layoutTransition}
       role="dialog"
       aria-modal="true"
-      aria-labelledby={`project-${project.id}-title`}
-      onClick={onClose}
+      aria-labelledby="expanded-project-title"
     >
-      <div className="absolute inset-0 bg-black/55 backdrop-blur-[8.1px]" />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.96, y: 16 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.97, y: 8 }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 flex max-h-[90vh] w-full max-w-[752.4px] flex-col overflow-hidden rounded-[18px] border border-[#d1d5db] bg-white shadow-[0px_32.4px_65.7px_-16.4px_rgba(0,0,0,0.4)]"
-        onClick={(event) => event.stopPropagation()}
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close project details"
+        className="absolute right-[14.4px] top-[14.4px] z-20 flex size-[29.7px] items-center justify-center rounded-full border border-[#d1d5db] bg-white/95 text-[#4b5563] shadow-[0px_1.6px_6.6px_-1.6px_rgba(0,0,0,0.18)] outline-none transition-[color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#a5c9ff] hover:text-black focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:right-[18px] sm:top-[18px]"
       >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close project details"
-          className="absolute right-[14.4px] top-[14.4px] z-20 flex size-[29.7px] items-center justify-center rounded-full border border-[#d1d5db] bg-white/95 text-[#4b5563] shadow-[0px_1.6px_6.6px_-1.6px_rgba(0,0,0,0.18)] outline-none transition-[color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#a5c9ff] hover:text-black focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:right-[18px] sm:top-[18px]"
+        <svg
+          aria-hidden="true"
+          className="size-[13.5px]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            aria-hidden="true"
-            className="size-[13.5px]"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+
+      {/* gradient header — visible during layout morph for visual continuity */}
+      <div
+        className="relative h-[140px] flex-shrink-0 sm:h-[180px]"
+        style={{ backgroundImage: project.gradient }}
+      >
+        {project.badge && (
+          <span
+            className={`absolute left-[18px] top-[18px] rounded-full border px-[13.5px] py-[5.8px] font-space text-[9.9px] font-bold uppercase leading-[13.5px] tracking-normal ${project.badgeClass} shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[1.6px] sm:left-[25.2px] sm:top-[25.2px]`}
           >
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
-          </svg>
-        </button>
-        <div className="overflow-y-auto">
-          <div className="relative h-[163.8px] sm:h-[212.4px] lg:h-[245.7px]">
-            <div className="absolute inset-0" style={{ backgroundImage: project.gradient }} />
-            {project.badge && (
-              <span
-                className={`absolute left-[18px] top-[18px] rounded-full border px-[13.5px] py-[5.8px] font-space text-[9.9px] font-bold uppercase leading-[13.5px] tracking-normal ${project.badgeClass} shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[1.6px] sm:left-[26.1px] sm:top-[26.1px]`}
-              >
-                {project.badge}
-              </span>
-            )}
-          </div>
-          <div className="px-[18px] py-[22.5px] sm:px-[32.4px] sm:py-[32.4px] lg:px-[39.6px]">
-            <h2
-              id={`project-${project.id}-title`}
-              className="font-space text-[22.5px] font-normal uppercase leading-[27.9px] tracking-normal text-[#1a1c1c] sm:text-[29.7px] sm:leading-[36px]"
-            >
-              {project.title}
-            </h2>
-            <p className="mt-[11.7px] text-[13.5px] leading-[21.6px] text-[#4b5563] [text-wrap:pretty] sm:text-[13.5px] sm:leading-[22.5px]">
-              {project.description}
-            </p>
-            <ModalSection title="How it was built">
-              <p>{project.process}</p>
-            </ModalSection>
-            <ModalSection title="Tools used">
-              <div className="flex flex-wrap gap-[6.6px]">
-                {project.tools.map((tool) => (
-                  <Pill key={tool} small>
-                    {tool}
-                  </Pill>
-                ))}
-              </div>
-            </ModalSection>
-            <ModalSection title="Results">
-              <p>{project.results}</p>
-            </ModalSection>
-            <ModalSection title="Observations">
-              <p>{project.observations}</p>
-            </ModalSection>
-            {project.metrics && project.metrics.length > 0 && (
-              <ModalSection title="Metrics">
-                <div className="grid grid-cols-1 gap-[9.9px] sm:grid-cols-3">
-                  {project.metrics.map((metric) => (
-                    <div
-                      key={metric.label}
-                      className="rounded-[11.7px] border border-[#e5e7eb] bg-[#f9fafb] px-[14.4px] py-[13.5px] shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.04)]"
-                    >
-                      <p className="text-[9px] font-bold uppercase leading-[11.7px] tracking-[0.04em] text-[#6b7280]">
-                        {metric.label}
-                      </p>
-                      <p className="mt-[5px] font-space text-[19.8px] font-normal leading-[24.3px] text-[#1a1c1c]">
-                        {metric.value}
-                      </p>
-                    </div>
-                  ))}
+            {project.badge}
+          </span>
+        )}
+      </div>
+
+      {/* content — fades in after layout morph completes */}
+      <motion.div
+        ref={scrollRef}
+        className="overflow-y-auto overscroll-contain flex-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, transition: { duration: 0.1 } }}
+        transition={contentTransition}
+      >
+        <div className="px-[18px] py-[21.6px] sm:px-[28.8px] sm:py-[28.8px] lg:px-[36px]">
+          <h2
+            id="expanded-project-title"
+            className="font-space text-[21.6px] font-normal uppercase leading-[27px] tracking-normal text-[#1a1c1c] sm:text-[27.9px] sm:leading-[34.2px]"
+          >
+            {project.title}
+          </h2>
+          <p className="mt-[10.8px] text-[13.5px] leading-[21.6px] text-[#4b5563] [text-wrap:pretty]">
+            {project.description}
+          </p>
+
+          {project.metrics?.length > 0 && (
+            <div className="mt-[16.2px] grid grid-cols-3 gap-[8.1px] sm:gap-[9.9px]">
+              {project.metrics.map((m) => (
+                <div
+                  key={m.label}
+                  className="rounded-[10.8px] border border-[#e5e7eb] bg-[#f9fafb] px-[11.7px] py-[10.8px] shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.04)] sm:rounded-[11.7px] sm:px-[14.4px] sm:py-[13.5px]"
+                >
+                  <p className="text-[8.1px] font-bold uppercase leading-[10.8px] tracking-[0.04em] text-[#6b7280] sm:text-[9px] sm:leading-[11.7px]">
+                    {m.label}
+                  </p>
+                  <p className="mt-[3.6px] font-space text-[16.2px] font-normal leading-[20.7px] text-[#1a1c1c] sm:mt-[5px] sm:text-[19.8px] sm:leading-[24.3px]">
+                    {m.value}
+                  </p>
                 </div>
-              </ModalSection>
-            )}
-          </div>
+              ))}
+            </div>
+          )}
+
+          <ModalSection title="How it was built">
+            <p>{project.process}</p>
+          </ModalSection>
+
+          <ModalSection title="Tools used">
+            <div className="flex flex-wrap gap-[6.6px]">
+              {project.tools.map((tool) => (
+                <Pill key={tool} small>
+                  {tool}
+                </Pill>
+              ))}
+            </div>
+          </ModalSection>
+
+          <ModalSection title="Results">
+            <p>{project.results}</p>
+          </ModalSection>
+
+          <ModalSection title="Observations">
+            <p>{project.observations}</p>
+          </ModalSection>
         </div>
       </motion.div>
+
+      <ExpandedScrollbar containerRef={scrollRef} visible={isScrollVisible} />
     </motion.div>
   );
 }
 
 function ProjectsSection() {
-  const [openProject, setOpenProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const features = [
     {
@@ -1169,25 +1252,63 @@ function ProjectsSection() {
           <img alt="" src={`${A}arrow-right.svg`} className="size-[14.4px]" />
         </a>
       </div>
-      <BentoGrid className="mt-[28.8px] sm:mt-[43.2px]">
-        {features.map(({ project, Icon, className, background }) => (
-          <BentoCard
-            key={project.id}
-            name={project.title}
-            description={project.summary}
-            Icon={Icon}
-            background={background}
-            className={className}
-            onClick={() => setOpenProject(project)}
-            cta="See more"
-          />
-        ))}
-      </BentoGrid>
-      <AnimatePresence>
-        {openProject && (
-          <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />
-        )}
-      </AnimatePresence>
+      <div className="relative mt-[28.8px] sm:mt-[43.2px]">
+        <BentoGrid className={selectedProject ? "pointer-events-none" : ""}>
+          {features.map(({ project, Icon, className, background }) => {
+            const isSelected = selectedProject?.id === project.id;
+            return (
+              <motion.div
+                key={project.id}
+                className={className}
+                animate={{
+                  opacity: selectedProject
+                    ? isSelected ? 0 : 0.2
+                    : 1,
+                }}
+                transition={
+                  shouldReduceMotion || isSelected
+                    ? { duration: 0 }
+                    : { duration: 0.28, ease: "easeOut" }
+                }
+              >
+                {isSelected ? (
+                  <div className="h-full" aria-hidden="true" />
+                ) : (
+                  <motion.div
+                    layoutId={`card-${project.id}`}
+                    style={{ height: "100%", borderRadius: 18 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0.15 }
+                        : { duration: 0.42, ease: [0.22, 1, 0.36, 1] }
+                    }
+                  >
+                    <BentoCard
+                      name={project.title}
+                      description={project.summary}
+                      Icon={Icon}
+                      background={background}
+                      className="h-full"
+                      onClick={() => setSelectedProject(project)}
+                      cta="See more"
+                    />
+                  </motion.div>
+                )}
+              </motion.div>
+            );
+          })}
+        </BentoGrid>
+
+        <AnimatePresence>
+          {selectedProject && (
+            <ProjectExpanded
+              key={selectedProject.id}
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </section>
   );
 }
