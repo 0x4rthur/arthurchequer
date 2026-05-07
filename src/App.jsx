@@ -4,6 +4,8 @@ import { Bot } from "./components/animate-ui/icons/bot";
 import ColorBends from "./components/ColorBends";
 import { DownloadIcon } from "./components/ui/download-icon";
 import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
+import { BentoGrid, BentoCard } from "./components/ui/bento-grid";
+import { LightningBoltIcon, MagicWandIcon, MagnifyingGlassIcon, TargetIcon } from "@radix-ui/react-icons";
 
 const A = "/assets/";
 const contactHref = "#contact";
@@ -442,6 +444,96 @@ function Hero() {
   );
 }
 
+function PageScrollbar() {
+  const [thumb, setThumb] = useState({ height: 0, top: 0 });
+  const [visible, setVisible] = useState(false);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    const update = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      const scrollTop = window.scrollY;
+      const ratio = viewportHeight / scrollHeight;
+      if (ratio >= 1) { setThumb({ height: 0, top: 0 }); return; }
+      const h = Math.max(ratio * viewportHeight, 32);
+      const maxTop = viewportHeight - h;
+      setThumb({ height: h, top: (scrollTop / (scrollHeight - viewportHeight)) * maxTop });
+      setVisible(true);
+      clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setVisible(false), 800);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && thumb.height > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
+          className="pointer-events-none fixed inset-y-0 right-[5px] z-[200] w-[4px]"
+        >
+          <motion.div
+            className="absolute w-full rounded-full bg-[#1a1c1c]/[.22]"
+            animate={{ height: thumb.height, top: thumb.top }}
+            transition={{ duration: 0.06, ease: "linear" }}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function ChatScrollbar({ containerRef, visible }) {
+  const [thumb, setThumb] = useState({ height: 0, top: 0 });
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => {
+      const ratio = el.clientHeight / el.scrollHeight;
+      if (ratio >= 1) { setThumb({ height: 0, top: 0 }); return; }
+      const h = Math.max(ratio * el.clientHeight, 28);
+      const maxTop = el.clientHeight - h;
+      setThumb({ height: h, top: (el.scrollTop / (el.scrollHeight - el.clientHeight)) * maxTop });
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => { el.removeEventListener("scroll", update); ro.disconnect(); };
+  }, [containerRef]);
+
+  return (
+    <AnimatePresence>
+      {visible && thumb.height > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
+          className="pointer-events-none absolute bottom-[81px] right-[5px] top-[65px] w-[4px]"
+        >
+          <motion.div
+            className="absolute w-full rounded-full bg-[#1a1c1c]/[.22]"
+            animate={{ height: thumb.height, top: thumb.top }}
+            transition={{ duration: 0.06, ease: "linear" }}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 function ChatWidget() {
   const [activeTab, setActiveTab] = useState("About");
   const [messages, setMessages] = useState(initialChatMessages);
@@ -450,13 +542,13 @@ function ChatWidget() {
   const [isResetSpinning, setIsResetSpinning] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [isResetExiting, setIsResetExiting] = useState(false);
-  const [shouldHopAvatar, setShouldHopAvatar] = useState(false);
+  const [isChatScrolling, setIsChatScrolling] = useState(false);
+  const [messagesVisible, setMessagesVisible] = useState(true);
   const messagesRef = useRef(null);
+  const pendingResetRef = useRef(null);
   const typingTimerRef = useRef(null);
-  const resetCommitTimerRef = useRef(null);
   const resetEndTimerRef = useRef(null);
   const resetExitTimerRef = useRef(null);
-  const hopTimerRef = useRef(null);
   const { eyeX, eyeY } = useBotEyeOffset();
   const lastAgentMessageIndex = messages.reduce(
     (lastIndex, message, index) => (message.role === "agent" ? index : lastIndex),
@@ -471,11 +563,22 @@ function ChatWidget() {
   }, [messages, isTyping]);
 
   useEffect(() => {
+    const el = messagesRef.current;
+    if (!el) return;
+    let timer;
+    const onScroll = () => {
+      setIsChatScrolling(true);
+      clearTimeout(timer);
+      timer = setTimeout(() => setIsChatScrolling(false), 800);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => { el.removeEventListener("scroll", onScroll); clearTimeout(timer); };
+  }, []);
+
+  useEffect(() => {
     return () => {
       window.clearTimeout(typingTimerRef.current);
-      window.clearTimeout(resetCommitTimerRef.current);
       window.clearTimeout(resetEndTimerRef.current);
-      window.clearTimeout(hopTimerRef.current);
       window.clearTimeout(resetExitTimerRef.current);
     };
   }, []);
@@ -489,9 +592,6 @@ function ChatWidget() {
     setMessages((current) => [...current, { role: "user", text: cleanDraft }]);
     setDraft("");
     setIsTyping(true);
-    window.clearTimeout(hopTimerRef.current);
-    setShouldHopAvatar(true);
-    hopTimerRef.current = window.setTimeout(() => setShouldHopAvatar(false), 420);
     window.clearTimeout(typingTimerRef.current);
     typingTimerRef.current = window.setTimeout(() => {
       setMessages((current) => [
@@ -529,26 +629,23 @@ function ChatWidget() {
   }
 
   function resetChat() {
-    if (isResetting) {
-      return;
-    }
+    if (isResetting) return;
 
     window.clearTimeout(typingTimerRef.current);
-    window.clearTimeout(resetCommitTimerRef.current);
     window.clearTimeout(resetEndTimerRef.current);
     window.clearTimeout(resetExitTimerRef.current);
-    window.clearTimeout(hopTimerRef.current);
 
-    setIsResetting(true);
-    setShouldHopAvatar(false);
-    setIsResetSpinning(true);
-    setIsResetExiting(false);
-    setIsTyping(false);
-    resetCommitTimerRef.current = window.setTimeout(() => {
+    pendingResetRef.current = () => {
       setActiveTab("About");
       setMessages(initialChatMessages);
       setDraft("");
-    }, 180);
+    };
+
+    setIsResetting(true);
+    setIsResetSpinning(true);
+    setIsResetExiting(false);
+    setIsTyping(false);
+    setMessagesVisible(false);
 
     resetEndTimerRef.current = window.setTimeout(() => {
       setIsResetting(false);
@@ -562,7 +659,7 @@ function ChatWidget() {
 
   return (
     <div
-      className={`flex h-[468px] min-w-0 flex-col overflow-hidden rounded-[18px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[9px] sm:rounded-[21.6px] lg:h-[450px] lg:w-full`}
+      className={`relative flex h-[468px] min-w-0 flex-col overflow-hidden rounded-[18px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[9px] sm:rounded-[21.6px] lg:h-[450px] lg:w-full`}
     >
       <div className="relative z-20 min-h-[63.9px] shrink-0 border-b border-[#d1d5db] bg-white/[.97] px-[13.5px] py-[14.4px] backdrop-blur-[5.8px] sm:px-[16.2px] sm:py-[16.2px]">
         <div className="flex h-full items-center gap-[6.6px] sm:gap-[13.5px]">
@@ -612,54 +709,102 @@ function ChatWidget() {
       </div>
       <div
         ref={messagesRef}
-        className={`chat-messages-surface relative z-0 min-h-0 flex-1 space-y-[14.4px] overflow-y-auto px-[13.5px] py-[16.2px] sm:px-[22.5px] sm:py-[19.8px] ${isResetting ? "chat-resetting" : ""}`}
+        className="chat-messages-surface relative z-0 min-h-0 flex-1 overflow-y-auto"
       >
-        {messages.map((message, index) =>
-          message.role === "agent" ? (
+        <AnimatePresence
+          mode="wait"
+          onExitComplete={() => {
+            pendingResetRef.current?.();
+            pendingResetRef.current = null;
+            setMessagesVisible(true);
+          }}
+        >
+          {messagesVisible && (
             <motion.div
-              key={`${message.role}-${index}`}
-              layout
-              transition={{ layout: chatLayoutTransition }}
-              className={`chat-message-in chat-agent-row ${index === lastAgentMessageIndex && !isTyping ? "chat-agent-row-current" : ""}`}
+              key="chat-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              className="space-y-[13.5px] px-[13.5px] py-[16.2px] sm:px-[22.5px] sm:py-[19.8px]"
             >
-              {index === lastAgentMessageIndex && !isTyping ? (
-                <AgentAvatar animateBot={message.animateBot} eyeX={eyeX} eyeY={eyeY} />
-              ) : null}
-              <motion.div
-                layout
-                transition={{ layout: chatLayoutTransition }}
-                className={`chat-agent-bubble rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tr-[13.5px] ${border} bg-[#f9fafb] px-[11.7px] py-[10.8px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:px-[14.4px] sm:py-[12.6px]`}
-              >
-                <p className="text-[12.6px] leading-[19.8px] text-[#374151]">{message.text}</p>
-              </motion.div>
+              {messages.map((message, index) => {
+                const isCurrent = index === lastAgentMessageIndex && !isTyping;
+                return message.role === "agent" ? (
+                  <div key={`a-${index}`} className="chat-agent-row chat-agent-row-current">
+                    <div
+                      className="relative size-[42.3px] shrink-0 sm:size-[49.5px]"
+                      aria-hidden="true"
+                      onMouseDown={e => e.preventDefault()}
+                    >
+                      {isCurrent && (
+                        <motion.div
+                          layoutId="bot-avatar"
+                          className="absolute inset-0"
+                          transition={{ type: "spring", stiffness: 400, damping: 40 }}
+                        >
+                          <AgentAvatar animateBot={message.animateBot} eyeX={eyeX} eyeY={eyeY} />
+                        </motion.div>
+                      )}
+                    </div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className={`chat-agent-bubble rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tr-[13.5px] ${border} bg-[#f9fafb] px-[11.7px] py-[10.8px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:px-[14.4px] sm:py-[12.6px]`}
+                    >
+                      <p className="text-[12.6px] leading-[19.8px] text-[#374151]">{message.text}</p>
+                    </motion.div>
+                  </div>
+                ) : (
+                  <motion.div
+                    key={`u-${index}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.24, ease: "easeOut" }}
+                    className="flex justify-end"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.015, transition: { duration: 0.15 } }}
+                      className="max-w-[82%] rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tl-[13.5px] border border-black bg-black px-[13.5px] py-[11.7px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:max-w-[334.8px] sm:px-[14.4px] sm:py-[13.5px]"
+                    >
+                      <p className="text-[12.6px] leading-[19.8px] text-white">{message.text}</p>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+              <AnimatePresence mode="popLayout">
+                {isTyping && (
+                  <motion.div
+                    key="typing"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="chat-agent-row chat-agent-row-current chat-typing-row"
+                  >
+                    <motion.div
+                      layoutId="bot-avatar"
+                      className="size-[42.3px] shrink-0 sm:size-[49.5px]"
+                      aria-hidden="true"
+                      onMouseDown={e => e.preventDefault()}
+                      transition={{ type: "spring", stiffness: 400, damping: 40 }}
+                    >
+                      <AgentAvatar eyeX={eyeX} eyeY={eyeY} />
+                    </motion.div>
+                    <div className="chat-typing-indicator flex h-[29.7px] items-center gap-[5px] sm:h-[32.4px]">
+                      <span className="typing-dot" />
+                      <span className="typing-dot animation-delay-150" />
+                      <span className="typing-dot animation-delay-300" />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
-          ) : (
-            <div key={`${message.role}-${index}`} className="chat-message-in flex justify-end">
-              <div className="max-w-[82%] rounded-bl-[13.5px] rounded-br-[13.5px] rounded-tl-[13.5px] border border-black bg-black px-[13.5px] py-[11.7px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:max-w-[334.8px] sm:px-[14.4px] sm:py-[13.5px]">
-                <p className="text-[12.6px] leading-[19.8px] text-white">{message.text}</p>
-              </div>
-            </div>
-          ),
-        )}
-        {isTyping && (
-          <motion.div
-            layout
-            transition={{ layout: chatLayoutTransition }}
-            className="chat-message-in chat-agent-row chat-agent-row-current chat-typing-row"
-          >
-            <AgentAvatar animateEntrance={shouldHopAvatar} eyeX={eyeX} eyeY={eyeY} />
-            <motion.div
-              layout
-              transition={{ layout: chatLayoutTransition }}
-              className="chat-typing-indicator flex h-[29.7px] items-center gap-[5px] sm:h-[32.4px]"
-            >
-              <span className="typing-dot" />
-              <span className="typing-dot animation-delay-150" />
-              <span className="typing-dot animation-delay-300" />
-            </motion.div>
-          </motion.div>
-        )}
+          )}
+        </AnimatePresence>
       </div>
+      <ChatScrollbar containerRef={messagesRef} visible={isChatScrolling} />
       <div className="h-[80.1px] shrink-0 border-t border-[#d1d5db] bg-white/[.97] px-[13.5px] pb-[16.2px] pt-[17.1px] backdrop-blur-[5.8px] sm:px-[16.2px]">
         <form className="flex h-[46.8px] items-center gap-[9.9px]" onSubmit={sendMessage}>
           <input
@@ -684,16 +829,14 @@ function ChatWidget() {
   );
 }
 
-function AgentAvatar({ animateEntrance = false, animateBot = false, eyeX, eyeY }) {
+function AgentAvatar({ animateBot = false, eyeX, eyeY }) {
   return (
-    <div className="size-[42.3px] shrink-0 sm:size-[49.5px]" aria-hidden="true" onMouseDown={e => e.preventDefault()}>
-      <div className={`${animateEntrance ? "agent-avatar-hop" : ""} flex size-full items-center justify-center rounded-full ${border} bg-[#a5c9ff] p-px shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)]`}>
-        {animateBot ? (
-          <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
-        ) : (
-          <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
-        )}
-      </div>
+    <div className="flex size-full items-center justify-center rounded-full border border-[#d1d5db] bg-[#a5c9ff] p-px shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)]">
+      {animateBot ? (
+        <BotLoopIcon eyeX={eyeX} eyeY={eyeY} />
+      ) : (
+        <HoverBlinkBotIcon eyeX={eyeX} eyeY={eyeY} />
+      )}
     </div>
   );
 }
@@ -800,96 +943,6 @@ function ToolkitSection() {
   );
 }
 
-function ProjectCard({ project, variant, index, className = "", onOpen }) {
-  const isFeatured = variant === "featured";
-  const isHorizontal = variant === "horizontal";
-
-  return (
-    <motion.button
-      type="button"
-      onClick={() => onOpen(project)}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-65.4px" }}
-      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -5, transition: { duration: 0.24, ease: "easeOut" } }}
-      className={`group relative flex h-full overflow-hidden rounded-[18px] border border-[#d1d5db] bg-white text-left ${shadowCard} cursor-pointer outline-none transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_22.5px_34.2px_-9.9px_rgba(165,201,255,0.32),0px_8.1px_16.2px_-9.9px_rgba(0,0,0,0.18)] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white ${
-        isHorizontal ? "flex-col md:flex-row" : "flex-col"
-      } ${className}`}
-      aria-label={`Open ${project.title} details`}
-    >
-      <div
-        className={`relative shrink-0 overflow-hidden ${
-          isHorizontal
-            ? "h-[147.6px] md:h-auto md:w-[44%]"
-            : isFeatured
-              ? "h-[196.2px] sm:h-[229.5px] lg:h-[278.1px]"
-              : "h-[147.6px] sm:h-[163.8px]"
-        }`}
-      >
-        <div
-          className="absolute inset-0 [will-change:transform] [backface-visibility:hidden] transition-transform duration-500 ease-out group-hover:scale-[1.05]"
-          style={{ backgroundImage: project.gradient }}
-        />
-        {project.badge && (
-          <span
-            className={`absolute right-[13.5px] top-[13.5px] rounded-full border px-[11.7px] py-[5px] font-space text-[9px] font-bold uppercase leading-[12.6px] tracking-normal ${project.badgeClass} shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[1.6px] sm:right-[16.2px] sm:top-[16.2px]`}
-          >
-            {project.badge}
-          </span>
-        )}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
-        <span className="pointer-events-none absolute bottom-[13.5px] left-[13.5px] flex translate-y-2 items-center gap-[6.6px] rounded-full border border-[#d1d5db] bg-white/95 px-[11.7px] py-[5.8px] font-space text-[9px] font-bold uppercase leading-[12.6px] tracking-normal text-black opacity-0 shadow-[0px_6.6px_14.4px_-6.6px_rgba(0,0,0,0.28)] backdrop-blur-[5px] transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:bottom-[16.2px] sm:left-[16.2px]">
-          See more about
-          <svg
-            aria-hidden="true"
-            className="size-[9.9px]"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M5 12h14" />
-            <path d="m13 5 7 7-7 7" />
-          </svg>
-        </span>
-      </div>
-      <div
-        className={`flex min-w-0 flex-1 flex-col p-[18px] sm:p-[21.6px] ${
-          isFeatured ? "lg:p-[26.1px]" : ""
-        }`}
-      >
-        <h3
-          className={`font-space font-normal uppercase tracking-normal text-[#1a1c1c] ${
-            isFeatured
-              ? "text-[21.6px] leading-[26.1px] sm:text-[24.3px] sm:leading-[31.5px] lg:text-[27.9px] lg:leading-[34.2px]"
-              : "text-[18px] leading-[22.5px] sm:text-[19.8px] sm:leading-[26.1px]"
-          }`}
-        >
-          {project.title}
-        </h3>
-        <p
-          className={`mt-[9.9px] text-[#4b5563] [text-wrap:pretty] ${
-            isFeatured || isHorizontal
-              ? "text-[13.5px] leading-[21.6px] lg:text-[13.5px] lg:leading-[22.5px]"
-              : "text-[12.6px] leading-[19.8px]"
-          }`}
-        >
-          {isFeatured || isHorizontal ? project.description : project.summary}
-        </p>
-        <div className="mt-auto flex flex-wrap gap-[6.6px] pt-[16.2px]">
-          {project.tools.slice(0, isFeatured ? 5 : 3).map((tool) => (
-            <Pill key={tool} small>
-              {tool}
-            </Pill>
-          ))}
-        </div>
-      </div>
-    </motion.button>
-  );
-}
 
 function ModalSection({ title, children }) {
   return (
@@ -1029,11 +1082,82 @@ function ProjectModal({ project, onClose }) {
 function ProjectsSection() {
   const [openProject, setOpenProject] = useState(null);
 
-  const cards = [
-    { project: projects[0], variant: "featured", className: "md:col-span-2 lg:col-span-8 lg:row-span-2" },
-    { project: projects[1], variant: "compact", className: "lg:col-span-4 lg:row-span-1" },
-    { project: projects[2], variant: "compact", className: "lg:col-span-4 lg:row-span-1" },
-    { project: projects[3], variant: "horizontal", className: "md:col-span-2 lg:col-span-12" },
+  const features = [
+    {
+      project: projects[0],
+      Icon: LightningBoltIcon,
+      className: "col-span-3 lg:col-span-2",
+      background: (
+        <>
+          <div
+            className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04] [mask-image:linear-gradient(to_top,transparent_25%,#000_75%)]"
+            style={{ backgroundImage: projects[0].gradient }}
+          />
+          <span className="absolute left-4 top-4 rounded-full border border-[#1f2937] bg-black px-3 py-1.5 font-space text-[9px] font-bold uppercase leading-tight text-white shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)]">
+            PRODUCTION
+          </span>
+          <div className="absolute right-4 top-14 flex flex-col gap-2">
+            {projects[0].metrics.slice(0, 2).map((m) => (
+              <div key={m.label} className="rounded-xl border border-black/10 bg-white/75 px-3 py-2 text-right shadow-sm backdrop-blur-sm">
+                <div className="font-space text-[18px] leading-tight text-[#1a1c1c]">{m.value}</div>
+                <div className="text-[9px] font-bold uppercase text-[#6b7280]">{m.label}</div>
+              </div>
+            ))}
+          </div>
+        </>
+      ),
+    },
+    {
+      project: projects[1],
+      Icon: MagicWandIcon,
+      className: "col-span-3 lg:col-span-1",
+      background: (
+        <>
+          <div
+            className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04] [mask-image:linear-gradient(to_top,transparent_25%,#000_75%)]"
+            style={{ backgroundImage: projects[1].gradient }}
+          />
+          <span className="absolute right-4 top-4 rounded-full border border-[#d1d5db] bg-white/95 px-3 py-1.5 font-space text-[9px] font-bold uppercase leading-tight text-black shadow-sm">
+            BETA
+          </span>
+        </>
+      ),
+    },
+    {
+      project: projects[2],
+      Icon: MagnifyingGlassIcon,
+      className: "col-span-3 lg:col-span-1",
+      background: (
+        <div
+          className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04] [mask-image:linear-gradient(to_top,transparent_25%,#000_75%)]"
+          style={{ backgroundImage: projects[2].gradient }}
+        />
+      ),
+    },
+    {
+      project: projects[3],
+      Icon: TargetIcon,
+      className: "col-span-3 lg:col-span-2",
+      background: (
+        <>
+          <div
+            className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04] [mask-image:linear-gradient(to_top,transparent_25%,#000_75%)]"
+            style={{ backgroundImage: projects[3].gradient }}
+          />
+          <span className="absolute right-4 top-4 rounded-full border border-[#d1d5db] bg-white/95 px-3 py-1.5 font-space text-[9px] font-bold uppercase leading-tight text-black shadow-sm">
+            INTERNAL
+          </span>
+          <div className="absolute right-4 top-14 flex flex-col gap-2">
+            {projects[3].metrics.slice(0, 2).map((m) => (
+              <div key={m.label} className="rounded-xl border border-black/10 bg-white/75 px-3 py-2 text-right shadow-sm backdrop-blur-sm">
+                <div className="font-space text-[18px] leading-tight text-[#1a1c1c]">{m.value}</div>
+                <div className="text-[9px] font-bold uppercase text-[#6b7280]">{m.label}</div>
+              </div>
+            ))}
+          </div>
+        </>
+      ),
+    },
   ];
 
   return (
@@ -1045,18 +1169,20 @@ function ProjectsSection() {
           <img alt="" src={`${A}arrow-right.svg`} className="size-[14.4px]" />
         </a>
       </div>
-      <div className="mt-[28.8px] grid grid-cols-1 gap-[18px] sm:mt-[43.2px] md:grid-cols-2 lg:grid-cols-12 lg:gap-[21.6px]">
-        {cards.map(({ project, variant, className }, index) => (
-          <ProjectCard
+      <BentoGrid className="mt-[28.8px] sm:mt-[43.2px]">
+        {features.map(({ project, Icon, className, background }) => (
+          <BentoCard
             key={project.id}
-            project={project}
-            variant={variant}
-            index={index}
+            name={project.title}
+            description={project.summary}
+            Icon={Icon}
+            background={background}
             className={className}
-            onOpen={setOpenProject}
+            onClick={() => setOpenProject(project)}
+            cta="See more"
           />
         ))}
-      </div>
+      </BentoGrid>
       <AnimatePresence>
         {openProject && (
           <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />
@@ -1182,6 +1308,7 @@ function Footer() {
 export default function App() {
   return (
     <div id="top" className="min-h-screen overflow-x-hidden bg-white">
+      <PageScrollbar />
       <Nav />
       <main className="mx-auto w-full max-w-[1080px]">
         <Hero />
