@@ -27,7 +27,7 @@ const shadowCard =
 const shadowSoft = "shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)]";
 const border = "border border-[#d1d5db]";
 const pagePadding = "px-[18px] sm:px-[28px] lg:px-[40px]";
-const sectionSpacing = "mt-[80px] sm:mt-[96px] lg:mt-[112px]";
+const sectionSpacing = "mt-[52px] sm:mt-[64px] lg:mt-[80px]";
 
 
 const toolkit = [
@@ -960,7 +960,7 @@ function Pill({ children, small = false }) {
 
 function ToolkitSection() {
   return (
-    <section id="toolkit" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[480px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
+    <section id="toolkit" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:px-[120px] lg:py-[40px]`}>
       <SectionTitle>MY CORE AI TOOLKIT</SectionTitle>
       <div className="mt-[28.8px] grid gap-[18px] sm:mt-[43.2px] lg:grid-cols-3 lg:gap-[21.6px]">
         {toolkit.map((item, index) => (
@@ -1252,7 +1252,7 @@ function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[960px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
+    <section id="projects" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:px-[120px] lg:py-[40px]`}>
       <div className="flex flex-col gap-[14.4px] border-b border-[#d1d5db] pb-[22.5px] sm:flex-row sm:items-end sm:justify-between">
         <SectionTitle>SELECTED PROJECTS</SectionTitle>
         <a href="#projects" className="flex shrink-0 items-center gap-[7.4px] text-center text-[12.6px] font-bold uppercase leading-[18px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
@@ -1323,7 +1323,7 @@ function ProjectsSection() {
 
 function SkillsSection() {
   return (
-    <section id="skills" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[520px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
+    <section id="skills" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:px-[120px] lg:py-[40px]`}>
       <SectionTitle>SKILLS</SectionTitle>
       <div className="mt-[28.8px] grid gap-[21.6px] sm:mt-[43.2px] md:grid-cols-2 lg:grid-cols-4 lg:gap-[28.8px]">
         {skills.map((column) => (
@@ -1380,7 +1380,7 @@ function EducationSection() {
     : { hidden: { opacity: 0, x: 10, y: 12 }, visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] } } };
 
   return (
-    <section id="education" className={`${sectionSpacing} px-[18px] sm:px-[28px] pb-[21.6px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[520px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
+    <section id="education" className={`${sectionSpacing} px-[18px] sm:px-[28px] pb-[21.6px] pt-[28.8px] sm:pt-[43.2px] lg:px-[120px] lg:py-[40px]`}>
       <motion.div
         initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -1419,10 +1419,24 @@ function EducationSection() {
 }
 
 function ContactCta() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-36px)] max-w-[800px] overflow-hidden rounded-[14.4px] ${border} bg-white px-[21.6px] py-[43.2px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.25)] sm:w-[calc(100%-56px)] sm:px-[36px] sm:py-[57.6px] lg:mx-0 lg:flex lg:min-h-[400px] lg:w-full lg:max-w-none lg:flex-col lg:items-center lg:justify-center lg:px-[120px] lg:py-[50px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
-      <div className="flex flex-col gap-[32.4px] lg:min-h-[118.8px] lg:flex-row lg:gap-0">
-        <div className="w-full lg:w-[315.9px]">
+    <section id="contact" className={`${sectionSpacing} px-[18px] sm:px-[28px] lg:px-[120px]`}>
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.985 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: shouldReduceMotion ? 0.3 : 0.62, ease: [0.22, 1, 0.36, 1] }}
+        className={`overflow-hidden rounded-[18px] ${border} bg-white px-[24px] py-[36px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.2)] sm:px-[40px] sm:py-[44px] lg:flex lg:items-center lg:justify-between lg:px-[56px] lg:py-[48px]`}
+        style={{ backgroundImage: "linear-gradient(161.91deg, rgba(165,201,255,0.12) 0%, rgba(165,201,255,0) 100%)" }}
+      >
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.18, duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+        >
           <h2 className="font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:text-[36px] sm:leading-[39.6px]">
             LET&apos;S BUILD
             <br />
@@ -1431,19 +1445,33 @@ function ContactCta() {
           <span className="mt-[1.6px] inline-block max-w-full rounded-[3.2px] border border-[rgba(165,201,255,0.3)] bg-[rgba(165,201,255,0.4)] px-[8.1px] py-[5.8px] font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:-mt-[5.8px] sm:text-[36px] sm:leading-[39.6px]">
             QUIETLY USEFUL.
           </span>
-        </div>
-        <div className="hidden h-[86.4px] w-px bg-[#9ca3af] lg:ml-[43.2px] lg:mr-[43.2px] lg:mt-[16.2px] lg:block" />
-        <div className="lg:mt-[23.4px] lg:w-[315.9px]">
+        </motion.div>
+
+        <div className="hidden h-[72px] w-px shrink-0 bg-[#d1d5db] lg:mx-[48px] lg:block" />
+
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.28, duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-[28px] shrink-0 lg:mt-0"
+        >
           <p className="text-[9px] font-bold uppercase leading-[13.5px] tracking-normal text-[#6b7280]">CONTACT ME:</p>
-          <div className="mt-[14.4px] flex gap-[14.4px]">
+          <div className="mt-[14.4px] flex gap-[10.8px]">
             {contactActions.map(([icon, label, href]) => (
-              <a key={icon} href={href} aria-label={label} className={`flex size-[43.2px] items-center justify-center rounded-[7.4px] border border-[#e5e7eb] bg-[#f9fafb]/50 p-px ${shadowSoft}`}>
+              <motion.a
+                key={icon}
+                href={href}
+                aria-label={label}
+                whileHover={shouldReduceMotion ? undefined : { y: -2, transition: { duration: 0.18, ease: "easeOut" } }}
+                className={`flex size-[43.2px] items-center justify-center rounded-[10.8px] border border-[#e5e7eb] bg-[#f9fafb] p-px shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] transition-[border-color,box-shadow] duration-200 hover:border-[#a5c9ff] hover:shadow-[0px_6px_14px_-6px_rgba(165,201,255,0.5)]`}
+              >
                 <img alt="" src={`${A}${icon}`} className={icon === "share.svg" ? "h-[14.4px] w-[13.5px]" : "h-[12.6px] w-[14.4px]"} />
-              </a>
+              </motion.a>
             ))}
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

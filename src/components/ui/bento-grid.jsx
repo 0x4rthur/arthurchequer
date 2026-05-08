@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 const BentoGrid = ({ children, className, ...props }) => (
   <div
     className={cn(
-      "grid w-full auto-rows-[20rem] grid-cols-3 gap-[18px] sm:gap-[21.6px] lg:auto-rows-[22rem]",
+      "grid w-full auto-rows-[14rem] grid-cols-3 gap-[18px] sm:gap-[21.6px] lg:auto-rows-[16rem]",
       className
     )}
     {...props}
