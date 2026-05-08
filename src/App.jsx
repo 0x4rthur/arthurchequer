@@ -6,6 +6,7 @@ import { DownloadIcon } from "./components/ui/download-icon";
 import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
 import { BentoGrid, BentoCard } from "./components/ui/bento-grid";
 import { LightningBoltIcon, MagicWandIcon, MagnifyingGlassIcon, TargetIcon } from "@radix-ui/react-icons";
+import { streamChat, isApiConfigured } from "./lib/chatApi";
 
 const A = "/assets/";
 const contactHref = "#contact";
@@ -631,17 +632,90 @@ function ChatWidget() {
     setDraft("");
     setIsTyping(true);
     window.clearTimeout(typingTimerRef.current);
-    typingTimerRef.current = window.setTimeout(() => {
+
+    // Offline fallback: if the chat API isn't configured, keep the legacy
+    // mock so local development still feels responsive.
+    if (!isApiConfigured) {
+      typingTimerRef.current = window.setTimeout(() => {
+        setMessages((current) => [
+          ...current,
+          { role: "agent", text: getAgentReply(cleanDraft, tab), animateBot: true },
+        ]);
+        setIsTyping(false);
+      }, botReplyDelay);
+      return;
+    }
+
+    let bubbleStarted = false;
+
+    const ensureBubble = () => {
+      if (bubbleStarted) return;
+      bubbleStarted = true;
+      setIsTyping(false);
       setMessages((current) => [
         ...current,
-        {
-          role: "agent",
-          text: getAgentReply(cleanDraft, tab),
-          animateBot: true,
-        },
+        { role: "agent", text: "", animateBot: true, streaming: true },
       ]);
-      setIsTyping(false);
-    }, botReplyDelay);
+    };
+
+    const appendToken = (text) => {
+      setMessages((current) => {
+        const next = current.slice();
+        const lastIndex = next.length - 1;
+        const last = next[lastIndex];
+        if (last && last.role === "agent" && last.streaming) {
+          next[lastIndex] = { ...last, text: last.text + text };
+        }
+        return next;
+      });
+    };
+
+    const finalizeBubble = () => {
+      setMessages((current) => {
+        const next = current.slice();
+        const lastIndex = next.length - 1;
+        const last = next[lastIndex];
+        if (last && last.role === "agent" && last.streaming) {
+          next[lastIndex] = { ...last, streaming: false };
+        }
+        return next;
+      });
+    };
+
+    // Send only recent turns so follow-ups like "tell me more" have context.
+    // Only meaningful turns (no streaming placeholders, no empty text).
+    const history = messages
+      .filter((m) => (m.role === "user" || m.role === "agent") && m.text && !m.streaming)
+      .slice(-6)
+      .map((m) => ({ role: m.role, text: m.text }));
+
+    streamChat(cleanDraft, {
+      history,
+      onToken: (text) => {
+        ensureBubble();
+        appendToken(text);
+      },
+      onDone: () => {
+        ensureBubble();
+        finalizeBubble();
+      },
+      onError: () => {
+        if (!bubbleStarted) {
+          setMessages((current) => [
+            ...current,
+            {
+              role: "agent",
+              text:
+                "I couldn't reach the agent right now. Please try again in a moment.",
+              animateBot: true,
+            },
+          ]);
+          setIsTyping(false);
+        } else {
+          finalizeBubble();
+        }
+      },
+    });
   }
 
   function sendMessage(event) {
