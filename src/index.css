@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: rgba(165, 201, 255, 0.45);
+  color: #111827;
+}
+
 html {
   font-size: 100%;
   scroll-behavior: smooth;

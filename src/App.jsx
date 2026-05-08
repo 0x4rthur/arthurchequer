@@ -1424,49 +1424,54 @@ function ContactCta() {
   return (
     <section id="contact" className={`${sectionSpacing} px-[18px] sm:px-[28px] lg:px-[120px]`}>
       <motion.div
-        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.985 }}
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 28, scale: 0.975 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: shouldReduceMotion ? 0.3 : 0.62, ease: [0.22, 1, 0.36, 1] }}
-        className={`overflow-hidden rounded-[18px] ${border} bg-white px-[24px] py-[36px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.2)] sm:px-[40px] sm:py-[44px] lg:flex lg:items-center lg:justify-between lg:px-[56px] lg:py-[48px]`}
+        transition={{ duration: shouldReduceMotion ? 0.3 : 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="relative overflow-hidden rounded-[24px] border border-[#d1d5db] bg-white px-[28px] py-[48px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.18)] sm:px-[48px] sm:py-[56px] lg:flex lg:items-center lg:justify-between lg:px-[64px] lg:py-[60px]"
         style={{ backgroundImage: "linear-gradient(161.91deg, rgba(165,201,255,0.12) 0%, rgba(165,201,255,0) 100%)" }}
       >
         <motion.div
-          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.18, duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.2, duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10"
         >
-          <h2 className="font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:text-[36px] sm:leading-[39.6px]">
+          <h2 className="font-space text-[32px] font-normal uppercase leading-[1.05] tracking-normal text-[#111827] sm:text-[44px] lg:text-[52px]">
             LET&apos;S BUILD
             <br />
             SOMETHING
           </h2>
-          <span className="mt-[1.6px] inline-block max-w-full rounded-[3.2px] border border-[rgba(165,201,255,0.3)] bg-[rgba(165,201,255,0.4)] px-[8.1px] py-[5.8px] font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:-mt-[5.8px] sm:text-[36px] sm:leading-[39.6px]">
+          <span className="mt-[6px] inline-block rounded-[4px] border border-[rgba(165,201,255,0.3)] bg-[rgba(165,201,255,0.4)] px-[10px] py-[6px] font-space text-[32px] font-normal uppercase leading-[1.05] tracking-normal text-[#111827] sm:text-[44px] lg:text-[52px]">
             QUIETLY USEFUL.
           </span>
         </motion.div>
 
-        <div className="hidden h-[72px] w-px shrink-0 bg-[#d1d5db] lg:mx-[48px] lg:block" />
+        <div className="hidden h-[80px] w-px shrink-0 bg-[#9ca3af] lg:mx-[56px] lg:block" />
 
         <motion.div
-          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.28, duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-[28px] shrink-0 lg:mt-0"
+          transition={{ delay: 0.32, duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 mt-[32px] shrink-0 lg:mt-0"
         >
-          <p className="text-[9px] font-bold uppercase leading-[13.5px] tracking-normal text-[#6b7280]">CONTACT ME:</p>
-          <div className="mt-[14.4px] flex gap-[10.8px]">
+          <p className="text-[9px] font-bold uppercase leading-[13.5px] tracking-[0.08em] text-[#6b7280]">CONTACT ME:</p>
+          <div className="mt-[14px] flex gap-[10px]">
             {contactActions.map(([icon, label, href]) => (
               <motion.a
                 key={icon}
                 href={href}
                 aria-label={label}
-                whileHover={shouldReduceMotion ? undefined : { y: -2, transition: { duration: 0.18, ease: "easeOut" } }}
-                className={`flex size-[43.2px] items-center justify-center rounded-[10.8px] border border-[#e5e7eb] bg-[#f9fafb] p-px shadow-[0px_0.9px_1.6px_0px_rgba(0,0,0,0.05)] transition-[border-color,box-shadow] duration-200 hover:border-[#a5c9ff] hover:shadow-[0px_6px_14px_-6px_rgba(165,201,255,0.5)]`}
+                whileHover={shouldReduceMotion ? undefined : { y: -3, transition: { duration: 0.18, ease: "easeOut" } }}
+                className={`group flex size-[46px] items-center justify-center rounded-[11px] border border-[#e5e7eb] bg-[#f9fafb] p-px ${shadowSoft} transition-[border-color,box-shadow] duration-200 hover:border-[#a5c9ff] hover:shadow-[0px_6px_14px_-6px_rgba(165,201,255,0.5)]`}
               >
-                <img alt="" src={`${A}${icon}`} className={icon === "share.svg" ? "h-[14.4px] w-[13.5px]" : "h-[12.6px] w-[14.4px]"} />
+                <img
+                  alt=""
+                  src={`${A}${icon}`}
+                  className={icon === "share.svg" ? "h-[14.4px] w-[13.5px]" : "h-[12.6px] w-[14.4px]"}
+                />
               </motion.a>
             ))}
           </div>
