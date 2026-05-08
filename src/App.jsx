@@ -191,12 +191,12 @@ const educationLeft = [
   ["AI & ML Engineering", "Microsoft", "microsoft.png", "size-[43.2px]"],
   ["Azure Fundamentals (AZ-900)", "Microsoft", "az900.png", "size-[52.2px]"],
   ["Data Analytics Certificate", "Google", "google-data.png", "h-[52.2px] w-[54.9px]"],
-  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[37.8px] w-[64.8px]"],
 ];
 
 const educationRight = [
-  ["Cyber Defense", "FIAP", "fiap.png", "size-[50.4px] rounded-[9px]"],
   ["MBA - IA, Data Science e Big Data", "Ibmec", "ibmec.png", "size-[50.4px] rounded-[9px]"],
+  ["Cyber Defense", "FIAP", "fiap.png", "size-[50.4px] rounded-[9px]"],
+  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[37.8px] w-[64.8px]"],
 ];
 
 const navItems = [
@@ -364,7 +364,7 @@ function Hero() {
   const downloadIconRef = useRef(null);
 
   return (
-    <section className="relative left-1/2 mt-[156.6px] min-h-[558px] w-screen -translate-x-1/2 overflow-hidden py-[43.2px] [contain:layout_style] sm:mt-[169.2px] sm:py-[57.6px] md:mt-[118.8px] lg:mt-[158.4px] lg:py-[64.8px]">
+    <section className="relative left-1/2 mt-[116px] w-screen -translate-x-1/2 overflow-hidden py-[32px] [contain:layout_style] sm:mt-[132px] sm:py-[40px] md:mt-[96px]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20">
         <ColorBends
           rotation={90}
@@ -396,8 +396,8 @@ function Hero() {
           'rgba(255,255,255,.40)',
         ].join(',') }}
       />
-      <div className={`mx-auto grid w-full max-w-[1080px] gap-[43.2px] ${pagePadding} lg:min-h-[468px] lg:grid-cols-[minmax(0,1fr)_minmax(392.4px,540px)] lg:items-center lg:gap-[57.6px]`}>
-        <div className="flex max-w-[504px] flex-col items-start gap-[25.2px] self-center lg:max-w-none">
+      <div className={`mx-auto grid w-full max-w-[1080px] gap-[36px] ${pagePadding} lg:min-h-[468px] lg:grid-cols-[minmax(0,1fr)_minmax(392.4px,540px)] lg:items-center lg:gap-[57.6px]`}>
+        <div className="flex max-w-[504px] flex-col items-start gap-[20px] self-center lg:max-w-none">
           <h1 className="font-space text-[50.4px] font-normal leading-[0.95] tracking-normal text-[#1a1c1c] sm:text-[68.4px] lg:text-[86.4px]">
             Hi, I&apos;m
             <br />
@@ -406,7 +406,7 @@ function Hero() {
           <p className="max-w-[48ch] text-[14.4px] font-normal leading-[24.3px] text-[#4b5563] [text-wrap:pretty] sm:text-[15.3px] sm:leading-[25.2px]">
             A pragmatic <strong>AI Engineer</strong> with 1 year of hands-on experience building autonomous agents, robust LLM pipelines, and scalable backend infrastructure. Focused on creating quietly useful tools.
           </p>
-          <div className="flex flex-wrap items-center gap-x-[18px] gap-y-[10.8px] pt-[7.4px] lg:pt-[14.4px]">
+          <div className="flex flex-wrap items-center gap-x-[18px] gap-y-[10.8px] pt-[4px] lg:pt-[8px]">
             <a
               href={cvHref}
               download
@@ -697,7 +697,7 @@ function ChatWidget() {
 
   return (
     <div
-      className={`relative flex h-[468px] min-w-0 flex-col overflow-hidden rounded-[18px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[9px] sm:rounded-[21.6px] lg:h-[450px] lg:w-full`}
+      className={`relative flex h-[400px] min-w-0 flex-col overflow-hidden rounded-[18px] ${border} bg-white/72 p-px ${shadowCard} backdrop-blur-[9px] sm:h-[420px] sm:rounded-[21.6px] lg:h-[520px] lg:w-full`}
     >
       <div className="relative z-20 min-h-[63.9px] shrink-0 border-b border-[#d1d5db] bg-white/[.97] px-[13.5px] py-[14.4px] backdrop-blur-[5.8px] sm:px-[16.2px] sm:py-[16.2px]">
         <div className="flex h-full items-center gap-[6.6px] sm:gap-[13.5px]">
@@ -960,7 +960,7 @@ function Pill({ children, small = false }) {
 
 function ToolkitSection() {
   return (
-    <section id="toolkit" className={`${sectionSpacing} ${pagePadding} pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
+    <section id="toolkit" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[480px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
       <SectionTitle>MY CORE AI TOOLKIT</SectionTitle>
       <div className="mt-[28.8px] grid gap-[18px] sm:mt-[43.2px] lg:grid-cols-3 lg:gap-[21.6px]">
         {toolkit.map((item, index) => (
@@ -1050,17 +1050,18 @@ function ProjectExpanded({ project, onClose }) {
 
   const layoutTransition = shouldReduceMotion
     ? { duration: 0.15 }
-    : { duration: 0.46, ease: [0.22, 1, 0.36, 1] };
+    : { type: "spring", stiffness: 460, damping: 40, mass: 0.7 };
 
   const contentTransition = shouldReduceMotion
     ? { duration: 0.1 }
-    : { delay: 0.28, duration: 0.32, ease: [0.22, 1, 0.36, 1] };
+    : { delay: 0.11, duration: 0.18, ease: "easeOut" };
 
   return (
     <motion.div
       ref={panelRef}
       layoutId={`card-${project.id}`}
-      className="absolute inset-0 z-30 flex flex-col overflow-hidden rounded-[32px] border border-[#d1d5db] bg-white shadow-[0px_24px_48px_-12px_rgba(0,0,0,0.22),0px_8px_16px_-8px_rgba(0,0,0,0.1)]"
+      className="absolute inset-0 z-30 flex flex-col overflow-hidden border border-[#d1d5db] bg-white shadow-[0px_24px_48px_-12px_rgba(0,0,0,0.22),0px_8px_16px_-8px_rgba(0,0,0,0.1)]"
+      style={{ borderRadius: 32, willChange: "transform" }}
       transition={layoutTransition}
       role="dialog"
       aria-modal="true"
@@ -1105,9 +1106,9 @@ function ProjectExpanded({ project, onClose }) {
       <motion.div
         ref={scrollRef}
         className="overflow-y-auto overscroll-contain flex-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 5 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, transition: { duration: 0.1 } }}
+        exit={{ opacity: 0, transition: { duration: 0.07 } }}
         transition={contentTransition}
       >
         <div className="px-[18px] py-[21.6px] sm:px-[28.8px] sm:py-[28.8px] lg:px-[36px]">
@@ -1251,7 +1252,7 @@ function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" className={`${sectionSpacing} ${pagePadding} pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
+    <section id="projects" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[960px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
       <div className="flex flex-col gap-[14.4px] border-b border-[#d1d5db] pb-[22.5px] sm:flex-row sm:items-end sm:justify-between">
         <SectionTitle>SELECTED PROJECTS</SectionTitle>
         <a href="#projects" className="flex shrink-0 items-center gap-[7.4px] text-center text-[12.6px] font-bold uppercase leading-[18px] tracking-normal text-[#6b7280] outline-none transition-colors duration-200 hover:text-[#111827] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white">
@@ -1275,7 +1276,7 @@ function ProjectsSection() {
                 transition={
                   shouldReduceMotion || isSelected
                     ? { duration: 0 }
-                    : { duration: 0.28, ease: "easeOut" }
+                    : { duration: 0.16, ease: "easeOut" }
                 }
               >
                 {isSelected ? (
@@ -1283,11 +1284,11 @@ function ProjectsSection() {
                 ) : (
                   <motion.div
                     layoutId={`card-${project.id}`}
-                    style={{ height: "100%", borderRadius: 18 }}
+                    style={{ height: "100%", borderRadius: 18, willChange: "transform" }}
                     transition={
                       shouldReduceMotion
                         ? { duration: 0.15 }
-                        : { duration: 0.42, ease: [0.22, 1, 0.36, 1] }
+                        : { type: "spring", stiffness: 460, damping: 40, mass: 0.7 }
                     }
                   >
                     <BentoCard
@@ -1322,7 +1323,7 @@ function ProjectsSection() {
 
 function SkillsSection() {
   return (
-    <section id="skills" className={`${sectionSpacing} ${pagePadding} pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
+    <section id="skills" className={`${sectionSpacing} px-[18px] sm:px-[28px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[520px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
       <SectionTitle>SKILLS</SectionTitle>
       <div className="mt-[28.8px] grid gap-[21.6px] sm:mt-[43.2px] md:grid-cols-2 lg:grid-cols-4 lg:gap-[28.8px]">
         {skills.map((column) => (
@@ -1345,39 +1346,73 @@ function SkillsSection() {
   );
 }
 
-function EducationCard({ title, school, icon, iconClass }) {
+function EducationCard({ title, school, icon, iconClass, variants }) {
+  const shouldReduceMotion = useReducedMotion();
   return (
-    <article className={`flex min-h-[142.2px] items-center justify-between gap-[18px] rounded-[14.4px] ${border} bg-white p-[21.6px] ${shadowCard} sm:p-[29.7px] lg:h-[142.2px]`}>
+    <motion.article
+      variants={variants}
+      whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { duration: 0.22, ease: "easeOut" } }}
+      className={`flex items-center justify-between gap-[14px] rounded-[14.4px] ${border} bg-white p-[16px] ${shadowCard} cursor-default transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#a5c9ff] hover:shadow-[0px_16px_28px_-8px_rgba(165,201,255,0.22),0px_5px_8px_-4px_rgba(0,0,0,0.07)] sm:p-[22px]`}
+    >
       <div className="min-w-0">
-        <h3 className="font-space text-[19.8px] font-normal leading-[26.1px] tracking-normal text-[#1a1c1c] sm:text-[21.6px] sm:leading-[28.8px] lg:text-[19.8px] lg:leading-[26.1px] xl:text-[21.6px] xl:leading-[28.8px]">
+        <h3 className="font-space text-[17px] font-normal leading-[23px] tracking-normal text-[#1a1c1c] sm:text-[19px] sm:leading-[25px] lg:text-[17px] lg:leading-[23px] xl:text-[19px] xl:leading-[25px]">
           {title}
         </h3>
-        <p className="mt-[7.4px] text-[14.4px] font-medium leading-[21.6px] text-[#111827]">{school}</p>
-        <p className="mt-[7.4px] text-[12.6px] leading-[18px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
+        <p className="mt-[5px] text-[13px] font-medium leading-[19px] text-[#111827]">{school}</p>
+        <p className="mt-[4px] text-[11.7px] leading-[17px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
       </div>
-      <div className="flex h-[57.6px] w-[68.4px] shrink-0 items-center justify-center overflow-visible sm:w-[79.2px]">
+      <div className="flex h-[48px] w-[56px] shrink-0 items-center justify-center overflow-visible sm:w-[64px]">
         <img alt="" src={`${A}${icon}`} loading="lazy" className={`${iconClass} object-contain`} />
       </div>
-    </article>
+    </motion.article>
   );
 }
 
 function EducationSection() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const leftCardVariants = shouldReduceMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.3 } } }
+    : { hidden: { opacity: 0, x: -10, y: 12 }, visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] } } };
+
+  const rightCardVariants = shouldReduceMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.3 } } }
+    : { hidden: { opacity: 0, x: 10, y: 12 }, visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] } } };
+
   return (
-    <section id="education" className={`${sectionSpacing} ${pagePadding} pb-[21.6px] pt-[28.8px] sm:pt-[43.2px] lg:pt-[57.6px]`}>
-      <SectionTitle>EDUCATION</SectionTitle>
-      <div className="relative mt-[28.8px] grid gap-[21.6px] sm:mt-[43.2px] lg:grid-cols-2 lg:gap-[28.8px]">
+    <section id="education" className={`${sectionSpacing} px-[18px] sm:px-[28px] pb-[21.6px] pt-[28.8px] sm:pt-[43.2px] lg:flex lg:min-h-[520px] lg:flex-col lg:justify-center lg:px-[120px] lg:py-[40px]`}>
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: shouldReduceMotion ? 0.3 : 0.55, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <SectionTitle>EDUCATION</SectionTitle>
+      </motion.div>
+      <div className="relative mt-[28.8px] grid gap-[18px] sm:mt-[43.2px] lg:grid-cols-2 lg:gap-[24px]">
         <div className="absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#d1d5db] lg:block" />
-        <div className="flex flex-col gap-[21.6px] lg:gap-[28.8px] lg:pr-[14.4px]">
+        <motion.div
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09 } } }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="flex flex-col gap-[14px] lg:gap-[16px] lg:pr-[14.4px]"
+        >
           {educationLeft.map(([title, school, icon, iconClass]) => (
-            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} />
+            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} variants={leftCardVariants} />
           ))}
-        </div>
-        <div className="flex flex-col gap-[21.6px] lg:gap-[28.8px] lg:pl-[14.4px] lg:pt-[85.5px]">
+        </motion.div>
+        <motion.div
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.06 } } }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="flex flex-col gap-[14px] lg:gap-[16px] lg:pl-[14.4px] lg:pt-[56px]"
+        >
           {educationRight.map(([title, school, icon, iconClass]) => (
-            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} />
+            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} variants={rightCardVariants} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -1385,7 +1420,7 @@ function EducationSection() {
 
 function ContactCta() {
   return (
-    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-36px)] max-w-[800px] overflow-hidden rounded-[14.4px] ${border} bg-white px-[21.6px] py-[43.2px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.25)] sm:w-[calc(100%-56px)] sm:px-[36px] sm:py-[57.6px] lg:w-[calc(100%-80px)] lg:px-[44.1px] lg:py-[72.9px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
+    <section id="contact" className={`mx-auto ${sectionSpacing} h-auto w-[calc(100%-36px)] max-w-[800px] overflow-hidden rounded-[14.4px] ${border} bg-white px-[21.6px] py-[43.2px] shadow-[0px_20.7px_40.5px_-9.9px_rgba(0,0,0,0.25)] sm:w-[calc(100%-56px)] sm:px-[36px] sm:py-[57.6px] lg:mx-0 lg:flex lg:min-h-[400px] lg:w-full lg:max-w-none lg:flex-col lg:items-center lg:justify-center lg:px-[120px] lg:py-[50px]`} style={{ backgroundImage: "linear-gradient(161.91182704738304deg, rgba(165, 201, 255, 0.1) 0%, rgba(165, 201, 255, 0) 100%)" }}>
       <div className="flex flex-col gap-[32.4px] lg:min-h-[118.8px] lg:flex-row lg:gap-0">
         <div className="w-full lg:w-[315.9px]">
           <h2 className="font-space text-[28.8px] font-normal uppercase leading-[32.4px] tracking-normal text-[#111827] sm:text-[36px] sm:leading-[39.6px]">
@@ -1415,7 +1450,7 @@ function ContactCta() {
 
 function Footer() {
   return (
-    <footer className="mx-[18px] mt-[93.6px] flex min-h-[112.5px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[43.2px] pt-[36px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:mx-[28px] lg:mx-[40px] lg:mt-[144px] lg:flex-row lg:items-center lg:justify-between lg:pt-[44.1px]">
+    <footer className="mx-[18px] mt-[93.6px] flex min-h-[112.5px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[43.2px] pt-[36px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:mx-[28px] lg:mx-0 lg:mt-[144px] lg:min-h-[120px] lg:flex-row lg:items-center lg:justify-center lg:px-[120px] lg:py-[20px]">
       <a href="#top" className="font-space text-[18px] font-black uppercase leading-[25.2px] tracking-normal text-[#111827]">
         AI_ENGINEER
       </a>
