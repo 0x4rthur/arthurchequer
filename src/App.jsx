@@ -111,7 +111,7 @@ const projects = [
     summary:
       "Streaming RAG assistant answering questions about Arthur from his resume, B-side notes, and website — live in this portfolio.",
     description:
-      "A retrieval-augmented assistant built end-to-end for this portfolio. It indexes Arthur's resume, personal B-side notes, and website into a local ChromaDB vector store, then answers visitor questions via a FastAPI streaming API — with conversation history, multilingual support, and security hardening throughout.",
+      "A retrieval-augmented assistant built end-to-end for this portfolio. Indexes Arthur's resume, B-side notes, and website into ChromaDB, then streams answers via FastAPI — multilingual, context-grounded, and live.",
     tools: ["LANGCHAIN", "CHROMADB", "FASTAPI", "OPENAI", "PYTHON", "RENDER"],
     process:
       "Scraped arthurchequer.com and loaded two PDFs (resume + B-side notes) using PyPDFLoader. Chunked with RecursiveCharacterTextSplitter (1,000 chars, 150 overlap) and embedded with text-embedding-3-small into a persistent ChromaDB instance. The vectorstore is baked at deploy time — no re-embedding on cold starts. A FastAPI backend exposes a POST /chat endpoint with Server-Sent Events, streaming tokens to the React chat widget as they arrive. Conversation history (last 6 turns) is sanitized and forwarded with each request so follow-up questions resolve correctly. The system prompt keeps the agent strictly grounded to retrieved context and mirrors the user's language.",
