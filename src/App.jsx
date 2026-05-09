@@ -103,26 +103,26 @@ const projects = [
   },
   {
     id: "rag-knowledge-base",
-    title: "RAG KNOWLEDGE BASE",
-    badge: null,
-    badgeClass: "",
+    title: "PORTFOLIO AI AGENT",
+    badge: "LIVE",
+    badgeClass: "bg-white/95 text-[#166534] border-[#86efac]",
     gradient:
       "linear-gradient(33deg, rgb(165, 201, 255) 0%, rgb(255, 255, 255) 100%)",
     summary:
-      "Hybrid retrieval tuned per document family for enterprise corpora.",
+      "Streaming RAG assistant answering questions about Arthur from his resume, B-side notes, and website — live in this portfolio.",
     description:
-      "Enterprise-grade document retrieval system using advanced chunking strategies and hybrid search (BM25 + Dense Vectors) for highly accurate contextual answers.",
-    tools: ["PINECONE", "LLAMAINDEX", "DOCKER"],
+      "A retrieval-augmented assistant built end-to-end for this portfolio. It indexes Arthur's resume, personal B-side notes, and website into a local ChromaDB vector store, then answers visitor questions via a FastAPI streaming API — with conversation history, multilingual support, and security hardening throughout.",
+    tools: ["LANGCHAIN", "CHROMADB", "FASTAPI", "OPENAI", "PYTHON", "RENDER"],
     process:
-      "Profiled the corpus into document families, then matched each family to a chunking strategy (semantic, recursive, or table-aware). Hybrid retrieval combines BM25 with dense embeddings, fused via reciprocal rank.",
+      "Scraped arthurchequer.com and loaded two PDFs (resume + B-side notes) using PyPDFLoader. Chunked with RecursiveCharacterTextSplitter (1,000 chars, 150 overlap) and embedded with text-embedding-3-small into a persistent ChromaDB instance. The vectorstore is baked at deploy time — no re-embedding on cold starts. A FastAPI backend exposes a POST /chat endpoint with Server-Sent Events, streaming tokens to the React chat widget as they arrive. Conversation history (last 6 turns) is sanitized and forwarded with each request so follow-up questions resolve correctly. The system prompt keeps the agent strictly grounded to retrieved context and mirrors the user's language.",
     results:
-      "Top-3 retrieval recall climbed from 71% to 93% on the internal eval set; downstream answer faithfulness improved from 82% to 96%.",
+      "Fully deployed: Render backend + Vercel frontend, integrated in the same session they were built. Streaming SSE delivers the first token under 500 ms (warm instance). The agent correctly refuses off-topic questions, handles Portuguese and English follow-ups, and never invents facts outside the indexed sources.",
     observations:
-      "Chunking is not a hyperparameter — it is a modeling decision. Treating each document family separately produced larger gains than swapping embedding models.",
+      "Baking the vectorstore at deploy time — rather than rebuilding on every cold start — was the single most impactful cost decision: it eliminates per-restart embedding charges entirely. On the safety side, stripping newlines and control characters from client-supplied history was essential; without it, a crafted history payload could inject fake conversation turns directly into the prompt.",
     metrics: [
-      { label: "Recall@3", value: "93%" },
-      { label: "Faithfulness", value: "96%" },
-      { label: "Index size", value: "1.2M" },
+      { label: "Chunks indexed", value: "10" },
+      { label: "Sources", value: "3" },
+      { label: "Top-k retrieval", value: "4" },
     ],
   },
   {
