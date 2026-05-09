@@ -113,6 +113,11 @@ const projects = [
     description:
       "A retrieval-augmented assistant built end-to-end for this portfolio. It indexes Arthur's resume, personal B-side notes, and website into a local ChromaDB vector store, then answers visitor questions via a FastAPI streaming API — with conversation history, multilingual support, and security hardening throughout.",
     tools: ["LANGCHAIN", "CHROMADB", "FASTAPI", "OPENAI", "PYTHON", "RENDER"],
+    icons: [
+      { key: "langchain", label: "LangChain" },
+      { key: "bot",       label: "RAG Agent"  },
+      { key: "openai",    label: "OpenAI"     },
+    ],
     process:
       "Scraped arthurchequer.com and loaded two PDFs (resume + B-side notes) using PyPDFLoader. Chunked with RecursiveCharacterTextSplitter (1,000 chars, 150 overlap) and embedded with text-embedding-3-small into a persistent ChromaDB instance. The vectorstore is baked at deploy time — no re-embedding on cold starts. A FastAPI backend exposes a POST /chat endpoint with Server-Sent Events, streaming tokens to the React chat widget as they arrive. Conversation history (last 6 turns) is sanitized and forwarded with each request so follow-up questions resolve correctly. The system prompt keeps the agent strictly grounded to retrieved context and mirrors the user's language.",
     results:
@@ -1174,6 +1179,28 @@ function ProjectExpanded({ project, onClose }) {
             {project.badge}
           </span>
         )}
+        {project.icons?.length > 0 && (
+          <div className="absolute bottom-[18px] left-1/2 -translate-x-1/2 flex items-end gap-[10px] sm:bottom-[22px] sm:gap-[13px]">
+            {project.icons.map(({ key, label }) => (
+              <div key={key} className="flex flex-col items-center gap-[6px]">
+                <div className="flex items-center justify-center rounded-[14px] border border-white/60 bg-white/80 p-[11px] shadow-[0px_2px_12px_-3px_rgba(0,0,0,0.14)] backdrop-blur-[6px] sm:rounded-[16px] sm:p-[13px]">
+                  {key === "langchain" && (
+                    <img src={`${A}langchain-small.png`} alt="LangChain" className="size-[26px] sm:size-[30px]" />
+                  )}
+                  {key === "bot" && (
+                    <Bot size={26} className="text-[#374151] sm:size-[30px]" />
+                  )}
+                  {key === "openai" && (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="size-[26px] text-[#374151] sm:size-[30px]" aria-label="OpenAI">
+                      <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.843-3.369 2.02-1.168a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.402-.681zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
+                    </svg>
+                  )}
+                </div>
+                <span className="font-space text-[8px] font-bold uppercase leading-none tracking-wide text-[#4b5563]">{label}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* content — fades in after layout morph completes */}
@@ -1306,7 +1333,7 @@ function ProjectsSection() {
           <div className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 flex items-center gap-[10px]">
             {/* LangChain */}
             <div className="flex items-center justify-center rounded-[13px] border border-black/[0.07] bg-white/85 p-[10px] shadow-[0px_1.6px_6px_-2px_rgba(0,0,0,0.12)] backdrop-blur-sm">
-              <img src={`${A}langchain-brand.png`} alt="LangChain" className="size-[28px]" />
+              <img src={`${A}langchain-small.png`} alt="LangChain" className="size-[28px]" />
             </div>
             {/* Bot */}
             <div className="flex items-center justify-center rounded-[13px] border border-black/[0.07] bg-white/85 p-[10px] shadow-[0px_1.6px_6px_-2px_rgba(0,0,0,0.12)] backdrop-blur-sm">
