@@ -1293,10 +1293,62 @@ function ProjectsSection() {
       Icon: MagnifyingGlassIcon,
       className: "col-span-3 lg:col-span-1",
       background: (
-        <div
-          className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04] [mask-image:linear-gradient(to_top,transparent_25%,#000_75%)]"
-          style={{ backgroundImage: projects[2].gradient }}
-        />
+        <>
+          <div
+            className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04] [mask-image:linear-gradient(to_top,transparent_25%,#000_75%)]"
+            style={{ backgroundImage: projects[2].gradient }}
+          />
+          {/* LIVE badge */}
+          <span className="absolute left-4 top-4 rounded-full border border-[#86efac] bg-white/95 px-3 py-1.5 font-space text-[9px] font-bold uppercase leading-tight text-[#166534] shadow-sm">
+            LIVE
+          </span>
+          {/* RAG pipeline illustration */}
+          <svg
+            viewBox="0 0 200 110"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute right-2 top-3 w-[180px] opacity-90"
+            aria-hidden="true"
+          >
+            {/* Source pills: Resume, B-side, Site */}
+            {[["Resume", 18], ["B-side", 88], ["Site", 158]].map(([label, x]) => (
+              <g key={label}>
+                <rect x={x} y={6} width={44} height={18} rx={9} fill="white" fillOpacity={0.82} stroke="#c7d9f5" strokeWidth={0.8} />
+                <text x={x + 22} y={18.5} textAnchor="middle" fontSize={7} fontFamily="monospace" fill="#4b79b0" fontWeight="600">{label}</text>
+              </g>
+            ))}
+            {/* Connector lines from pills down to chunk grid */}
+            {[40, 110, 180].map((x) => (
+              <line key={x} x1={x} y1={24} x2={x} y2={38} stroke="#a5c9ff" strokeWidth={0.8} strokeDasharray="2 2" />
+            ))}
+            {/* Chunk grid: 3 cols × 2 rows */}
+            {[
+              [12, 38, true],  [80, 38, false], [148, 38, true],
+              [12, 60, false], [80, 60, true],  [148, 60, false],
+            ].map(([x, y, highlighted], i) => (
+              <g key={i}>
+                <rect
+                  x={x} y={y} width={52} height={16} rx={4}
+                  fill={highlighted ? "#dbeafe" : "white"}
+                  fillOpacity={highlighted ? 0.95 : 0.7}
+                  stroke={highlighted ? "#93c5fd" : "#d1d9e8"}
+                  strokeWidth={highlighted ? 1.2 : 0.7}
+                />
+                {/* text lines inside chunk */}
+                <rect x={x + 5} y={y + 4} width={highlighted ? 28 : 22} height={2} rx={1} fill={highlighted ? "#3b82f6" : "#9ca3af"} fillOpacity={0.5} />
+                <rect x={x + 5} y={y + 9} width={highlighted ? 18 : 30} height={2} rx={1} fill={highlighted ? "#3b82f6" : "#9ca3af"} fillOpacity={0.3} />
+              </g>
+            ))}
+            {/* retrieval arrow from highlighted chunks to answer bubble */}
+            <line x1={100} y1={76} x2={100} y2={88} stroke="#a5c9ff" strokeWidth={1} strokeDasharray="2 2" />
+            <polygon points="97,88 103,88 100,93" fill="#a5c9ff" />
+            {/* Answer bubble */}
+            <rect x={56} y={93} width={88} height={15} rx={7.5} fill="white" fillOpacity={0.9} stroke="#a5c9ff" strokeWidth={1} />
+            <rect x={64} y={98} width={32} height={2} rx={1} fill="#3b82f6" fillOpacity={0.4} />
+            <rect x={100} y={98} width={18} height={2} rx={1} fill="#9ca3af" fillOpacity={0.3} />
+            <rect x={64} y={103} width={22} height={2} rx={1} fill="#9ca3af" fillOpacity={0.25} />
+          </svg>
+        </>
       ),
     },
     {
