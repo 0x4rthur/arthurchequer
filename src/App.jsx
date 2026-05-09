@@ -109,7 +109,7 @@ const projects = [
     gradient:
       "linear-gradient(33deg, rgb(165, 201, 255) 0%, rgb(255, 255, 255) 100%)",
     summary:
-      "Streaming RAG assistant answering questions about Arthur from his resume, B-side notes, and website — live in this portfolio.",
+      "Live RAG assistant grounded on Arthur's resume, notes, and website.",
     description:
       "A retrieval-augmented assistant built end-to-end for this portfolio. It indexes Arthur's resume, personal B-side notes, and website into a local ChromaDB vector store, then answers visitor questions via a FastAPI streaming API — with conversation history, multilingual support, and security hardening throughout.",
     tools: ["LANGCHAIN", "CHROMADB", "FASTAPI", "OPENAI", "PYTHON", "RENDER"],
