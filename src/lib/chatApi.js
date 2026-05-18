@@ -17,6 +17,24 @@ const API_URL = (import.meta.env.VITE_CHAT_API_URL || "").replace(/\/$/, "");
 
 export const isApiConfigured = Boolean(API_URL);
 
+// Render free tier sleeps after ~15 min of inactivity, so the first /chat
+// request after a cold period waits 30–60s for the Python process to boot.
+// Fire a cheap GET to wake the dyno as soon as the chat UI mounts; by the
+// time the visitor actually types a question, the backend is already warm.
+// Idempotent: only one warmup hits the network per page load.
+let warmupPromise = null;
+
+export function warmupChat() {
+  if (!isApiConfigured) return null;
+  if (warmupPromise) return warmupPromise;
+  warmupPromise = fetch(`${API_URL}/health`, {
+    method: "GET",
+    cache: "no-store",
+    keepalive: true,
+  }).catch(() => {});
+  return warmupPromise;
+}
+
 function parseSseChunk(buffer) {
   const events = [];
   const frames = buffer.split("\n\n");

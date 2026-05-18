@@ -6,7 +6,7 @@ import { DownloadIcon } from "./components/ui/download-icon";
 import { useBotEyeOffset } from "./hooks/use-bot-eye-offset";
 import { BentoGrid, BentoCard } from "./components/ui/bento-grid";
 import { LightningBoltIcon, MagicWandIcon, MagnifyingGlassIcon, TargetIcon } from "@radix-ui/react-icons";
-import { streamChat, isApiConfigured } from "./lib/chatApi";
+import { streamChat, warmupChat, isApiConfigured } from "./lib/chatApi";
 
 const A = "/assets/";
 const contactHref = "#contact";
@@ -601,6 +601,12 @@ function ChatWidget() {
     });
   }, [messages, isTyping]);
 
+  // Wake the Render dyno as soon as the widget mounts so the first real
+  // question doesn't pay the ~30–60s cold-start penalty.
+  useEffect(() => {
+    warmupChat();
+  }, []);
+
   useEffect(() => {
     const el = messagesRef.current;
     if (!el) return;
@@ -930,6 +936,7 @@ function ChatWidget() {
           <input
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
+            onFocus={warmupChat}
             className={`h-[46.8px] min-w-0 flex-1 appearance-none rounded-full border border-[#e2e6eb] bg-[#f4f6f9] px-[20px] text-[13.5px] font-light leading-normal text-[#1f2937] outline-none shadow-[0px_1px_2px_rgba(0,0,0,0.04)] placeholder:font-light placeholder:text-[#a8b0bb] focus:border-[#a5c9ff] focus:bg-white ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
             placeholder={isResetting ? "Resetting chat..." : "Ask the agent..."}
             aria-label="Ask the agent"
