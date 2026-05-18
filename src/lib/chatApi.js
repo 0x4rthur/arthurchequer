@@ -88,7 +88,9 @@ export async function streamChat(
   // The warmup ping wakes it on page load, but if the visitor sends a
   // message before boot finishes we retry transparently with backoff so
   // they see the typing indicator instead of "I couldn't reach the agent".
-  const retryDelaysMs = [3000, 8000, 18000];
+  // First retry is short (1s) so localhost hiccups recover quickly; later
+  // retries widen out to cover a full Render cold start.
+  const retryDelaysMs = [1000, 4000, 12000];
   const isColdStartStatus = (s) => s === 502 || s === 503 || s === 504;
   const sleep = (ms) =>
     new Promise((resolve, reject) => {
