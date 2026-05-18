@@ -940,6 +940,7 @@ function ChatWidget() {
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             onFocus={warmupChat}
+            maxLength={280}
             className={`h-[46.8px] min-w-0 flex-1 appearance-none rounded-full border border-[#e2e6eb] bg-[#f4f6f9] px-[20px] text-[13.5px] font-light leading-normal text-[#1f2937] outline-none shadow-[0px_1px_2px_rgba(0,0,0,0.04)] placeholder:font-light placeholder:text-[#a8b0bb] focus:border-[#a5c9ff] focus:bg-white ${isResetting ? "reset-input-pulse" : isResetExiting ? "reset-input-exit" : ""}`}
             placeholder={isResetting ? "Resetting chat..." : "Ask the agent..."}
             aria-label="Ask the agent"
