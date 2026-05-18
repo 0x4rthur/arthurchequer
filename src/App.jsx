@@ -11,16 +11,19 @@ import { streamChat, warmupChat, isApiConfigured } from "./lib/chatApi";
 const A = "/assets/";
 const contactHref = "#contact";
 const cvHref = "/assets/arthur-chequer-cv.pdf";
+const githubUrl = "https://github.com/0x4rthur";
+const linkedinUrl = "https://www.linkedin.com/in/arthurchequer/";
+const emailAddress = "arthurchequer@hotmail.com";
+const emailHref = `mailto:${emailAddress}`;
 const socialLinks = {
-  LINKEDIN: contactHref,
-  GITHUB: contactHref,
-  TWITTER: contactHref,
-  EMAIL: contactHref,
+  LINKEDIN: linkedinUrl,
+  GITHUB: githubUrl,
+  EMAIL: emailHref,
 };
 const contactActions = [
-  ["terminal.svg", "Project details", "#projects"],
-  ["share.svg", "Share portfolio", "#top"],
-  ["mail.svg", "Email Arthur", contactHref],
+  ["github.svg", "Arthur on GitHub", githubUrl, true],
+  ["linkedin.svg", "Arthur on LinkedIn", linkedinUrl, true],
+  ["mail.svg", "Email Arthur", emailHref, false],
 ];
 
 const shadowCard =
@@ -1546,18 +1549,20 @@ function ContactCta() {
         >
           <p className="text-[9px] font-bold uppercase leading-[13.5px] tracking-[0.08em] text-[#6b7280]">CONTACT ME:</p>
           <div className="mt-[14px] flex gap-[10px]">
-            {contactActions.map(([icon, label, href]) => (
+            {contactActions.map(([icon, label, href, external]) => (
               <motion.a
                 key={icon}
                 href={href}
                 aria-label={label}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
                 whileHover={shouldReduceMotion ? undefined : { y: -3, transition: { duration: 0.18, ease: "easeOut" } }}
                 className={`group flex size-[46px] items-center justify-center rounded-[11px] border border-[#e5e7eb] bg-[#f9fafb] p-px ${shadowSoft} transition-[border-color,box-shadow] duration-200 hover:border-[#a5c9ff] hover:shadow-[0px_6px_14px_-6px_rgba(165,201,255,0.5)]`}
               >
                 <img
                   alt=""
                   src={`${A}${icon}`}
-                  className={icon === "share.svg" ? "h-[14.4px] w-[13.5px]" : "h-[12.6px] w-[14.4px]"}
+                  className={icon === "mail.svg" ? "h-[12.6px] w-[14.4px]" : "size-[15.3px]"}
                 />
               </motion.a>
             ))}
@@ -1575,11 +1580,20 @@ function Footer() {
         AI_ENGINEER
       </a>
       <nav className="flex flex-wrap justify-start gap-[28.8px] lg:justify-center">
-        {Object.entries(socialLinks).map(([item, href]) => (
-          <a key={item} href={href} className="font-space text-[10.8px] font-medium uppercase leading-[14.4px] tracking-normal text-[#4b5563]">
-            {item}
-          </a>
-        ))}
+        {Object.entries(socialLinks).map(([item, href]) => {
+          const external = href.startsWith("http");
+          return (
+            <a
+              key={item}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              className="font-space text-[10.8px] font-medium uppercase leading-[14.4px] tracking-normal text-[#4b5563]"
+            >
+              {item}
+            </a>
+          );
+        })}
       </nav>
       <p className="text-left font-space text-[10.8px] font-medium uppercase leading-[14.4px] tracking-normal text-[#6b7280] lg:text-right">
         &copy; 2024 AI ENGINEER PORTFOLIO. BUILT WITH PRECISION.
