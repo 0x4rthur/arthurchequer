@@ -84,22 +84,66 @@ export async function streamChat(
     return;
   }
 
-  let response;
-  try {
-    response = await fetch(`${API_URL}/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
-      body: JSON.stringify({ question, history }),
-      signal,
+  // Render free tier returns 502/503/504 while the container is booting.
+  // The warmup ping wakes it on page load, but if the visitor sends a
+  // message before boot finishes we retry transparently with backoff so
+  // they see the typing indicator instead of "I couldn't reach the agent".
+  const retryDelaysMs = [3000, 8000, 18000];
+  const isColdStartStatus = (s) => s === 502 || s === 503 || s === 504;
+  const sleep = (ms) =>
+    new Promise((resolve, reject) => {
+      const timer = setTimeout(resolve, ms);
+      if (signal) {
+        signal.addEventListener(
+          "abort",
+          () => {
+            clearTimeout(timer);
+            reject(new DOMException("aborted", "AbortError"));
+          },
+          { once: true },
+        );
+      }
     });
-  } catch (err) {
-    onError?.(err?.name === "AbortError" ? "aborted" : "network");
-    return;
-  }
 
-  if (!response.ok || !response.body) {
-    onError?.(`http_${response.status}`);
-    return;
+  let response;
+  let lastError = "network";
+  for (let attempt = 0; attempt <= retryDelaysMs.length; attempt++) {
+    try {
+      response = await fetch(`${API_URL}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
+        body: JSON.stringify({ question, history }),
+        signal,
+      });
+    } catch (err) {
+      if (err?.name === "AbortError") {
+        onError?.("aborted");
+        return;
+      }
+      lastError = "network";
+      response = null;
+    }
+
+    if (response?.ok && response.body) break;
+
+    if (response && !isColdStartStatus(response.status)) {
+      onError?.(`http_${response.status}`);
+      return;
+    }
+
+    if (response) lastError = `http_${response.status}`;
+
+    const delay = retryDelaysMs[attempt];
+    if (delay === undefined) {
+      onError?.(lastError);
+      return;
+    }
+    try {
+      await sleep(delay);
+    } catch {
+      onError?.("aborted");
+      return;
+    }
   }
 
   const reader = response.body.getReader();
