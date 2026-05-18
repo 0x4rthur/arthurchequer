@@ -1596,7 +1596,7 @@ function Footer() {
         })}
       </nav>
       <p className="text-left font-space text-[10.8px] font-medium uppercase leading-[14.4px] tracking-normal text-[#6b7280] lg:text-right">
-        &copy; 2024 AI ENGINEER PORTFOLIO. BUILT WITH PRECISION.
+        &copy; 2026 Arthur Chequer. Made in Belo Horizonte, Brazil.
       </p>
     </footer>
   );
