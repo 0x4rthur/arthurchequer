@@ -1577,7 +1577,7 @@ function Footer() {
   return (
     <footer className="mx-[18px] mt-[93.6px] flex min-h-[112.5px] flex-col gap-6 border-t border-[#d1d5db] bg-white px-0 pb-[43.2px] pt-[36px] shadow-[0px_0.9px_0.9px_rgba(0,0,0,0.05)] sm:mx-[28px] lg:mx-0 lg:mt-[144px] lg:min-h-[120px] lg:flex-row lg:items-center lg:justify-center lg:px-[120px] lg:py-[20px]">
       <a href="#top" className="font-space text-[18px] font-black uppercase leading-[25.2px] tracking-normal text-[#111827]">
-        AI_ENGINEER
+        ARTHUR
       </a>
       <nav className="flex flex-wrap justify-start gap-[28.8px] lg:justify-center">
         {Object.entries(socialLinks).map(([item, href]) => {
