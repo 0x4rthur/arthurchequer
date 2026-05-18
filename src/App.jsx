@@ -189,15 +189,15 @@ const skills = [
 ];
 
 const educationLeft = [
-  ["AI & ML Engineering", "Microsoft", "microsoft.png", "size-[43.2px]"],
-  ["Azure Fundamentals (AZ-900)", "Microsoft", "az900.png", "size-[52.2px]"],
-  ["Data Analytics Certificate", "Google", "google-data.png", "h-[52.2px] w-[54.9px]"],
+  ["AI & ML Engineering", "Microsoft", "microsoft.png", "size-[43.2px]", "Apr 2026"],
+  ["Azure Fundamentals (AZ-900)", "Microsoft", "az900.png", "size-[52.2px]", "Mar 2023"],
+  ["Data Analytics Certificate", "Google", "google-data.png", "h-[52.2px] w-[54.9px]", "Apr 2026"],
 ];
 
 const educationRight = [
-  ["MBA - IA, Data Science e Big Data", "Ibmec", "ibmec.png", "size-[50.4px] rounded-[9px]"],
-  ["Cyber Defense", "FIAP", "fiap.png", "size-[50.4px] rounded-[9px]"],
-  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[37.8px] w-[64.8px]"],
+  ["MBA - IA, Data Science e Big Data", "Ibmec", "ibmec.png", "size-[50.4px] rounded-[9px]", "May 2025 – May 2026"],
+  ["Cyber Defense", "FIAP", "fiap.png", "size-[50.4px] rounded-[9px]", "Feb 2023 – Feb 2025"],
+  ["Dale Carnegie Training", "Dale Carnegie", "dale.png", "h-[37.8px] w-[64.8px]", "Jun 2022"],
 ];
 
 const navItems = [
@@ -1433,7 +1433,7 @@ function SkillsSection() {
   );
 }
 
-function EducationCard({ title, school, icon, iconClass, variants }) {
+function EducationCard({ title, school, icon, iconClass, date, variants }) {
   const shouldReduceMotion = useReducedMotion();
   return (
     <motion.article
@@ -1446,7 +1446,7 @@ function EducationCard({ title, school, icon, iconClass, variants }) {
           {title}
         </h3>
         <p className="mt-[5px] text-[13px] font-medium leading-[19px] text-[#111827]">{school}</p>
-        <p className="mt-[4px] text-[11.7px] leading-[17px] text-[#6b7280]">Jan 2020 {"\u2022"} Present</p>
+        <p className="mt-[4px] text-[11.7px] leading-[17px] text-[#6b7280]">{date}</p>
       </div>
       <div className="flex h-[48px] w-[56px] shrink-0 items-center justify-center overflow-visible sm:w-[64px]">
         <img alt="" src={`${A}${icon}`} loading="lazy" className={`${iconClass} object-contain`} />
@@ -1485,8 +1485,8 @@ function EducationSection() {
           viewport={{ once: true, margin: "-60px" }}
           className="flex flex-col gap-[14px] lg:gap-[16px] lg:pr-[14.4px]"
         >
-          {educationLeft.map(([title, school, icon, iconClass]) => (
-            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} variants={leftCardVariants} />
+          {educationLeft.map(([title, school, icon, iconClass, date]) => (
+            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} date={date} variants={leftCardVariants} />
           ))}
         </motion.div>
         <motion.div
@@ -1496,8 +1496,8 @@ function EducationSection() {
           viewport={{ once: true, margin: "-60px" }}
           className="flex flex-col gap-[14px] lg:gap-[16px] lg:pl-[14.4px] lg:pt-[56px]"
         >
-          {educationRight.map(([title, school, icon, iconClass]) => (
-            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} variants={rightCardVariants} />
+          {educationRight.map(([title, school, icon, iconClass, date]) => (
+            <EducationCard key={title} title={title} school={school} icon={icon} iconClass={iconClass} date={date} variants={rightCardVariants} />
           ))}
         </motion.div>
       </div>
