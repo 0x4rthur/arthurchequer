@@ -312,7 +312,7 @@ function Nav() {
           href="#top"
           className="rounded-full font-space text-[14.4px] font-black uppercase leading-[19.8px] tracking-normal text-black outline-none transition-[color,transform] duration-300 ease-out hover:text-[#1f2937] focus-visible:ring-2 focus-visible:ring-[#a5c9ff] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:text-[18.9px] sm:leading-[25.2px]"
         >
-          AI_ENGINEER
+          ARTHUR
         </a>
 
         <nav
