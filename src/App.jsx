@@ -129,27 +129,27 @@ const projects = [
     ],
   },
   {
-    id: "prompt-eval-harness",
-    title: "PROMPT EVAL HARNESS",
-    badge: "INTERNAL",
+    id: "textvision",
+    title: "TEXTVISION",
+    badge: "OPEN SOURCE",
     badgeClass: "bg-white/95 text-black border-[#d1d5db]",
     gradient:
       "linear-gradient(112deg, rgb(165, 201, 255) 0%, rgb(243, 244, 246) 60%, rgb(255, 255, 255) 100%)",
     summary:
-      "CI-friendly evaluation pipeline that scores every prompt change.",
+      "Real-time digital magnifier with OCR and offline text-to-speech for low-vision users.",
     description:
-      "An evaluation harness that runs prompt regression tests on every commit, tracking pass-rate, latency and cost across providers in a single dashboard.",
-    tools: ["PYTHON", "PYTEST", "OPENAI", "ANTHROPIC", "W&B"],
+      "An accessibility-first desktop app that magnifies webcam or screen content in real time, applies high-contrast filters, runs Tesseract OCR on demand, and reads recognized text aloud — all running locally with no cloud dependency.",
+    tools: ["PYTHON", "OPENCV", "TESSERACT", "TKINTER", "PYTTSX3"],
     process:
-      "Treats prompts as versioned artifacts paired with golden datasets. Each PR runs the harness against a frozen test slice; results are pushed to W&B and surfaced as a GitHub status check that blocks merges on regressions.",
+      "Threaded architecture: capture, magnification, and OCR each run on separate threads so the UI stays responsive at 30 FPS. Frames pass through adaptive 1× to 10× zoom, CLAHE contrast enhancement, and color filtering before display. When the user triggers OCR, an extra pre-processing chain — upscale, bilateral filter, Otsu or adaptive thresholding, deskew — feeds Tesseract under multiple page-segmentation modes; the highest-confidence result wins, with early exit when a strong match is found.",
     results:
-      "Caught 14 silent regressions in the first quarter of use, including one that would have shipped a 12% drop in answer quality on a critical flow.",
+      "Runs end-to-end on a stock Windows laptop with no GPU. The hot path stays under the 33 ms per-frame budget so magnification and the cursor-following overlay feel instant, and on-demand OCR completes without dropping frames.",
     observations:
-      "Treating evaluation as a build step — not a notebook — was the cultural shift that mattered. The infra is small; the discipline is large.",
+      "Keeping everything local — no cloud OCR, no cloud TTS — meant accepting Tesseract's quirks instead of reaching for a hosted API. The multi-PSM scoring loop with early exit was the compromise that kept accuracy acceptable without burning frames.",
     metrics: [
-      { label: "Regressions caught", value: "14" },
-      { label: "Avg run time", value: "92s" },
-      { label: "Providers", value: "3" },
+      { label: "Frame rate", value: "30 FPS" },
+      { label: "Cloud calls", value: "0" },
+      { label: "Zoom range", value: "1×–10×" },
     ],
   },
 ];
