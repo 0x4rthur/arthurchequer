@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="7" fill="#a5c9ff"/>
-  <text x="16" y="23" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif" font-size="22" font-weight="900" fill="#111827" text-anchor="middle">A</text>
+  <path d="M18 0 202 700H432L616 0H480L442 154H192L154 0ZM223 276H411L326 617H308Z"
+        transform="translate(6.04 27) scale(0.03143 -0.03143)"
+        fill="#111827"/>
 </svg>
